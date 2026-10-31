@@ -14,7 +14,7 @@
  *       GEMINI_KEY     your free key from aistudio.google.com
  *   - Variables (optional, have sensible defaults):
  *       PROVIDER      "groq" (default) or "gemini"
- *       MODEL         default "llama-3.1-8b-instant" (groq) / "gemini-2.0-flash" (gemini)
+ *       MODEL         default "openai/gpt-oss-20b" (groq) / "gemini-2.0-flash" (gemini)
  *       DAILY_CAP     default "1400"   (global safety cap so you never exceed the free tier)
  *       PER_IP_DAILY  default "5"
  *       ALLOW_ORIGIN  default "*"      (set to your site, e.g. https://yoursite.com)
@@ -96,7 +96,7 @@ export default {
           gd.candidates[0].content.parts[0].text;
       } else {
         // Groq (OpenAI-compatible)
-        const model = env.MODEL || "llama-3.1-8b-instant";
+        const model = env.MODEL || "openai/gpt-oss-20b";
         const gr = await fetch("https://api.groq.com/openai/v1/chat/completions", {
           method: "POST",
           headers: { "Content-Type": "application/json", "Authorization": "Bearer " + env.GROQ_KEY },

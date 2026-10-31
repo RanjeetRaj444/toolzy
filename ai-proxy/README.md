@@ -16,8 +16,9 @@ Everything below is free and needs **no credit card**.
 3. Click **"Create API Key"**, name it `toolzy`, and copy it (starts with `gsk_`).
 4. Keep it private — treat it like a password.
 
-Groq's free tier is roughly **30 requests/min and up to ~14,400/day** on
-`llama-3.1-8b-instant` — about 10× Gemini's free daily limit, and it works worldwide.
+Groq's free tier is roughly **30 requests/min and thousands/day**, and it works
+worldwide. Default model: `openai/gpt-oss-20b` (fast, strong at maths). You can switch
+to `openai/gpt-oss-120b` (smarter) or `qwen/qwen3.8-27b` via the `MODEL` variable.
 
 ### Alternative: Gemini
 1. Go to **https://aistudio.google.com/app/apikey** → sign in → **Create API key in new project**.
