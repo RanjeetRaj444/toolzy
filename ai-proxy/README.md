@@ -8,15 +8,23 @@ Everything below is free and needs **no credit card**.
 
 ---
 
-## Step 1 — Get a free Gemini API key
+## Step 1 — Get a free API key
 
-1. Go to **https://aistudio.google.com/app/apikey**
-2. Sign in with your Google account.
-3. Click **"Create API key"** → **Create API key in new project**.
-4. Copy the key (looks like `AIza...`). Keep it private — treat it like a password.
+### Recommended: Groq (higher free limits, no region block)
+1. Go to **https://console.groq.com/keys**
+2. Sign in (Google or GitHub).
+3. Click **"Create API Key"**, name it `toolzy`, and copy it (starts with `gsk_`).
+4. Keep it private — treat it like a password.
 
-> Note: this free *API key* is separate from the Gemini app subscription (e.g. the Jio one).
-> Any Google account can create this key for free.
+Groq's free tier is roughly **30 requests/min and up to ~14,400/day** on
+`llama-3.1-8b-instant` — about 10× Gemini's free daily limit, and it works worldwide.
+
+### Alternative: Gemini
+1. Go to **https://aistudio.google.com/app/apikey** → sign in → **Create API key in new project**.
+2. Copy the key (looks like `AIza...`).
+3. Note: Gemini's free tier is **not available in all regions** — if calls return
+   `429 ... for a region`, use Groq instead. (Also: the Gemini *app* subscription,
+   e.g. the Jio one, does NOT provide an API key.)
 
 ---
 
@@ -37,18 +45,20 @@ Everything below is free and needs **no credit card**.
 
 ### Step 2b — Add your key as a secret
 1. Same **Settings → Variables and Secrets** page → **Add** a **Secret**:
-   - Name: `GEMINI_KEY`
-   - Value: paste your `AIza...` key → **Save**.
+   - For Groq (recommended): Name `GROQ_KEY`, Value = your `gsk_...` key → **Save**.
+   - For Gemini instead: Name `GEMINI_KEY`, Value = your `AIza...` key, **and** add a
+     Variable `PROVIDER` = `gemini`.
 
 ### Step 2c — (optional) Tune the limits
-Add these as plain **Variables** (not secrets) if you want to change the defaults:
+Add these as plain **Variables** (not secrets) to change the defaults:
 
 | Variable | Default | Meaning |
 |---|---|---|
-| `MODEL` | `gemini-2.0-flash` | Which Gemini model to use |
-| `DAILY_CAP` | `1400` | Hard stop for the whole site per day (stay under the free limit) |
+| `PROVIDER` | `groq` | `groq` or `gemini` |
+| `MODEL` | `llama-3.1-8b-instant` (groq) | Which model to use |
+| `DAILY_CAP` | `1400` | Global hard stop per day (keeps you inside the free tier) |
 | `PER_IP_DAILY` | `5` | Free questions per visitor per day |
-| `ALLOW_ORIGIN` | `*` | Set to your site, e.g. `https://yoursite.com`, once live |
+| `ALLOW_ORIGIN` | `*` | Set to your site, e.g. `https://ranjeetraj444.github.io`, once live |
 
 ---
 

@@ -5,12 +5,17 @@
  *   - A global daily cap (DAILY_CAP) stops calls before the free limit is hit.
  *   - A per-visitor daily cap (PER_IP_DAILY) stops one person draining the pool.
  *
+ * Works with GROQ (recommended — higher free limits, no region block) or GEMINI.
+ *
  * Bindings it needs (set in the Cloudflare dashboard — see ai-proxy/README.md):
- *   - Secret:        GEMINI_KEY      your free key from aistudio.google.com
  *   - KV namespace:  COUNTERS        stores the daily counters
+ *   - Secret (one of):
+ *       GROQ_KEY       your free key from console.groq.com/keys     (recommended)
+ *       GEMINI_KEY     your free key from aistudio.google.com
  *   - Variables (optional, have sensible defaults):
- *       MODEL         default "gemini-2.0-flash"
- *       DAILY_CAP     default "1400"   (stay safely under the ~1500/day free limit)
+ *       PROVIDER      "groq" (default) or "gemini"
+ *       MODEL         default "llama-3.1-8b-instant" (groq) / "gemini-2.0-flash" (gemini)
+ *       DAILY_CAP     default "1400"   (global safety cap so you never exceed the free tier)
  *       PER_IP_DAILY  default "5"
  *       ALLOW_ORIGIN  default "*"      (set to your site, e.g. https://yoursite.com)
  */
@@ -46,7 +51,9 @@ export default {
     }
     if (!problem.trim()) return json({ error: "empty" }, 400, cors);
 
-    if (!env.GEMINI_KEY) return json({ error: "not_configured" }, 500, cors);
+    const provider = (env.PROVIDER || "groq").toLowerCase();
+    if (provider === "groq" && !env.GROQ_KEY) return json({ error: "not_configured" }, 500, cors);
+    if (provider === "gemini" && !env.GEMINI_KEY) return json({ error: "not_configured" }, 500, cors);
 
     const day = ptDate();
     const DAILY_CAP = parseInt(env.DAILY_CAP || "1400", 10);
@@ -66,32 +73,47 @@ export default {
     if (gCount >= DAILY_CAP) return json({ error: "global_limit" }, 429, cors);
     if (ipCount >= PER_IP_DAILY) return json({ error: "user_limit" }, 429, cors);
 
-    // --- call Gemini ---
-    const model = env.MODEL || "gemini-2.0-flash";
-    const url =
-      "https://generativelanguage.googleapis.com/v1beta/models/" +
-      model + ":generateContent?key=" + env.GEMINI_KEY;
-
+    // --- call the AI provider ---
     let answer = "";
     try {
-      const gr = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
-          contents: [{ role: "user", parts: [{ text: problem }] }],
-          generationConfig: { temperature: 0.2, maxOutputTokens: 1400 },
-        }),
-      });
-      const gd = await gr.json();
-      if (!gr.ok) return json({ error: "ai_error", detail: gd.error ? gd.error.message : "" }, 502, cors);
-      answer =
-        gd.candidates &&
-        gd.candidates[0] &&
-        gd.candidates[0].content &&
-        gd.candidates[0].content.parts &&
-        gd.candidates[0].content.parts[0] &&
-        gd.candidates[0].content.parts[0].text;
+      if (provider === "gemini") {
+        const model = env.MODEL || "gemini-2.0-flash";
+        const url = "https://generativelanguage.googleapis.com/v1beta/models/" +
+          model + ":generateContent?key=" + env.GEMINI_KEY;
+        const gr = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: SYSTEM_PROMPT }] },
+            contents: [{ role: "user", parts: [{ text: problem }] }],
+            generationConfig: { temperature: 0.2, maxOutputTokens: 1400 },
+          }),
+        });
+        const gd = await gr.json();
+        if (!gr.ok) return json({ error: "ai_error", detail: gd.error ? gd.error.message : "" }, 502, cors);
+        answer = gd.candidates && gd.candidates[0] && gd.candidates[0].content &&
+          gd.candidates[0].content.parts && gd.candidates[0].content.parts[0] &&
+          gd.candidates[0].content.parts[0].text;
+      } else {
+        // Groq (OpenAI-compatible)
+        const model = env.MODEL || "llama-3.1-8b-instant";
+        const gr = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Authorization": "Bearer " + env.GROQ_KEY },
+          body: JSON.stringify({
+            model: model,
+            temperature: 0.2,
+            max_tokens: 1400,
+            messages: [
+              { role: "system", content: SYSTEM_PROMPT },
+              { role: "user", content: problem },
+            ],
+          }),
+        });
+        const gd = await gr.json();
+        if (!gr.ok) return json({ error: "ai_error", detail: gd.error ? gd.error.message : "" }, 502, cors);
+        answer = gd.choices && gd.choices[0] && gd.choices[0].message && gd.choices[0].message.content;
+      }
     } catch (e) {
       return json({ error: "ai_unreachable" }, 502, cors);
     }
