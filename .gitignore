@@ -2,6 +2,7 @@
 .env
 .env.*
 *.key
+token.txt
 
 # OS / editor junk
 .DS_Store
