@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Crypto Prices — Bitcoin, Ethereum & Top Coins Tracker | Toolzy</title>
+  <meta name="description" content="Free live cryptocurrency price tracker. See real-time Bitcoin, Ethereum and top coin prices in INR or USD, 24-hour change and market cap. Updated live, no sign-up." />
+  <meta name="keywords" content="crypto prices, bitcoin price, ethereum price, live crypto tracker, cryptocurrency inr, btc to inr" />
+  <link rel="canonical" href="https://ranjeetraj444.github.io/toolzy/tools/crypto-tracker.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .crypto-table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+    .crypto-table th, .crypto-table td { padding: 12px 10px; text-align: right; border-bottom: 1px solid var(--border); }
+    .crypto-table th { color: var(--text-muted); font-weight: 600; font-size: .82rem; text-transform: uppercase; letter-spacing: .03em; }
+    .crypto-table th:first-child, .crypto-table td:first-child { text-align: left; }
+    .coin-name { display: flex; align-items: center; gap: 10px; }
+    .coin-name img { width: 26px; height: 26px; border-radius: 50%; }
+    .coin-name .sym { color: var(--text-muted); text-transform: uppercase; font-size: .8rem; }
+    .up { color: var(--ok); font-weight: 700; }
+    .down { color: var(--danger); font-weight: 700; }
+    .price { font-weight: 700; font-variant-numeric: tabular-nums; }
+    .ctrl-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 16px; }
+    .ccy-toggle button { padding: 7px 14px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text-muted); font-weight: 700; cursor: pointer; font-family: inherit; }
+    .ccy-toggle button:first-child { border-radius: 10px 0 0 10px; }
+    .ccy-toggle button:last-child { border-radius: 0 10px 10px 0; border-left: none; }
+    .ccy-toggle button.active { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; border-color: transparent; }
+    .updated { color: var(--text-muted); font-size: .85rem; margin-left: auto; }
+    .table-wrap { overflow-x: auto; }
+    @media (max-width: 560px){ .hide-sm { display:none; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Live Crypto Prices</nav>
+      <div class="tool-head">
+        <h1>Live Crypto Prices</h1>
+        <p>Real-time prices for Bitcoin, Ethereum and the top cryptocurrencies, with 24-hour change and market cap. Switch between INR and USD. Data refreshes live from CoinGecko.</p>
+      </div>
+
+      <div class="panel">
+        <div class="ctrl-row">
+          <div class="ccy-toggle">
+            <button id="inrBtn" class="active" onclick="setCcy('inr')">₹ INR</button>
+            <button id="usdBtn" onclick="setCcy('usd')">$ USD</button>
+          </div>
+          <div class="tool-search" style="max-width:220px; margin:0;">
+            <span class="search-icon" style="font-size:.9rem;">🔍</span>
+            <input type="text" id="coinSearch" placeholder="Search coin…" oninput="renderTable()" style="padding:9px 12px 9px 36px;" />
+          </div>
+          <button class="btn secondary" onclick="loadData()" style="padding:9px 14px;">↻ Refresh</button>
+          <span class="updated" id="updated"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="crypto-table">
+            <thead>
+              <tr>
+                <th>#</th><th>Coin</th><th>Price</th><th>24h</th><th class="hide-sm">Market Cap</th>
+              </tr>
+            </thead>
+            <tbody id="coinBody">
+              <tr><td colspan="5" style="text-align:center; padding:30px; color:var(--text-muted);">Loading live prices…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <p style="font-size:.82rem; color:var(--text-muted); margin-top:12px;">
+        ⚠️ Prices are for information only and may be delayed. This is <strong>not financial advice</strong>. Cryptocurrency is volatile and risky — do your own research before investing.
+      </p>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About live crypto prices</h2>
+        <p>This tracker shows the current market price of the largest cryptocurrencies by market capitalisation, updated live. You can view everything in Indian Rupees (INR) or US Dollars (USD), and sort through the list to find a specific coin.</p>
+        <div class="faq-item"><h3>How often do prices update?</h3><p>Prices load fresh each time you open the page or hit refresh, straight from the CoinGecko market data API.</p></div>
+        <div class="faq-item"><h3>Is this investment advice?</h3><p>No. Toolzy provides price information only. Nothing here is a recommendation to buy or sell. Always do your own research.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var ccy = "inr";
+      var coins = [];
+
+      window.setCcy = function (c) {
+        ccy = c;
+        document.getElementById("inrBtn").className = c === "inr" ? "active" : "";
+        document.getElementById("usdBtn").className = c === "usd" ? "active" : "";
+        loadData();
+      };
+
+      function fmtPrice(n) {
+        var sym = ccy === "inr" ? "₹" : "$";
+        if (n >= 1) return sym + n.toLocaleString(undefined, { maximumFractionDigits: 2 });
+        return sym + n.toLocaleString(undefined, { maximumFractionDigits: 6 });
+      }
+      function fmtBig(n) {
+        var sym = ccy === "inr" ? "₹" : "$";
+        if (n >= 1e12) return sym + (n / 1e12).toFixed(2) + "T";
+        if (n >= 1e9) return sym + (n / 1e9).toFixed(2) + "B";
+        if (n >= 1e6) return sym + (n / 1e6).toFixed(2) + "M";
+        return sym + n.toLocaleString();
+      }
+
+      window.renderTable = function () {
+        var q = (document.getElementById("coinSearch").value || "").toLowerCase();
+        var body = document.getElementById("coinBody");
+        var rows = coins.filter(function (c) {
+          return c.name.toLowerCase().indexOf(q) !== -1 || c.symbol.toLowerCase().indexOf(q) !== -1;
+        });
+        if (!rows.length) { body.innerHTML = "<tr><td colspan='5' style='text-align:center;padding:24px;color:var(--text-muted)'>No coins match.</td></tr>"; return; }
+        body.innerHTML = rows.map(function (c, i) {
+          var ch = c.price_change_percentage_24h || 0;
+          var cls = ch >= 0 ? "up" : "down";
+          var arrow = ch >= 0 ? "▲" : "▼";
+          return "<tr>" +
+            "<td style='color:var(--text-muted)'>" + (c.market_cap_rank || i + 1) + "</td>" +
+            "<td><div class='coin-name'><img src='" + c.image + "' alt='' loading='lazy'>" +
+              "<div><div>" + c.name + "</div><div class='sym'>" + c.symbol + "</div></div></div></td>" +
+            "<td class='price'>" + fmtPrice(c.current_price) + "</td>" +
+            "<td class='" + cls + "'>" + arrow + " " + Math.abs(ch).toFixed(2) + "%</td>" +
+            "<td class='hide-sm'>" + fmtBig(c.market_cap) + "</td>" +
+            "</tr>";
+        }).join("");
+      };
+
+      window.loadData = function () {
+        var body = document.getElementById("coinBody");
+        body.innerHTML = "<tr><td colspan='5' style='text-align:center;padding:30px;color:var(--text-muted)'>Loading live prices…</td></tr>";
+        var url = "https://api.coingecko.com/api/v3/coins/markets?vs_currency=" + ccy +
+          "&order=market_cap_desc&per_page=30&page=1&price_change_percentage=24h";
+        fetch(url).then(function (r) { return r.json(); }).then(function (data) {
+          if (!Array.isArray(data)) throw new Error("bad");
+          coins = data;
+          renderTable();
+          document.getElementById("updated").textContent = "Updated " + new Date().toLocaleTimeString();
+        }).catch(function () {
+          body.innerHTML = "<tr><td colspan='5' style='text-align:center;padding:30px;color:var(--danger)'>Couldn't load prices — the data service may be busy. Try refresh.</td></tr>";
+        });
+      };
+
+      loadData();
+    })();
+  </script>
+</body>
+</html>

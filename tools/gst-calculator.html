@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GST Calculator — Add or Remove GST (5%, 12%, 18%, 28%) | Toolzy</title>
+  <meta name="description" content="Free GST calculator for India. Add or remove GST at 5%, 12%, 18% or 28%, with CGST/SGST split. Instant, accurate results in your browser." />
+  <meta name="keywords" content="gst calculator, add gst, remove gst, cgst sgst, gst india, 18 percent gst calculator" />
+  <link rel="canonical" href="https://ranjeetraj444.github.io/toolzy/tools/gst-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / GST Calculator</nav>
+      <div class="tool-head">
+        <h1>GST Calculator</h1>
+        <p>Add GST to a base amount, or work out the GST already included in a total. Shows the CGST and SGST split used for intra-state supplies in India.</p>
+      </div>
+
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:16px;">
+          <button class="btn" id="addBtn" onclick="setMode('add')">Add GST</button>
+          <button class="btn secondary" id="remBtn" onclick="setMode('remove')">Remove GST (reverse)</button>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label id="amtLabel">Amount (excluding GST)</label>
+            <input type="number" id="amount" placeholder="e.g. 1000" oninput="calc()">
+          </div>
+          <div class="field">
+            <label>GST rate</label>
+            <select id="rate" onchange="calc()">
+              <option value="5">5%</option>
+              <option value="12">12%</option>
+              <option value="18" selected>18%</option>
+              <option value="28">28%</option>
+              <option value="3">3%</option>
+              <option value="0.25">0.25%</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="num" id="base">₹0</div><div class="lbl">Base amount</div></div>
+          <div class="stat"><div class="num" id="gst">₹0</div><div class="lbl">Total GST</div></div>
+          <div class="stat"><div class="num" id="total">₹0</div><div class="lbl">Total</div></div>
+        </div>
+        <div class="result-box" id="split" style="text-align:center; margin-top:14px;"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How GST is calculated</h2>
+        <p><strong>Adding GST:</strong> GST amount = base × rate ÷ 100; total = base + GST.</p>
+        <p><strong>Removing GST</strong> (when a price already includes GST): base = total × 100 ÷ (100 + rate); GST = total − base.</p>
+        <p>For a sale within the same state, GST is split equally into <strong>CGST</strong> (Central) and <strong>SGST</strong> (State) — so 18% becomes 9% + 9%. For inter-state sales, the full amount is <strong>IGST</strong> instead.</p>
+        <div class="faq-item"><h3>Which GST rate should I use?</h3><p>It depends on the product or service category. Common slabs are 5%, 12%, 18% and 28%. Check the official GST rate for your specific item.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var mode = "add";
+      window.setMode = function (m) {
+        mode = m;
+        document.getElementById("addBtn").className = m === "add" ? "btn" : "btn secondary";
+        document.getElementById("remBtn").className = m === "remove" ? "btn" : "btn secondary";
+        document.getElementById("amtLabel").textContent = m === "add" ? "Amount (excluding GST)" : "Amount (including GST)";
+        calc();
+      };
+      function money(n) { return "₹" + n.toLocaleString(undefined, { maximumFractionDigits: 2 }); }
+      window.calc = function () {
+        var amt = parseFloat(document.getElementById("amount").value) || 0;
+        var rate = parseFloat(document.getElementById("rate").value);
+        var base, gst, total;
+        if (mode === "add") { base = amt; gst = base * rate / 100; total = base + gst; }
+        else { total = amt; base = total * 100 / (100 + rate); gst = total - base; }
+        document.getElementById("base").textContent = money(base);
+        document.getElementById("gst").textContent = money(gst);
+        document.getElementById("total").textContent = money(total);
+        document.getElementById("split").innerHTML = amt
+          ? "CGST (" + (rate / 2) + "%): <strong>" + money(gst / 2) + "</strong> &nbsp;+&nbsp; SGST (" + (rate / 2) + "%): <strong>" + money(gst / 2) + "</strong>"
+          : "Enter an amount to see the CGST / SGST split.";
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Currency Converter — Live Exchange Rates (INR, USD, EUR…) | Toolzy</title>
+  <meta name="description" content="Free live currency converter. Convert between 150+ currencies using up-to-date exchange rates — INR, USD, EUR, GBP and more. Fast, accurate, no sign-up." />
+  <meta name="keywords" content="currency converter, exchange rate, usd to inr, inr to usd, live forex rates, money converter" />
+  <link rel="canonical" href="https://ranjeetraj444.github.io/toolzy/tools/currency-converter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Currency Converter</nav>
+      <div class="tool-head">
+        <h1>Currency Converter</h1>
+        <p>Convert between 150+ world currencies using live exchange rates. Great for travel, shopping, and business.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label>Amount</label>
+          <input type="number" id="amount" value="1" oninput="convert()">
+        </div>
+        <div class="row" style="align-items:flex-end;">
+          <div class="field">
+            <label>From</label>
+            <select id="from" onchange="convert()"></select>
+          </div>
+          <div class="field" style="flex:0 0 auto; padding-bottom:10px;">
+            <button class="btn secondary" onclick="swap()" title="Swap" aria-label="Swap currencies">⇄</button>
+          </div>
+          <div class="field">
+            <label>To</label>
+            <select id="to" onchange="convert()"></select>
+          </div>
+        </div>
+        <div class="result-box" id="result" style="text-align:center; font-size:1.2rem;">Loading rates…</div>
+        <div id="rateInfo" style="text-align:center; color:var(--text-muted); font-size:.85rem; margin-top:10px;"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About the currency converter</h2>
+        <p>This tool uses live mid-market exchange rates to convert any amount from one currency to another. Rates update daily. The mid-market rate is the "true" rate between two currencies — note that banks and apps usually add a small margin, so your real transaction rate may differ slightly.</p>
+        <div class="faq-item"><h3>How current are the rates?</h3><p>Rates are fetched live from a public exchange-rate service and are updated at least once per day.</p></div>
+        <div class="faq-item"><h3>Can I use this for official transactions?</h3><p>It's great for estimates and everyday use, but for the exact rate of a specific transaction, check with your bank or payment provider.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var rates = null, base = "USD";
+      var popular = ["USD","INR","EUR","GBP","JPY","AUD","CAD","CHF","CNY","AED","SGD","HKD","NZD","ZAR","BRL","RUB"];
+
+      function fillSelects(list) {
+        var from = document.getElementById("from"), to = document.getElementById("to");
+        function opts(sel) {
+          sel.innerHTML = "";
+          list.forEach(function (c) { var o = document.createElement("option"); o.value = c; o.textContent = c; sel.appendChild(o); });
+        }
+        opts(from); opts(to);
+        from.value = "USD"; to.value = "INR";
+      }
+
+      window.convert = function () {
+        if (!rates) return;
+        var amt = parseFloat(document.getElementById("amount").value) || 0;
+        var f = document.getElementById("from").value, t = document.getElementById("to").value;
+        // rates are relative to base (USD). value_in_base = amt / rates[f]; then * rates[t]
+        var inBase = amt / rates[f];
+        var out = inBase * rates[t];
+        document.getElementById("result").innerHTML =
+          "<strong>" + amt.toLocaleString() + "</strong> " + f + " = <strong style='color:var(--brand)'>" +
+          out.toLocaleString(undefined, { maximumFractionDigits: 4 }) + "</strong> " + t;
+        var one = (rates[t] / rates[f]);
+        document.getElementById("rateInfo").textContent = "1 " + f + " = " + one.toLocaleString(undefined, { maximumFractionDigits: 4 }) + " " + t;
+      };
+
+      window.swap = function () {
+        var f = document.getElementById("from"), t = document.getElementById("to");
+        var tmp = f.value; f.value = t.value; t.value = tmp; convert();
+      };
+
+      fetch("https://open.er-api.com/v6/latest/USD").then(function (r) { return r.json(); }).then(function (d) {
+        if (d.result !== "success") throw new Error("bad");
+        rates = d.rates;
+        var all = Object.keys(rates).sort();
+        // put popular first
+        var ordered = popular.filter(function (c) { return all.indexOf(c) !== -1; })
+          .concat(all.filter(function (c) { return popular.indexOf(c) === -1; }));
+        fillSelects(ordered);
+        convert();
+      }).catch(function () {
+        document.getElementById("result").innerHTML = "<span style='color:var(--danger)'>Couldn't load exchange rates. Please refresh and try again.</span>";
+      });
+    })();
+  </script>
+</body>
+</html>

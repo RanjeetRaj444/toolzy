@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JSON Formatter & Validator — Beautify, Minify & Fix JSON | Toolzy</title>
+  <meta name="description" content="Free online JSON formatter and validator. Beautify, minify and validate JSON instantly with clear error messages. Runs in your browser — your data stays private." />
+  <meta name="keywords" content="json formatter, json validator, json beautifier, minify json, format json online" />
+  <link rel="canonical" href="https://ranjeetraj444.github.io/toolzy/tools/json-formatter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    #json-in, #json-out { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: .92rem; min-height: 280px; white-space: pre; overflow-wrap: normal; overflow-x: auto; }
+    .status { padding: 10px 14px; border-radius: var(--radius-sm); font-weight: 600; margin-top:14px; display:none; }
+    .status.ok { background: color-mix(in srgb, var(--ok) 14%, transparent); color: var(--ok); border:1px solid color-mix(in srgb, var(--ok) 35%, transparent); display:block; }
+    .status.err { background: color-mix(in srgb, var(--danger) 12%, transparent); color: var(--danger); border:1px solid color-mix(in srgb, var(--danger) 35%, transparent); display:block; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / JSON Formatter</nav>
+      <div class="tool-head">
+        <h1>JSON Formatter &amp; Validator</h1>
+        <p>Paste messy or minified JSON and instantly beautify, minify or validate it — with clear error messages that point to the problem. Everything runs in your browser.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="json-in">Input JSON</label>
+          <textarea id="json-in" placeholder='{"name":"Toolzy","tools":13,"free":true}'></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="format(2)">✨ Beautify</button>
+          <button class="btn" onclick="format(4)">Beautify (4 spaces)</button>
+          <button class="btn" onclick="minify()">Minify</button>
+          <button class="btn secondary" onclick="validate()">Validate only</button>
+          <button class="btn secondary" onclick="copyText(document.getElementById('json-out').value)">Copy output</button>
+          <button class="btn secondary" onclick="clearAll()">Clear</button>
+        </div>
+        <div class="status" id="status"></div>
+        <div class="field" style="margin-top:16px;">
+          <label for="json-out">Output</label>
+          <textarea id="json-out" readonly placeholder="Formatted JSON appears here…"></textarea>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About JSON formatting</h2>
+        <p>JSON (JavaScript Object Notation) is the most common format for sending data between apps and APIs. A formatter makes compact JSON readable by adding indentation, while a validator checks that your JSON is correctly structured before you use it.</p>
+        <div class="faq-item"><h3>Is my JSON sent to a server?</h3><p>No. Parsing and formatting happen entirely in your browser — your data never leaves your device.</p></div>
+        <div class="faq-item"><h3>What does "minify" do?</h3><p>It removes all unnecessary whitespace to make the JSON as small as possible — useful for saving bandwidth.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var inEl = document.getElementById("json-in");
+      var outEl = document.getElementById("json-out");
+      var statusEl = document.getElementById("status");
+
+      function parseOrShow() {
+        var txt = inEl.value.trim();
+        if (!txt) { show("Paste some JSON first.", false); return null; }
+        try { return JSON.parse(txt); }
+        catch (e) { show("✖ Invalid JSON: " + e.message, false); return null; }
+      }
+      function show(msg, ok) { statusEl.textContent = msg; statusEl.className = "status " + (ok ? "ok" : "err"); }
+
+      window.format = function (indent) {
+        var obj = parseOrShow(); if (obj === null) { outEl.value = ""; return; }
+        outEl.value = JSON.stringify(obj, null, indent);
+        show("✔ Valid JSON — formatted with " + indent + " spaces.", true);
+      };
+      window.minify = function () {
+        var obj = parseOrShow(); if (obj === null) { outEl.value = ""; return; }
+        outEl.value = JSON.stringify(obj);
+        show("✔ Valid JSON — minified (" + outEl.value.length + " characters).", true);
+      };
+      window.validate = function () {
+        var obj = parseOrShow(); if (obj === null) return;
+        show("✔ Valid JSON.", true);
+      };
+      window.clearAll = function () { inEl.value = ""; outEl.value = ""; statusEl.className = "status"; inEl.focus(); };
+    })();
+  </script>
+</body>
+</html>
