@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Age Calculator — Calculate Exact Age in Years, Months & Days | Toolzy</title>
+  <meta name="description" content="Free age calculator. Enter your date of birth to find your exact age in years, months, days — plus total days lived and your next birthday. Runs in your browser." />
+  <link rel="canonical" href="https://example.com/tools/age-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Age Calculator</nav>
+      <div class="tool-head">
+        <h1>Age Calculator</h1>
+        <p>Enter a date of birth to find the exact age in years, months and days, plus the total days lived and how long until the next birthday.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field">
+            <label for="dob">Date of birth</label>
+            <input type="date" id="dob" />
+          </div>
+          <div class="field">
+            <label for="today">Age at date (defaults to today)</label>
+            <input type="date" id="today" />
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="calcAge()">🎂 Calculate age</button>
+        </div>
+        <div id="out" style="display:none;">
+          <div class="result-box" id="mainResult"></div>
+          <div class="stats">
+            <div class="stat"><div class="num" id="tMonths">0</div><div class="lbl">Total months</div></div>
+            <div class="stat"><div class="num" id="tWeeks">0</div><div class="lbl">Total weeks</div></div>
+            <div class="stat"><div class="num" id="tDays">0</div><div class="lbl">Total days</div></div>
+            <div class="stat"><div class="num" id="tHours">0</div><div class="lbl">Total hours</div></div>
+          </div>
+          <div class="result-box" id="nextBday" style="margin-top:14px;"></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How the age calculator works</h2>
+        <p>The calculator finds the difference between your date of birth and the chosen date, breaking it into full years, remaining months, and remaining days — the same way you'd naturally say your age. It also counts the total days you've been alive and shows when your next birthday falls.</p>
+        <div class="faq-item"><h3>Does it handle leap years?</h3><p>Yes. It uses real calendar dates, so leap years and varying month lengths are accounted for automatically.</p></div>
+        <div class="faq-item"><h3>Is my date of birth stored?</h3><p>No. The calculation happens in your browser and nothing is saved or sent anywhere.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      window.calcAge = function () {
+        var dobStr = document.getElementById("dob").value;
+        var toStr = document.getElementById("today").value;
+        if (!dobStr) { showToast("Please pick a date of birth"); return; }
+        var dob = new Date(dobStr);
+        var to = toStr ? new Date(toStr) : new Date();
+        to.setHours(0,0,0,0); dob.setHours(0,0,0,0);
+        if (dob > to) { showToast("Birth date is after the target date"); return; }
+
+        var y = to.getFullYear() - dob.getFullYear();
+        var m = to.getMonth() - dob.getMonth();
+        var d = to.getDate() - dob.getDate();
+        if (d < 0) { m--; d += new Date(to.getFullYear(), to.getMonth(), 0).getDate(); }
+        if (m < 0) { y--; m += 12; }
+
+        var ms = to - dob;
+        var totalDays = Math.floor(ms / 86400000);
+        document.getElementById("mainResult").innerHTML =
+          "<strong>" + y + "</strong> years, <strong>" + m + "</strong> months, <strong>" + d + "</strong> days";
+        document.getElementById("tMonths").textContent = (y*12 + m).toLocaleString();
+        document.getElementById("tWeeks").textContent = Math.floor(totalDays/7).toLocaleString();
+        document.getElementById("tDays").textContent = totalDays.toLocaleString();
+        document.getElementById("tHours").textContent = (totalDays*24).toLocaleString();
+
+        var next = new Date(to.getFullYear(), dob.getMonth(), dob.getDate());
+        if (next < to) next.setFullYear(to.getFullYear() + 1);
+        var daysToNext = Math.ceil((next - to) / 86400000);
+        document.getElementById("nextBday").innerHTML = daysToNext === 0
+          ? "🎉 <strong>Happy birthday!</strong> It's today."
+          : "🎈 Next birthday in <strong>" + daysToNext + "</strong> day" + (daysToNext===1?"":"s") + ".";
+        document.getElementById("out").style.display = "block";
+      };
+    })();
+  </script>
+</body>
+</html>

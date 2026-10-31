@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Word Counter — Count Words, Characters & Reading Time | Toolzy</title>
+  <meta name="description" content="Free online word counter. Instantly count words, characters, sentences, paragraphs and estimated reading time as you type. Private — runs in your browser." />
+  <link rel="canonical" href="https://example.com/tools/word-counter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Word Counter</nav>
+      <div class="tool-head">
+        <h1>Word Counter</h1>
+        <p>Paste or type your text below to instantly see the word count, character count, sentences, paragraphs, and estimated reading time. Nothing is uploaded — it all happens in your browser.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="text">Your text</label>
+          <textarea id="text" placeholder="Start typing or paste your text here…" autofocus></textarea>
+        </div>
+        <div class="btn-row">
+          <button class="btn secondary" onclick="clearText()">Clear</button>
+          <button class="btn secondary" onclick="copyText(document.getElementById('text').value)">Copy text</button>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num" id="words">0</div><div class="lbl">Words</div></div>
+          <div class="stat"><div class="num" id="chars">0</div><div class="lbl">Characters</div></div>
+          <div class="stat"><div class="num" id="charsNoSpace">0</div><div class="lbl">No spaces</div></div>
+          <div class="stat"><div class="num" id="sentences">0</div><div class="lbl">Sentences</div></div>
+          <div class="stat"><div class="num" id="paras">0</div><div class="lbl">Paragraphs</div></div>
+          <div class="stat"><div class="num" id="readtime">0s</div><div class="lbl">Read time</div></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About the word counter</h2>
+        <p>A word counter is one of the most-used writing tools online — handy for essays with a word limit, social media posts, meta descriptions, or simply keeping your writing concise. This tool updates live as you type, so you always know exactly where you stand.</p>
+        <h3>How is reading time calculated?</h3>
+        <p>Reading time is estimated using an average silent reading speed of about 200 words per minute. It's a rough guide to help you gauge how long your text will take an audience to read.</p>
+        <h2>Frequently asked questions</h2>
+        <div class="faq-item"><h3>Is my text saved or uploaded?</h3><p>No. Everything runs locally in your browser and nothing is sent anywhere. Close the tab and it's gone.</p></div>
+        <div class="faq-item"><h3>How are words counted?</h3><p>Words are counted by splitting your text on spaces and line breaks, ignoring empty gaps — the same way most word processors do.</p></div>
+        <div class="faq-item"><h3>Is it really free?</h3><p>Yes, completely free with no sign-up.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var ta = document.getElementById("text");
+      function update() {
+        var t = ta.value;
+        var words = (t.trim().match(/\S+/g) || []).length;
+        var chars = t.length;
+        var noSpace = t.replace(/\s/g, "").length;
+        var sentences = (t.match(/[^.!?]+[.!?]+/g) || []).length;
+        var paras = (t.trim() ? t.trim().split(/\n+/).filter(function (p) { return p.trim(); }) : []).length;
+        var secs = Math.round(words / 200 * 60);
+        var rt = secs < 60 ? secs + "s" : Math.floor(secs / 60) + "m " + (secs % 60) + "s";
+        document.getElementById("words").textContent = words.toLocaleString();
+        document.getElementById("chars").textContent = chars.toLocaleString();
+        document.getElementById("charsNoSpace").textContent = noSpace.toLocaleString();
+        document.getElementById("sentences").textContent = sentences.toLocaleString();
+        document.getElementById("paras").textContent = paras.toLocaleString();
+        document.getElementById("readtime").textContent = words ? rt : "0s";
+      }
+      window.clearText = function () { ta.value = ""; update(); ta.focus(); };
+      ta.addEventListener("input", update);
+      update();
+    })();
+  </script>
+</body>
+</html>

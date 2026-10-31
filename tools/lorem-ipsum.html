@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lorem Ipsum Generator — Placeholder Text Online | Toolzy</title>
+  <meta name="description" content="Free Lorem Ipsum generator. Create placeholder dummy text by paragraphs, sentences or words for your designs and mockups. Copy with one click." />
+  <link rel="canonical" href="https://example.com/tools/lorem-ipsum.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Lorem Ipsum Generator</nav>
+      <div class="tool-head">
+        <h1>Lorem Ipsum Generator</h1>
+        <p>Generate placeholder text for mockups, layouts and designs. Choose how much you need and copy it with one click.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field">
+            <label>Amount</label>
+            <input type="number" id="count" value="3" min="1" max="100">
+          </div>
+          <div class="field">
+            <label>Type</label>
+            <select id="type">
+              <option value="paragraphs">Paragraphs</option>
+              <option value="sentences">Sentences</option>
+              <option value="words">Words</option>
+            </select>
+          </div>
+          <div class="field" style="display:flex; align-items:flex-end;">
+            <label class="check"><input type="checkbox" id="classic" checked> Start with "Lorem ipsum…"</label>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="gen()">Generate</button>
+          <button class="btn secondary" onclick="copyText(document.getElementById('out').value)">Copy</button>
+        </div>
+        <div class="field" style="margin-top:18px;">
+          <textarea id="out" style="min-height:220px;" readonly></textarea>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>What is Lorem Ipsum?</h2>
+        <p>Lorem Ipsum is scrambled Latin-like placeholder text that designers have used since the 1500s. It lets you see how a layout looks with text in it, without the distraction of readable content.</p>
+        <div class="faq-item"><h3>Can I use this commercially?</h3><p>Yes. Placeholder text is free to use anywhere — just remember to replace it with real content before publishing.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var words = ("lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et " +
+        "dolore magna aliqua enim ad minim veniam quis nostrud exercitation ullamco laboris nisi aliquip ex ea commodo " +
+        "consequat duis aute irure in reprehenderit voluptate velit esse cillum fugiat nulla pariatur excepteur sint " +
+        "occaecat cupidatat non proident sunt culpa qui officia deserunt mollit anim id est laborum").split(" ");
+
+      function rand(n) { return Math.floor(Math.random() * n); }
+      function sentence() {
+        var len = 6 + rand(10), s = [];
+        for (var i = 0; i < len; i++) s.push(words[rand(words.length)]);
+        var str = s.join(" ");
+        return str.charAt(0).toUpperCase() + str.slice(1) + ".";
+      }
+      function paragraph() {
+        var n = 3 + rand(4), p = [];
+        for (var i = 0; i < n; i++) p.push(sentence());
+        return p.join(" ");
+      }
+      window.gen = function () {
+        var count = Math.max(1, Math.min(100, parseInt(document.getElementById("count").value, 10) || 1));
+        var type = document.getElementById("type").value;
+        var classic = document.getElementById("classic").checked;
+        var res = [];
+        if (type === "words") {
+          var w = [];
+          for (var i = 0; i < count; i++) w.push(words[rand(words.length)]);
+          res = [w.join(" ")];
+        } else if (type === "sentences") {
+          for (var j = 0; j < count; j++) res.push(sentence());
+          res = [res.join(" ")];
+        } else {
+          for (var k = 0; k < count; k++) res.push(paragraph());
+        }
+        var text = res.join("\n\n");
+        if (classic) {
+          var starter = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
+          text = type === "words" ? text : starter + text.charAt(0).toLowerCase() + text.slice(1);
+        }
+        document.getElementById("out").value = text;
+      };
+      gen();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unit Converter — Length, Weight, Temperature & More | Toolzy</title>
+  <meta name="description" content="Free online unit converter. Convert length, weight, temperature, area, speed and data units instantly. Accurate, fast, and works in your browser." />
+  <link rel="canonical" href="https://example.com/tools/unit-converter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Unit Converter</nav>
+      <div class="tool-head">
+        <h1>Unit Converter</h1>
+        <p>Convert between units of length, weight, temperature, area, speed and digital storage. Pick a category and type a value — the result updates instantly.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="cat">Category</label>
+          <select id="cat" onchange="buildUnits()"></select>
+        </div>
+        <div class="row" style="align-items:flex-end;">
+          <div class="field">
+            <label>From</label>
+            <input type="number" id="fromVal" value="1" oninput="convert('from')">
+            <select id="fromUnit" onchange="convert('from')" style="margin-top:8px;"></select>
+          </div>
+          <div class="field" style="flex:0 0 auto; text-align:center; padding-bottom:10px;">
+            <button class="btn secondary" onclick="swapUnits()" title="Swap" aria-label="Swap units">⇄</button>
+          </div>
+          <div class="field">
+            <label>To</label>
+            <input type="number" id="toVal" value="0" oninput="convert('to')">
+            <select id="toUnit" onchange="convert('from')" style="margin-top:8px;"></select>
+          </div>
+        </div>
+        <div class="result-box" id="result" style="text-align:center;"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>Accurate everyday conversions</h2>
+        <p>This converter handles the units people look up most — metres to feet, kilograms to pounds, Celsius to Fahrenheit, and more. Temperature uses proper formulas (not simple ratios), so the results are exact.</p>
+        <div class="faq-item"><h3>How precise are the results?</h3><p>Conversions use standard internationally-agreed factors and are rounded sensibly for readability.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      // factors are "how many base units in 1 of this unit"
+      var data = {
+        Length: { base: "m", units: { "Millimetre": 0.001, "Centimetre": 0.01, "Metre": 1, "Kilometre": 1000, "Inch": 0.0254, "Foot": 0.3048, "Yard": 0.9144, "Mile": 1609.344 } },
+        Weight: { base: "kg", units: { "Milligram": 1e-6, "Gram": 0.001, "Kilogram": 1, "Tonne": 1000, "Ounce": 0.0283495, "Pound": 0.453592, "Stone": 6.35029 } },
+        Area: { base: "m²", units: { "Square metre": 1, "Square kilometre": 1e6, "Square foot": 0.092903, "Square yard": 0.836127, "Acre": 4046.86, "Hectare": 10000 } },
+        Speed: { base: "m/s", units: { "Metre/sec": 1, "Kilometre/hour": 0.277778, "Mile/hour": 0.44704, "Knot": 0.514444, "Foot/sec": 0.3048 } },
+        Data: { base: "byte", units: { "Byte": 1, "Kilobyte": 1024, "Megabyte": 1048576, "Gigabyte": 1073741824, "Terabyte": 1099511627776 } },
+        Temperature: { base: "C", units: { "Celsius": "C", "Fahrenheit": "F", "Kelvin": "K" } }
+      };
+
+      var catEl = document.getElementById("cat");
+      Object.keys(data).forEach(function (k) {
+        var o = document.createElement("option"); o.value = k; o.textContent = k; catEl.appendChild(o);
+      });
+
+      function fill(sel, units, pick) {
+        sel.innerHTML = "";
+        Object.keys(units).forEach(function (u) {
+          var o = document.createElement("option"); o.value = u; o.textContent = u; sel.appendChild(o);
+        });
+        sel.value = pick;
+      }
+
+      window.buildUnits = function () {
+        var cat = catEl.value;
+        var units = Object.keys(data[cat].units);
+        fill(document.getElementById("fromUnit"), data[cat].units, units[0]);
+        fill(document.getElementById("toUnit"), data[cat].units, units[1] || units[0]);
+        document.getElementById("fromVal").value = 1;
+        convert("from");
+      };
+
+      function toBase(cat, unit, val) {
+        if (cat === "Temperature") {
+          var u = data.Temperature.units[unit];
+          if (u === "C") return val;
+          if (u === "F") return (val - 32) * 5 / 9;
+          if (u === "K") return val - 273.15;
+        }
+        return val * data[cat].units[unit];
+      }
+      function fromBase(cat, unit, c) {
+        if (cat === "Temperature") {
+          var u = data.Temperature.units[unit];
+          if (u === "C") return c;
+          if (u === "F") return c * 9 / 5 + 32;
+          if (u === "K") return c + 273.15;
+        }
+        return c / data[cat].units[unit];
+      }
+      function round(n) { return Math.round(n * 1e6) / 1e6; }
+
+      window.convert = function (dir) {
+        var cat = catEl.value;
+        var fU = document.getElementById("fromUnit").value;
+        var tU = document.getElementById("toUnit").value;
+        if (dir === "to") {
+          var tv = parseFloat(document.getElementById("toVal").value) || 0;
+          var base2 = toBase(cat, tU, tv);
+          document.getElementById("fromVal").value = round(fromBase(cat, fU, base2));
+        } else {
+          var fv = parseFloat(document.getElementById("fromVal").value) || 0;
+          var base = toBase(cat, fU, fv);
+          document.getElementById("toVal").value = round(fromBase(cat, tU, base));
+        }
+        var a = document.getElementById("fromVal").value, b = document.getElementById("toVal").value;
+        document.getElementById("result").innerHTML = "<strong>" + a + "</strong> " + fU + " = <strong>" + b + "</strong> " + tU;
+      };
+
+      window.swapUnits = function () {
+        var f = document.getElementById("fromUnit"), t = document.getElementById("toUnit");
+        var tmp = f.value; f.value = t.value; t.value = tmp;
+        convert("from");
+      };
+
+      buildUnits();
+    })();
+  </script>
+</body>
+</html>

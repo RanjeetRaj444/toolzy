@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Math Problem Solver — Step-by-Step Solutions Online Free | Toolzy</title>
+  <meta name="description" content="Free step-by-step math solver. Solve equations, evaluate expressions, simplify, expand, factor, differentiate and integrate — with worked steps shown. Runs in your browser." />
+  <meta name="keywords" content="math solver, step by step math, equation solver, quadratic solver, derivative calculator, integral calculator, algebra solver" />
+  <link rel="canonical" href="https://example.com/tools/math-solver.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/12.4.2/math.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/nerdamer@1.1.13/all.min.js"></script>
+  <style>
+    .mode-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+    .mode-tabs button { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--border-strong);
+      background: var(--surface-2); color: var(--text-muted); font-weight: 600; font-size: .88rem; cursor: pointer; font-family: inherit; transition: all .15s; }
+    .mode-tabs button:hover { color: var(--text); border-color: var(--brand); }
+    .mode-tabs button.active { background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; border-color: transparent; }
+    .math-in { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 1.15rem; }
+    .steps { list-style: none; counter-reset: step; padding: 0; margin: 20px 0 0; }
+    .steps li { position: relative; padding: 14px 16px 14px 52px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+      background: var(--surface-2); margin-bottom: 10px; }
+    .steps li::before { counter-increment: step; content: counter(step); position: absolute; left: 14px; top: 14px;
+      width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: .85rem;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2)); color: #fff; }
+    .steps .explain { color: var(--text-muted); font-size: .92rem; margin-bottom: 4px; }
+    .steps .math { font-family: ui-monospace, "Cascadia Code", Consolas, monospace; font-size: 1.05rem; color: var(--text); }
+    .final { margin-top: 16px; text-align: center; font-size: 1.15rem; }
+    .final strong { font-size: 1.5rem; background: linear-gradient(120deg, var(--brand), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .examples { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+    .examples button { padding: 5px 11px; border-radius: 8px; border: 1px dashed var(--border-strong); background: transparent;
+      color: var(--text-muted); font-size: .82rem; cursor: pointer; font-family: ui-monospace, monospace; }
+    .examples button:hover { border-color: var(--brand); color: var(--brand); }
+    .note { font-size: .9rem; color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--border);
+      border-left: 3px solid var(--brand); border-radius: var(--radius-sm); padding: 12px 14px; margin-top: 18px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Math Problem Solver</nav>
+      <div class="tool-head">
+        <h1>Math Problem Solver</h1>
+        <p>Type a math problem and get the answer worked out <strong>step by step</strong>, the way a student would solve it. Handles arithmetic, algebra (equations, simplify, expand, factor) and calculus (derivatives &amp; integrals).</p>
+      </div>
+
+      <div class="panel">
+        <div class="mode-tabs" id="tabs">
+          <button data-mode="auto" class="active">⚡ Auto</button>
+          <button data-mode="solve">Solve equation</button>
+          <button data-mode="evaluate">Evaluate</button>
+          <button data-mode="simplify">Simplify</button>
+          <button data-mode="expand">Expand</button>
+          <button data-mode="factor">Factor</button>
+          <button data-mode="derivative">Derivative</button>
+          <button data-mode="integral">Integral</button>
+          <button data-mode="ai">✨ AI (any problem)</button>
+        </div>
+
+        <!-- Expression / equation solver (offline, free) -->
+        <div id="exprArea">
+          <div class="field">
+            <label for="q">Your problem</label>
+            <input type="text" id="q" class="math-in" placeholder="e.g.  x^2 - 5x + 6 = 0   or   3 * (4 + 5)   or   diff of x^3" />
+            <div class="examples" id="examples"></div>
+          </div>
+          <div class="btn-row">
+            <button class="btn" onclick="solveIt()">🧮 Solve with steps</button>
+            <button class="btn secondary" onclick="clearAll()">Clear</button>
+          </div>
+          <div id="result"></div>
+        </div>
+
+        <!-- AI solver (handles word problems, matrices, any level) -->
+        <div id="aiArea" style="display:none;">
+          <div class="field">
+            <label for="aiIn">Describe your problem (any kind — word problems, matrices, proofs…)</label>
+            <textarea id="aiIn" placeholder="e.g. A factory had a Labour Welfare Fund of ₹1,25,000. ₹84,237 was spent on education and ₹18,500 on medical. How much was put aside for the canteen?"></textarea>
+          </div>
+          <div class="btn-row">
+            <button class="btn" onclick="solveAI()">✨ Solve with AI</button>
+            <button class="btn secondary" onclick="document.getElementById('aiIn').value='';document.getElementById('aiResult').innerHTML='';">Clear</button>
+            <span id="aiQuota" style="align-self:center; color:var(--text-muted); font-size:.9rem;"></span>
+          </div>
+          <div id="aiResult"></div>
+        </div>
+      </div>
+
+      <div class="note">
+        <strong>Tips:</strong> use <code>^</code> for powers (<code>x^2</code>), <code>*</code> for multiply, <code>sqrt(x)</code>, <code>sin/cos/tan</code>, <code>pi</code>, <code>e</code>.
+        The first tabs work fully in your browser and are free — arithmetic, algebra and calculus. The <strong>✨ AI tab</strong> handles
+        <em>any</em> kind of problem (word problems, matrices, proofs) once a free Gemini key is connected (see the <code>ai-proxy</code> setup guide).
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How to enter problems</h2>
+        <ul>
+          <li><strong>Equations:</strong> include an <code>=</code> sign, e.g. <code>2x + 3 = 11</code> or <code>x^2 - 5x + 6 = 0</code>.</li>
+          <li><strong>Arithmetic:</strong> just type the expression, e.g. <code>12 * (3 + 4) - 5</code>.</li>
+          <li><strong>Calculus:</strong> use the Derivative or Integral tab, e.g. <code>x^3 + 2x</code>.</li>
+          <li><strong>Algebra:</strong> use Simplify, Expand or Factor, e.g. <code>(x+2)(x-3)</code>.</li>
+        </ul>
+        <h2>What makes this different</h2>
+        <p>For linear and quadratic equations, the solver doesn't just give the answer — it shows the full working: rearranging terms, finding the discriminant, applying the quadratic formula, and computing each root, exactly like a worked example in a textbook.</p>
+        <div class="faq-item"><h3>Is it free?</h3><p>Yes, completely free and private — all the maths happens in your browser, nothing is uploaded.</p></div>
+        <div class="faq-item"><h3>Can it solve any level?</h3><p>It handles school and college arithmetic, algebra and calculus. Very advanced topics and plain-English word problems are best handled by an AI solver, which we plan to add as an option.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var mode = "auto";
+    var q = document.getElementById("q");
+    var resultEl = document.getElementById("result");
+
+    // ----- mode tabs -----
+    var tabs = document.getElementById("tabs");
+    tabs.addEventListener("click", function (e) {
+      var b = e.target.closest("button"); if (!b) return;
+      mode = b.getAttribute("data-mode");
+      Array.prototype.forEach.call(tabs.children, function (c) { c.classList.remove("active"); });
+      b.classList.add("active");
+      var isAI = mode === "ai";
+      document.getElementById("exprArea").style.display = isAI ? "none" : "";
+      document.getElementById("aiArea").style.display = isAI ? "" : "none";
+      if (isAI) aiUpdateQuota(); else setExamples();
+    });
+
+    // ----- examples per mode -----
+    var EX = {
+      auto: ["x^2 - 5x + 6 = 0", "2x + 3 = 11", "12 * (3 + 4) - 5"],
+      solve: ["x^2 - 5x + 6 = 0", "2x + 3 = 11", "x^2 + 4x + 4 = 0", "x^3 - 6x^2 + 11x - 6 = 0"],
+      evaluate: ["12 * (3 + 4) - 5", "2^10", "sqrt(144) + 3!", "sin(pi/2)"],
+      simplify: ["(2x + 4) / 2", "x + x + 2x", "(x^2 - 1)/(x - 1)"],
+      expand: ["(x + 2)(x - 3)", "(x + 1)^3", "(a + b)^2"],
+      factor: ["x^2 - 5x + 6", "x^2 - 9", "2x^2 + 7x + 3"],
+      derivative: ["x^3 + 2x", "sin(x) * x", "x^2 + 3x + 1"],
+      integral: ["x^2", "2x + 1", "sin(x)"]
+    };
+    function setExamples() {
+      var box = document.getElementById("examples");
+      box.innerHTML = "";
+      (EX[mode] || EX.auto).forEach(function (ex) {
+        var b = document.createElement("button");
+        b.textContent = ex;
+        b.onclick = function () { q.value = ex; solveIt(); };
+        box.appendChild(b);
+      });
+    }
+    setExamples();
+
+    // ----- helpers -----
+    function fmt(n) {
+      if (typeof n !== "number" || !isFinite(n)) return String(n);
+      var r = Math.round(n * 1e6) / 1e6;
+      if (Math.abs(r - Math.round(r)) < 1e-9) return String(Math.round(r));
+      return String(r);
+    }
+    function near(n) { var r = Math.round(n); return Math.abs(n - r) < 1e-6 ? r : n; }
+    function esc(s) { return String(s).replace(/</g, "&lt;").replace(/>/g, "&gt;"); }
+
+    function render(title, steps, finalHTML) {
+      var html = "";
+      if (title) html += "<div style='margin-top:20px; font-weight:700; font-family:var(--font-head);'>" + esc(title) + "</div>";
+      if (steps && steps.length) {
+        html += "<ol class='steps'>";
+        steps.forEach(function (s) {
+          html += "<li>" + (s.explain ? "<div class='explain'>" + s.explain + "</div>" : "") +
+                  "<div class='math'>" + s.math + "</div></li>";
+        });
+        html += "</ol>";
+      }
+      if (finalHTML) html += "<div class='result-box final'>" + finalHTML + "</div>";
+      resultEl.innerHTML = html;
+    }
+    function fail(msg) { resultEl.innerHTML = "<div class='result-box' style='border-color:var(--danger)'>" + esc(msg) + "</div>"; }
+
+    function detectVar(expr) {
+      try {
+        var vars = {};
+        math.parse(expr).traverse(function (node) {
+          if (node.isSymbolNode && ["e", "pi", "i", "Infinity"].indexOf(node.name) === -1 &&
+              typeof math[node.name] !== "function") vars[node.name] = true;
+        });
+        var keys = Object.keys(vars);
+        return keys.length ? keys[0] : null;
+      } catch (e) { return null; }
+    }
+
+    // ----- EQUATION SOLVER with steps -----
+    function solveEquation(input) {
+      var parts = input.split("=");
+      if (parts.length !== 2) { fail("An equation needs exactly one '=' sign, e.g. 2x + 3 = 11"); return; }
+      var lhs = parts[0].trim(), rhs = parts[1].trim();
+      var combined = "(" + lhs + ") - (" + rhs + ")";
+      var v = detectVar(combined) || "x";
+
+      // sample the polynomial to extract coefficients
+      function f(x) { return math.evaluate(combined, (function () { var o = {}; o[v] = x; return o; })()); }
+      var f0, f1, fm1, f2;
+      try { f0 = f(0); f1 = f(1); fm1 = f(-1); f2 = f(2); }
+      catch (e) { return solveGeneral(input, v); }
+
+      if ([f0, f1, fm1, f2].some(function (x) { return typeof x !== "number" || !isFinite(x); }))
+        return solveGeneral(input, v);
+
+      var c = near(f0);
+      var a = near((f1 + fm1) / 2 - f0);
+      var b = near((f1 - fm1) / 2);
+      var predict2 = a * 4 + b * 2 + c;
+      var isPoly2 = Math.abs(predict2 - f2) < 1e-6;
+
+      if (!isPoly2) return solveGeneral(input, v);
+
+      var steps = [];
+      steps.push({ explain: "Start with the equation", math: esc(lhs) + " = " + esc(rhs) });
+
+      if (Math.abs(a) < 1e-9) {
+        // ----- LINEAR: a==0 → bx + c = 0 -----
+        if (Math.abs(b) < 1e-9) { fail(c === 0 ? "This is always true (infinite solutions)." : "This has no solution."); return; }
+        steps.push({ explain: "Move everything to one side (" + esc(lhs) + " − " + esc(rhs) + ")", math: fmt(b) + v + " " + (c >= 0 ? "+ " + fmt(c) : "− " + fmt(-c)) + " = 0" });
+        steps.push({ explain: "Subtract " + fmt(c) + " from both sides", math: fmt(b) + v + " = " + fmt(-c) });
+        steps.push({ explain: "Divide both sides by " + fmt(b), math: v + " = " + fmt(-c) + " / " + fmt(b) });
+        var xl = -c / b;
+        render("Linear equation", steps, v + " = <strong>" + fmt(xl) + "</strong>");
+        return;
+      }
+
+      // ----- QUADRATIC: ax² + bx + c = 0 -----
+      function term(coef, suffix) { return (coef < 0 ? "− " : "+ ") + fmt(Math.abs(coef)) + suffix; }
+      var standard = fmt(a) + v + "² " + term(b, v) + " " + term(c, "") + " = 0";
+      steps.push({ explain: "Write in standard form a" + v + "² + b" + v + " + c = 0", math: standard });
+      steps.push({ explain: "Identify the coefficients", math: "a = " + fmt(a) + ",  b = " + fmt(b) + ",  c = " + fmt(c) });
+      var D = b * b - 4 * a * c;
+      steps.push({ explain: "Compute the discriminant  D = b² − 4ac", math: "D = (" + fmt(b) + ")² − 4·(" + fmt(a) + ")·(" + fmt(c) + ") = " + fmt(D) });
+
+      if (D < 0) {
+        var re = fmt(-b / (2 * a)), im = fmt(Math.sqrt(-D) / (2 * a));
+        steps.push({ explain: "D is negative, so there are two complex roots", math: v + " = (−b ± √D) / 2a" });
+        render("Quadratic equation", steps,
+          v + " = " + re + " ± " + im + "<em>i</em>");
+        return;
+      }
+      steps.push({ explain: "Apply the quadratic formula", math: v + " = ( −b ± √D ) / (2a) = ( " + fmt(-b) + " ± √" + fmt(D) + " ) / " + fmt(2 * a) });
+      var sq = Math.sqrt(D);
+      var x1 = (-b + sq) / (2 * a), x2 = (-b - sq) / (2 * a);
+      if (Math.abs(D) < 1e-9) {
+        steps.push({ explain: "D = 0, so there is one repeated root", math: v + " = " + fmt(-b) + " / " + fmt(2 * a) });
+        render("Quadratic equation", steps, v + " = <strong>" + fmt(x1) + "</strong>");
+      } else {
+        steps.push({ explain: "Compute the two roots", math: v + "₁ = " + fmt(x1) + ",   " + v + "₂ = " + fmt(x2) });
+        render("Quadratic equation", steps, v + " = <strong>" + fmt(x1) + "</strong>  or  " + v + " = <strong>" + fmt(x2) + "</strong>");
+      }
+    }
+
+    // ----- GENERAL solve (cubic+, trig, etc.) via nerdamer -----
+    function solveGeneral(input, v) {
+      if (typeof nerdamer === "undefined") {
+        fail("This equation is beyond the browser step-engine (it handles linear & quadratic with full steps). The advanced engine couldn't load — check your connection.");
+        return;
+      }
+      try {
+        var expr = input.indexOf("=") !== -1 ? input : input + "=0";
+        var sols = nerdamer.solveEquations(expr, v);
+        var arr = sols.toString().replace(/^\[|\]$/g, "").split(",").filter(Boolean);
+        var steps = [
+          { explain: "Rearrange to standard form", math: esc(input) },
+          { explain: "Solve for " + v + " (higher-degree / non-quadratic)", math: v + " ∈ { " + esc(arr.join(", ")) + " }" }
+        ];
+        render("Equation solved", steps, v + " = <strong>" + esc(arr.join("</strong>  or  <strong>")) + "</strong>");
+      } catch (e) { fail("Sorry, I couldn't solve that equation. Try rephrasing it, e.g. x^2 - 4 = 0"); }
+    }
+
+    // ----- other operations -----
+    function evaluateExpr(input) {
+      try {
+        var val = math.evaluate(input);
+        render(null, [{ explain: "Evaluate the expression", math: esc(input) + " = " + esc(math.format(val, { precision: 10 })) }],
+          "= <strong>" + esc(math.format(val, { precision: 10 })) + "</strong>");
+      } catch (e) { fail("Couldn't evaluate that. Check the expression, e.g. 12 * (3 + 4)"); }
+    }
+    function simplifyExpr(input) {
+      try {
+        var s = math.simplify(input).toString();
+        render(null, [{ explain: "Simplify", math: esc(input) + "  →  " + esc(s) }], "= <strong>" + esc(s) + "</strong>");
+      } catch (e) { fail("Couldn't simplify that expression."); }
+    }
+    function nerd(fnName, input, label, suffix) {
+      if (typeof nerdamer === "undefined") { fail("The algebra engine couldn't load — check your connection and retry."); return; }
+      try {
+        var out = nerdamer(fnName + "(" + input + ")").toString();
+        render(null, [{ explain: label, math: esc(input) + "  →  " + esc(out) + (suffix || "") }],
+          "= <strong>" + esc(out) + (suffix || "") + "</strong>");
+      } catch (e) { fail("Couldn't " + label.toLowerCase() + " that expression."); }
+    }
+    function derivative(input) {
+      var v = detectVar(input) || "x";
+      try {
+        var d = math.derivative(input, v).toString();
+        var simp = math.simplify(d).toString();
+        render("Derivative with respect to " + v, [
+          { explain: "Differentiate term by term", math: "d/d" + v + " [ " + esc(input) + " ]" },
+          { explain: "Result", math: esc(simp) }
+        ], "= <strong>" + esc(simp) + "</strong>");
+      } catch (e) {
+        if (typeof nerdamer !== "undefined") { nerd("diff", input, "Derivative"); }
+        else fail("Couldn't differentiate that.");
+      }
+    }
+    function integral(input) {
+      var v = detectVar(input) || "x";
+      if (typeof nerdamer === "undefined") { fail("The calculus engine couldn't load — check your connection and retry."); return; }
+      try {
+        var out = nerdamer("integrate(" + input + "," + v + ")").toString();
+        render("Integral with respect to " + v, [
+          { explain: "Integrate term by term", math: "∫ ( " + esc(input) + " ) d" + v },
+          { explain: "Result (don't forget the constant)", math: esc(out) + " + C" }
+        ], "= <strong>" + esc(out) + " + C</strong>");
+      } catch (e) { fail("Couldn't integrate that. Try something like x^2 or sin(x)."); }
+    }
+
+    // ----- main dispatcher -----
+    window.solveIt = function () {
+      var input = q.value.trim();
+      if (!input) { fail("Please type a problem first."); return; }
+      if (typeof math === "undefined") { fail("The math engine is still loading — please wait a second and try again."); return; }
+
+      var m = mode;
+      if (m === "auto") {
+        if (input.indexOf("=") !== -1) m = "solve";
+        else if (detectVar(input)) m = "simplify";
+        else m = "evaluate";
+      }
+      switch (m) {
+        case "solve": solveEquation(input); break;
+        case "evaluate": evaluateExpr(input); break;
+        case "simplify": simplifyExpr(input); break;
+        case "expand": nerd("expand", input, "Expand"); break;
+        case "factor": nerd("factor", input, "Factor"); break;
+        case "derivative": derivative(input); break;
+        case "integral": integral(input); break;
+      }
+    };
+    window.clearAll = function () { q.value = ""; resultEl.innerHTML = ""; q.focus(); };
+
+    q.addEventListener("keydown", function (e) { if (e.key === "Enter") solveIt(); });
+
+    // =====================================================================
+    //  AI MODE  (handles word problems, matrices, any level — via a proxy)
+    //  SETUP: deploy the free Cloudflare Worker in /ai-proxy and paste its
+    //  URL below. Until then, AI mode shows a friendly "not configured" note.
+    // =====================================================================
+    var AI_PROXY_URL = "";          // <-- paste your deployed Worker URL here
+    var AI_FREE_PER_DAY = 5;        // free AI questions per visitor per day (UX cap)
+    var aiIn = document.getElementById("aiIn");
+    var aiResult = document.getElementById("aiResult");
+    var aiQuotaEl = document.getElementById("aiQuota");
+
+    function aiToday() { return new Date().toISOString().slice(0, 10); }
+    function aiUsed() { try { return parseInt(localStorage.getItem("toolzy-ai-" + aiToday()) || "0", 10); } catch (e) { return 0; } }
+    function aiInc() { try { localStorage.setItem("toolzy-ai-" + aiToday(), String(aiUsed() + 1)); } catch (e) {} }
+    function aiUpdateQuota() {
+      var left = Math.max(0, AI_FREE_PER_DAY - aiUsed());
+      aiQuotaEl.textContent = left + " / " + AI_FREE_PER_DAY + " free AI questions left today";
+    }
+    function aiBox(html, danger) {
+      aiResult.innerHTML = "<div class='result-box'" + (danger ? " style='border-color:var(--danger)'" : "") + ">" + html + "</div>";
+    }
+    function fmtAI(t) {
+      return esc(t)
+        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+        .replace(/`([^`]+)`/g, "<code>$1</code>")
+        .replace(/\n/g, "<br>");
+    }
+
+    window.solveAI = function () {
+      var problem = aiIn.value.trim();
+      if (!problem) { aiBox("Please describe your problem first.", true); return; }
+      if (!AI_PROXY_URL) {
+        aiBox("✨ <strong>AI mode isn't set up yet.</strong><br>It needs a free Gemini API key and a free Cloudflare Worker (see the <code>ai-proxy</code> setup guide). Once you paste the Worker URL into this page, AI mode goes live. Meanwhile, the other tabs solve algebra &amp; calculus for free.");
+        return;
+      }
+      if (aiUsed() >= AI_FREE_PER_DAY) {
+        aiBox("You've used your <strong>" + AI_FREE_PER_DAY + " free AI questions</strong> for today. They reset tomorrow. (A 'buy more questions' option is coming soon.)", true);
+        return;
+      }
+      aiBox("<em>Thinking through your problem step by step…</em>");
+      fetch(AI_PROXY_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ problem: problem })
+      }).then(function (r) {
+        return r.json().then(function (data) { return { status: r.status, ok: r.ok, data: data }; });
+      }).then(function (res) {
+        if (res.status === 429) {
+          if (res.data && res.data.error === "global_limit")
+            aiBox("The site's free AI quota for today is used up 🙏. Please try again tomorrow, or use the free step-solver tabs above.", true);
+          else
+            aiBox("You've reached today's free AI limit. It resets tomorrow.", true);
+          return;
+        }
+        if (!res.ok || !res.data || res.data.error || !res.data.answer) {
+          aiBox("Sorry, the AI couldn't answer that right now. Please try again in a moment.", true);
+          return;
+        }
+        aiInc(); aiUpdateQuota();
+        aiBox("<div style='font-weight:700;font-family:var(--font-head);margin-bottom:8px;'>Solution</div>" + fmtAI(res.data.answer));
+      }).catch(function () {
+        aiBox("Couldn't reach the AI service. Check your connection and try again.", true);
+      });
+    };
+  })();
+  </script>
+</body>
+</html>

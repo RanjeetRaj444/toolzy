@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Compressor — Reduce JPG & PNG Size Online Free | Toolzy</title>
+  <meta name="description" content="Free online image compressor. Shrink JPG, PNG and WebP file sizes right in your browser with adjustable quality. No upload — your images never leave your device." />
+  <link rel="canonical" href="https://example.com/tools/image-compressor.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Image Compressor</nav>
+      <div class="tool-head">
+        <h1>Image Compressor</h1>
+        <p>Make JPG, PNG and WebP images smaller without leaving your browser. Choose a quality level, preview the result, and download. Your images are never uploaded anywhere.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="file">Choose an image</label>
+          <input type="file" id="file" accept="image/*" />
+        </div>
+        <div class="field">
+          <label>Quality: <span id="qVal">80</span>%</label>
+          <input type="range" id="quality" min="10" max="100" value="80" oninput="document.getElementById('qVal').textContent=this.value; reprocess();">
+        </div>
+        <div class="field">
+          <label for="fmt">Output format</label>
+          <select id="fmt" onchange="reprocess()">
+            <option value="image/jpeg">JPG (best for photos)</option>
+            <option value="image/webp">WebP (smallest)</option>
+            <option value="image/png">PNG (lossless)</option>
+          </select>
+        </div>
+
+        <div id="output" style="display:none;">
+          <div class="stats">
+            <div class="stat"><div class="num" id="before">—</div><div class="lbl">Original</div></div>
+            <div class="stat"><div class="num" id="after">—</div><div class="lbl">Compressed</div></div>
+            <div class="stat"><div class="num" id="saved">—</div><div class="lbl">Saved</div></div>
+          </div>
+          <div style="margin-top:18px; text-align:center;">
+            <img id="preview" alt="Compressed preview" style="max-width:100%; max-height:360px; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+          </div>
+          <div class="btn-row" style="margin-top:16px;">
+            <button class="btn" onclick="downloadImg()">⬇ Download compressed image</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>Why compress images?</h2>
+        <p>Smaller images load faster, use less data, and are easier to email or upload. This tool re-encodes your picture at a quality you choose, cutting the file size while keeping it looking good.</p>
+        <div class="faq-item"><h3>Are my images uploaded to a server?</h3><p>No. Everything happens inside your browser using the HTML canvas — your files never leave your device.</p></div>
+        <div class="faq-item"><h3>Which format should I pick?</h3><p>Use JPG for photos, WebP for the smallest size with good quality, and PNG when you need a lossless or transparent image.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var img = new Image();
+      var originalSize = 0, originalName = "image", lastBlob = null, lastExt = "jpg";
+
+      function fmtBytes(b) {
+        if (b < 1024) return b + " B";
+        if (b < 1048576) return (b / 1024).toFixed(1) + " KB";
+        return (b / 1048576).toFixed(2) + " MB";
+      }
+
+      document.getElementById("file").addEventListener("change", function (e) {
+        var f = e.target.files[0];
+        if (!f) return;
+        originalSize = f.size;
+        originalName = f.name.replace(/\.[^.]+$/, "") || "image";
+        var reader = new FileReader();
+        reader.onload = function (ev) {
+          img.onload = reprocess;
+          img.src = ev.target.result;
+        };
+        reader.readAsDataURL(f);
+      });
+
+      window.reprocess = function () {
+        if (!img.src) return;
+        var fmt = document.getElementById("fmt").value;
+        var q = parseInt(document.getElementById("quality").value, 10) / 100;
+        var canvas = document.createElement("canvas");
+        canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+        var ctx = canvas.getContext("2d");
+        if (fmt === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+        ctx.drawImage(img, 0, 0);
+        canvas.toBlob(function (blob) {
+          if (!blob) { showToast("This format isn't supported by your browser"); return; }
+          lastBlob = blob;
+          lastExt = fmt === "image/jpeg" ? "jpg" : fmt === "image/webp" ? "webp" : "png";
+          document.getElementById("preview").src = URL.createObjectURL(blob);
+          document.getElementById("before").textContent = fmtBytes(originalSize);
+          document.getElementById("after").textContent = fmtBytes(blob.size);
+          var pct = originalSize ? Math.max(0, Math.round((1 - blob.size / originalSize) * 100)) : 0;
+          document.getElementById("saved").textContent = pct + "%";
+          document.getElementById("output").style.display = "block";
+        }, fmt, q);
+      };
+
+      window.downloadImg = function () {
+        if (!lastBlob) { showToast("Choose an image first"); return; }
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(lastBlob);
+        a.download = originalName + "-compressed." + lastExt;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      };
+    })();
+  </script>
+</body>
+</html>

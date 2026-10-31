@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BMI Calculator — Check Your Body Mass Index (Metric & Imperial) | Toolzy</title>
+  <meta name="description" content="Free BMI calculator. Enter your height and weight in metric or imperial units to find your Body Mass Index and category instantly. Private, runs in your browser." />
+  <link rel="canonical" href="https://example.com/tools/bmi-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / BMI Calculator</nav>
+      <div class="tool-head">
+        <h1>BMI Calculator</h1>
+        <p>Find your Body Mass Index and what category it falls into. Switch between metric (cm/kg) and imperial (ft-in/lb) units.</p>
+      </div>
+
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:18px;">
+          <button class="btn" id="mBtn" onclick="setUnit('metric')">Metric (cm, kg)</button>
+          <button class="btn secondary" id="iBtn" onclick="setUnit('imperial')">Imperial (ft, lb)</button>
+        </div>
+
+        <div id="metricInputs">
+          <div class="row">
+            <div class="field"><label>Height (cm)</label><input type="number" id="cm" placeholder="e.g. 170" oninput="calcBMI()"></div>
+            <div class="field"><label>Weight (kg)</label><input type="number" id="kg" placeholder="e.g. 65" oninput="calcBMI()"></div>
+          </div>
+        </div>
+
+        <div id="imperialInputs" style="display:none;">
+          <div class="row">
+            <div class="field"><label>Height (ft)</label><input type="number" id="ft" placeholder="e.g. 5" oninput="calcBMI()"></div>
+            <div class="field"><label>Height (in)</label><input type="number" id="in" placeholder="e.g. 7" oninput="calcBMI()"></div>
+            <div class="field"><label>Weight (lb)</label><input type="number" id="lb" placeholder="e.g. 145" oninput="calcBMI()"></div>
+          </div>
+        </div>
+
+        <div class="result-box" id="result" style="text-align:center;">Enter your height and weight to see your BMI.</div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>BMI categories (WHO)</h2>
+        <ul>
+          <li><strong>Under 18.5</strong> — Underweight</li>
+          <li><strong>18.5 – 24.9</strong> — Normal weight</li>
+          <li><strong>25 – 29.9</strong> — Overweight</li>
+          <li><strong>30 and above</strong> — Obese</li>
+        </ul>
+        <h2>What is BMI?</h2>
+        <p>Body Mass Index is a simple ratio of your weight to the square of your height. It's a quick screening tool used worldwide, though it doesn't account for muscle mass, bone density, or body composition — so treat it as a rough guide, not a diagnosis.</p>
+        <div class="faq-item"><h3>Is BMI accurate for athletes?</h3><p>Not always. Very muscular people can have a high BMI while being perfectly healthy, because muscle weighs more than fat.</p></div>
+        <div class="faq-item"><h3>Is my data stored?</h3><p>No. The calculation happens entirely in your browser.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var unit = "metric";
+      window.setUnit = function (u) {
+        unit = u;
+        document.getElementById("metricInputs").style.display = u === "metric" ? "" : "none";
+        document.getElementById("imperialInputs").style.display = u === "imperial" ? "" : "none";
+        document.getElementById("mBtn").className = u === "metric" ? "btn" : "btn secondary";
+        document.getElementById("iBtn").className = u === "imperial" ? "btn" : "btn secondary";
+        calcBMI();
+      };
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      window.calcBMI = function () {
+        var bmi = 0;
+        if (unit === "metric") {
+          var cm = num("cm"), kg = num("kg");
+          if (cm > 0 && kg > 0) bmi = kg / Math.pow(cm / 100, 2);
+        } else {
+          var totalIn = num("ft") * 12 + num("in"), lb = num("lb");
+          if (totalIn > 0 && lb > 0) bmi = (lb / (totalIn * totalIn)) * 703;
+        }
+        var box = document.getElementById("result");
+        if (!bmi) { box.innerHTML = "Enter your height and weight to see your BMI."; return; }
+        var cat, color;
+        if (bmi < 18.5) { cat = "Underweight"; color = "var(--accent)"; }
+        else if (bmi < 25) { cat = "Normal weight"; color = "var(--ok)"; }
+        else if (bmi < 30) { cat = "Overweight"; color = "var(--warn)"; }
+        else { cat = "Obese"; color = "var(--danger)"; }
+        box.innerHTML = "Your BMI is <strong style='font-size:1.6rem; color:" + color + "'>" + bmi.toFixed(1) +
+          "</strong><br><span style='color:" + color + "; font-weight:700;'>" + cat + "</span>";
+      };
+    })();
+  </script>
+</body>
+</html>

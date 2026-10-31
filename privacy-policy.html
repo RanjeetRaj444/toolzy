@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy — Toolzy</title>
+  <meta name="description" content="Toolzy's privacy policy: how we handle data, cookies, and advertising. Our tools run in your browser and we never upload your content." />
+  <link rel="canonical" href="https://example.com/privacy-policy.html" />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#tools">All Tools</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="index.html">Home</a> / Privacy Policy</nav>
+      <div class="tool-head"><h1>Privacy Policy</h1><p>Last updated: <span id="updated"></span></p></div>
+      <section class="prose">
+        <p>This Privacy Policy explains how Toolzy ("we", "us", "our") handles information when you use our website and tools. By using the site, you agree to the practices described here.</p>
+
+        <h2>1. The data you enter into our tools</h2>
+        <p>Toolzy's tools run entirely in your web browser. Any text, numbers, files or other content you enter into a tool is processed locally on your device and is <strong>never sent to or stored on our servers</strong>. When you close or refresh the page, that content is gone.</p>
+
+        <h2>2. Information we collect automatically</h2>
+        <p>Like most websites, we and our service providers may collect standard technical information such as your browser type, device type, approximate region, pages visited and referring site. This is used only to understand overall usage and keep the site running well.</p>
+
+        <h2>3. Cookies and local storage</h2>
+        <p>We use your browser's local storage to remember small preferences, such as whether you chose light or dark mode. We may also use cookies for analytics and advertising as described below. You can clear or block cookies in your browser settings at any time.</p>
+
+        <h2>4. Advertising</h2>
+        <p>We may display advertisements provided by third-party advertising partners, including Google AdSense. These partners may use cookies and similar technologies to show ads based on your prior visits to this and other websites.</p>
+        <ul>
+          <li>Third-party vendors, including Google, use cookies to serve ads based on your prior visits to this or other websites.</li>
+          <li>Google's use of advertising cookies enables it and its partners to serve ads to you based on your visit to our site and/or other sites on the Internet.</li>
+          <li>You may opt out of personalised advertising by visiting <a href="https://www.google.com/settings/ads" target="_blank" rel="noopener">Google Ads Settings</a>, or opt out of third-party vendor cookies at <a href="https://www.aboutads.info/choices/" target="_blank" rel="noopener">aboutads.info/choices</a>.</li>
+        </ul>
+
+        <h2>5. Analytics</h2>
+        <p>We may use privacy-respecting analytics to measure traffic and improve our tools. This data is aggregated and does not identify you personally.</p>
+
+        <h2>6. Children's privacy</h2>
+        <p>Our site is not directed to children under 13, and we do not knowingly collect personal information from them.</p>
+
+        <h2>7. Your rights</h2>
+        <p>Because we do not collect or store the content you put into our tools, there is nothing of yours for us to access, change or delete on our side. For questions about advertising or analytics cookies, use the opt-out links above or your browser settings.</p>
+
+        <h2>8. Changes to this policy</h2>
+        <p>We may update this policy from time to time. The "last updated" date above reflects the latest version.</p>
+
+        <h2>9. Contact</h2>
+        <p>Questions about this policy? Reach us via our <a href="contact.html">contact page</a>.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="privacy-policy.html">Privacy</a> · <a href="terms.html">Terms</a> · <a href="contact.html">Contact</a></div>
+    </div>
+  </footer>
+  <script>
+    document.getElementById("updated").textContent =
+      new Date().toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  </script>
+</body>
+</html>

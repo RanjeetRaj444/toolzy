@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EMI Calculator — Loan EMI, Interest & Total Payment | Toolzy</title>
+  <meta name="description" content="Free EMI calculator for home, car and personal loans. Enter loan amount, interest rate and tenure to get your monthly EMI, total interest and total payable instantly." />
+  <link rel="canonical" href="https://example.com/tools/emi-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / EMI Calculator</nav>
+      <div class="tool-head">
+        <h1>EMI Calculator</h1>
+        <p>Work out the monthly instalment (EMI) for any loan — home, car, or personal. See your monthly payment, total interest, and total amount payable.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label>Loan amount (<span id="curSym">₹</span>) — <span id="amtVal">1,000,000</span></label>
+          <input type="number" id="amount" value="1000000" oninput="calc()">
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Interest rate (% per year)</label>
+            <input type="number" id="rate" value="9" step="0.1" oninput="calc()">
+          </div>
+          <div class="field">
+            <label>Tenure (years)</label>
+            <input type="number" id="years" value="20" oninput="calc()">
+          </div>
+          <div class="field">
+            <label>Currency</label>
+            <select id="cur" onchange="calc()">
+              <option value="₹">₹ INR</option>
+              <option value="$">$ USD</option>
+              <option value="€">€ EUR</option>
+              <option value="£">£ GBP</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="num" id="emi">—</div><div class="lbl">Monthly EMI</div></div>
+          <div class="stat"><div class="num" id="interest">—</div><div class="lbl">Total interest</div></div>
+          <div class="stat"><div class="num" id="total">—</div><div class="lbl">Total payable</div></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How EMI is calculated</h2>
+        <p>EMI (Equated Monthly Instalment) uses this formula:</p>
+        <p><strong>EMI = P × r × (1 + r)ⁿ ÷ ((1 + r)ⁿ − 1)</strong></p>
+        <p>where <strong>P</strong> is the loan amount, <strong>r</strong> is the monthly interest rate (annual rate ÷ 12 ÷ 100), and <strong>n</strong> is the number of monthly instalments (years × 12).</p>
+        <div class="faq-item"><h3>Does a longer tenure reduce my EMI?</h3><p>Yes — a longer tenure lowers the monthly EMI, but you pay more total interest over the life of the loan.</p></div>
+        <div class="faq-item"><h3>Is this an official quote?</h3><p>No. It's an estimate to help you plan. Your lender's actual EMI may differ due to fees and compounding methods.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? 0 : v; }
+      window.calc = function () {
+        var P = num("amount"), annual = num("rate"), yrs = num("years");
+        var sym = document.getElementById("cur").value;
+        document.getElementById("curSym").textContent = sym;
+        document.getElementById("amtVal").textContent = P.toLocaleString();
+        var n = yrs * 12;
+        var r = annual / 12 / 100;
+        var emi;
+        if (P <= 0 || n <= 0) { emi = 0; }
+        else if (r === 0) { emi = P / n; }
+        else { emi = P * r * Math.pow(1 + r, n) / (Math.pow(1 + r, n) - 1); }
+        var total = emi * n;
+        var interest = total - P;
+        function fmt(x) { return sym + Math.round(x).toLocaleString(); }
+        document.getElementById("emi").textContent = emi ? fmt(emi) : "—";
+        document.getElementById("interest").textContent = emi ? fmt(interest) : "—";
+        document.getElementById("total").textContent = emi ? fmt(total) : "—";
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

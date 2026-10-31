@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Code Generator — Free, Downloadable QR Codes | Toolzy</title>
+  <meta name="description" content="Free QR code generator. Turn any link, text, phone number or Wi-Fi details into a high-quality QR code and download it as a PNG. Generated in your browser, no sign-up." />
+  <link rel="canonical" href="https://example.com/tools/qr-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / QR Code Generator</nav>
+      <div class="tool-head">
+        <h1>QR Code Generator</h1>
+        <p>Type a link or any text, choose a size, and get a QR code you can download instantly as a PNG image. Perfect for posters, business cards, menus and sharing links.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="data">Link or text</label>
+          <input type="text" id="data" placeholder="https://your-site.com or any text" value="https://toolzy.example.com" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="size">Size</label>
+            <select id="size">
+              <option value="160">Small (160px)</option>
+              <option value="256" selected>Medium (256px)</option>
+              <option value="400">Large (400px)</option>
+              <option value="600">Extra large (600px)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="color">Foreground colour</label>
+            <input type="color" id="color" value="#111a2e" style="height:44px; padding:4px;" />
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn" onclick="makeQR()">⬛ Generate QR code</button>
+          <button class="btn secondary" onclick="downloadQR()">⬇ Download PNG</button>
+        </div>
+
+        <div id="qrbox" style="display:grid; place-items:center; margin-top:22px; min-height:120px;">
+          <div id="qr"></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>What can you put in a QR code?</h2>
+        <ul>
+          <li><strong>Website links</strong> — send people to your page in one scan.</li>
+          <li><strong>Plain text</strong> — a message, code, or note.</li>
+          <li><strong>Contact or Wi-Fi info</strong> — paste the formatted text and share it.</li>
+        </ul>
+        <div class="faq-item"><h3>Do these QR codes expire?</h3><p>No. The code is a static image pointing directly at your text or link, so it works forever and is free to use commercially.</p></div>
+        <div class="faq-item"><h3>Is my data uploaded?</h3><p>No. The QR code is generated entirely in your browser.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var qr = null;
+      window.makeQR = function () {
+        var data = document.getElementById("data").value.trim();
+        if (!data) { showToast("Enter a link or some text"); return; }
+        if (typeof QRCode === "undefined") { showToast("QR library failed to load — check your connection"); return; }
+        var size = parseInt(document.getElementById("size").value, 10);
+        var color = document.getElementById("color").value;
+        var holder = document.getElementById("qr");
+        holder.innerHTML = "";
+        qr = new QRCode(holder, {
+          text: data, width: size, height: size,
+          colorDark: color, colorLight: "#ffffff",
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      };
+      window.downloadQR = function () {
+        var img = document.querySelector("#qr img") || document.querySelector("#qr canvas");
+        if (!img) { showToast("Generate a QR code first"); return; }
+        var url = img.tagName === "CANVAS" ? img.toDataURL("image/png") : img.src;
+        var a = document.createElement("a");
+        a.href = url; a.download = "qr-code.png";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      };
+      document.addEventListener("DOMContentLoaded", makeQR);
+    })();
+  </script>
+</body>
+</html>

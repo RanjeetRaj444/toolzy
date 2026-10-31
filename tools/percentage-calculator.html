@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Percentage Calculator — Find Percent, Increase & Decrease | Toolzy</title>
+  <meta name="description" content="Free percentage calculator. Work out what percent of a number, percentage change, increase or decrease, and X is what percent of Y. Instant results in your browser." />
+  <link rel="canonical" href="https://example.com/tools/percentage-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Percentage Calculator</nav>
+      <div class="tool-head">
+        <h1>Percentage Calculator</h1>
+        <p>Three common percentage questions, solved instantly. Fill in any calculator below and the answer appears as you type.</p>
+      </div>
+
+      <div class="panel">
+        <h3 style="margin-top:0;">What is X% of Y?</h3>
+        <div class="row">
+          <div class="field"><label>Percent (%)</label><input type="number" id="a1" placeholder="e.g. 20" oninput="calc1()"></div>
+          <div class="field"><label>Of number</label><input type="number" id="a2" placeholder="e.g. 150" oninput="calc1()"></div>
+        </div>
+        <div class="result-box" id="r1">Enter values above…</div>
+      </div>
+
+      <div class="panel" style="margin-top:18px;">
+        <h3 style="margin-top:0;">X is what percent of Y?</h3>
+        <div class="row">
+          <div class="field"><label>Number X</label><input type="number" id="b1" placeholder="e.g. 30" oninput="calc2()"></div>
+          <div class="field"><label>Out of Y</label><input type="number" id="b2" placeholder="e.g. 150" oninput="calc2()"></div>
+        </div>
+        <div class="result-box" id="r2">Enter values above…</div>
+      </div>
+
+      <div class="panel" style="margin-top:18px;">
+        <h3 style="margin-top:0;">Percentage increase / decrease</h3>
+        <div class="row">
+          <div class="field"><label>From (old value)</label><input type="number" id="c1" placeholder="e.g. 200" oninput="calc3()"></div>
+          <div class="field"><label>To (new value)</label><input type="number" id="c2" placeholder="e.g. 250" oninput="calc3()"></div>
+        </div>
+        <div class="result-box" id="r3">Enter values above…</div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>Percentage formulas</h2>
+        <ul>
+          <li><strong>X% of Y</strong> = (X ÷ 100) × Y</li>
+          <li><strong>X is what % of Y</strong> = (X ÷ Y) × 100</li>
+          <li><strong>% change</strong> = ((New − Old) ÷ Old) × 100</li>
+        </ul>
+        <div class="faq-item"><h3>What's the difference between percentage change and percentage points?</h3><p>Percentage change compares two values relative to the first. Percentage points are a plain subtraction of two percentages (e.g. 40% to 45% is a 5 percentage-point rise, but a 12.5% increase).</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function num(id) { var v = parseFloat(document.getElementById(id).value); return isNaN(v) ? null : v; }
+      function fmt(n) { return Math.round(n * 10000) / 10000; }
+      window.calc1 = function () {
+        var p = num("a1"), y = num("a2");
+        document.getElementById("r1").innerHTML = (p===null||y===null)
+          ? "Enter values above…" : "<strong>" + fmt(p/100*y) + "</strong> is " + p + "% of " + y;
+      };
+      window.calc2 = function () {
+        var x = num("b1"), y = num("b2");
+        document.getElementById("r2").innerHTML = (x===null||y===null||y===0)
+          ? "Enter values above…" : x + " is <strong>" + fmt(x/y*100) + "%</strong> of " + y;
+      };
+      window.calc3 = function () {
+        var o = num("c1"), n = num("c2");
+        if (o===null||n===null||o===0) { document.getElementById("r3").innerHTML = "Enter values above…"; return; }
+        var ch = (n-o)/o*100;
+        var word = ch > 0 ? "increase" : ch < 0 ? "decrease" : "change";
+        document.getElementById("r3").innerHTML = "That's a <strong>" + fmt(Math.abs(ch)) + "% " + word + "</strong>";
+      };
+    })();
+  </script>
+</body>
+</html>

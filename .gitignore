@@ -1,0 +1,13 @@
+# Secrets — never commit these
+.env
+.env.*
+*.key
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log

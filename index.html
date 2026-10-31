@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en" prefix="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Toolzy — Free Online Tools for Everyday Tasks</title>
+  <meta name="description" content="Toolzy is a free collection of fast, privacy-friendly online tools: word counter, password generator, QR code maker, age and percentage calculators, and more. No sign-up, works in your browser." />
+  <meta name="keywords" content="free online tools, word counter, password generator, qr code generator, age calculator, percentage calculator, text tools" />
+  <link rel="canonical" href="https://example.com/" />
+  <meta name="robots" content="index, follow" />
+  <!-- Open Graph -->
+  <meta property="og:title" content="Toolzy — Free Online Tools" />
+  <meta property="og:description" content="A free collection of fast, privacy-friendly online tools. No sign-up needed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://example.com/" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/style.css" />
+  <script defer src="js/main.js"></script>
+  <!-- Structured data: Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Toolzy",
+    "url": "https://example.com/",
+    "description": "Free online tools for everyday tasks."
+  }
+  </script>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#tools">All Tools</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <!-- HERO -->
+    <section class="hero container">
+      <span class="eyebrow"><span class="dot"></span> 100% free · no sign-up · private</span>
+      <h1>Free online tools that <span class="grad">just work</span></h1>
+      <p>Handy little utilities for writing, security, and everyday math — fast, free, and private. Everything runs right in your browser. No sign-up, no downloads.</p>
+      <div class="tool-search">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="toolSearch" placeholder="Search tools… (e.g. password, counter)" aria-label="Search tools" />
+      </div>
+    </section>
+
+    <div class="container">
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <!-- TOOLS GRID -->
+      <div class="section-head" id="tools">
+        <h2>All tools</h2>
+        <p>Pick a tool and get started — no account required.</p>
+      </div>
+
+      <div class="grid">
+        <a class="tool-card" href="tools/word-counter.html" data-tool="word counter character words text writing">
+          <div class="ico">📝</div>
+          <h3>Word Counter</h3>
+          <p>Count words, characters, sentences, and reading time instantly.</p>
+        </a>
+
+        <a class="tool-card" href="tools/password-generator.html" data-tool="password generator security strong random secure">
+          <div class="ico">🔑</div>
+          <h3>Password Generator</h3>
+          <p>Create strong, random, secure passwords with custom rules.</p>
+        </a>
+
+        <a class="tool-card" href="tools/case-converter.html" data-tool="case converter uppercase lowercase title text transform">
+          <div class="ico">🔤</div>
+          <h3>Case Converter</h3>
+          <p>Convert text to UPPER, lower, Title, or Sentence case.</p>
+        </a>
+
+        <a class="tool-card" href="tools/age-calculator.html" data-tool="age calculator birthday date years months days">
+          <div class="ico">🎂</div>
+          <h3>Age Calculator</h3>
+          <p>Find exact age in years, months, days from a birth date.</p>
+        </a>
+
+        <a class="tool-card" href="tools/percentage-calculator.html" data-tool="percentage calculator percent math increase decrease">
+          <div class="ico">📊</div>
+          <h3>Percentage Calculator</h3>
+          <p>Work out percentages, increases, and decreases in seconds.</p>
+        </a>
+
+        <a class="tool-card" href="tools/qr-generator.html" data-tool="qr code generator link url image scan">
+          <div class="ico">⬛</div>
+          <h3>QR Code Generator</h3>
+          <p>Turn any link or text into a downloadable QR code.</p>
+        </a>
+
+        <a class="tool-card" href="tools/math-solver.html" data-tool="math solver step by step equation algebra calculus derivative integral quadratic homework">
+          <div class="ico">🧮</div>
+          <h3>Math Problem Solver</h3>
+          <p>Solve equations & calculus with full step-by-step working.</p>
+        </a>
+
+        <a class="tool-card" href="tools/bmi-calculator.html" data-tool="bmi calculator body mass index weight health fitness">
+          <div class="ico">⚖️</div>
+          <h3>BMI Calculator</h3>
+          <p>Check your Body Mass Index in metric or imperial units.</p>
+        </a>
+
+        <a class="tool-card" href="tools/emi-calculator.html" data-tool="emi calculator loan interest home car personal finance">
+          <div class="ico">🏦</div>
+          <h3>EMI Calculator</h3>
+          <p>Calculate loan EMI, total interest and amount payable.</p>
+        </a>
+
+        <a class="tool-card" href="tools/image-compressor.html" data-tool="image compressor reduce jpg png webp size photo optimize">
+          <div class="ico">🖼️</div>
+          <h3>Image Compressor</h3>
+          <p>Shrink JPG, PNG & WebP images right in your browser.</p>
+        </a>
+
+        <a class="tool-card" href="tools/unit-converter.html" data-tool="unit converter length weight temperature area speed data metric imperial">
+          <div class="ico">📐</div>
+          <h3>Unit Converter</h3>
+          <p>Convert length, weight, temperature, speed and more.</p>
+        </a>
+
+        <a class="tool-card" href="tools/base64.html" data-tool="base64 encode decode developer text data url">
+          <div class="ico">🧬</div>
+          <h3>Base64 Encode / Decode</h3>
+          <p>Convert text to Base64 and back, with Unicode support.</p>
+        </a>
+
+        <a class="tool-card" href="tools/lorem-ipsum.html" data-tool="lorem ipsum generator placeholder dummy text design mockup">
+          <div class="ico">📄</div>
+          <h3>Lorem Ipsum Generator</h3>
+          <p>Create placeholder text by paragraphs, sentences or words.</p>
+        </a>
+      </div>
+      <p class="no-results" id="noResults">No tools match your search. Try another word.</p>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <!-- INTRO CONTENT (good for SEO + AdSense) -->
+      <section class="prose" style="margin: 30px auto 0;">
+        <h2>Why use Toolzy?</h2>
+        <p>Toolzy brings together the small online tools people search for every day and puts them in one clean, fast place. Whether you need to check a word count before submitting an assignment, generate a password you can actually trust, or turn a link into a QR code, you can do it here in a couple of clicks.</p>
+        <h3>Private by design</h3>
+        <p>Every tool runs entirely inside your web browser. Your text, passwords, and data are never uploaded to a server — nothing leaves your device. That means it's fast, and it's genuinely private.</p>
+        <h3>Free, with no catch</h3>
+        <p>There's no sign-up, no paywall, and no download. Just open a tool and use it. We keep the lights on with a few unobtrusive ads, which lets everything stay free for everyone.</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col" style="max-width:280px;">
+          <h4>Toolzy</h4>
+          <p style="margin:0;">Free, private, browser-based tools for everyday tasks.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Popular tools</h4>
+          <ul>
+            <li><a href="tools/word-counter.html">Word Counter</a></li>
+            <li><a href="tools/password-generator.html">Password Generator</a></li>
+            <li><a href="tools/qr-generator.html">QR Code Generator</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            <li><a href="terms.html">Terms of Use</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        © <span id="year">2026</span> Toolzy. All rights reserved. Made with care.
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
