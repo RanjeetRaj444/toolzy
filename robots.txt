@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ranjeetraj444.github.io/toolzy/sitemap.xml
+Sitemap: https://toolzy-7eo.pages.dev/sitemap.xml

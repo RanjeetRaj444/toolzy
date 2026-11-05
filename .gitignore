@@ -12,3 +12,6 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Build output (deployed to Cloudflare Pages, not committed)
+dist/
