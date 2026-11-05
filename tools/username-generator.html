@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Username Generator — Cool & Unique Usernames | Toolzy</title>
+  <meta name="description" content="Free username generator. Create cool, unique usernames for gaming, social media and accounts from your name or a keyword." />
+  <meta name="keywords" content="username generator, cool usernames, gamertag generator, unique username" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/username-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:14px;}.names .n{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);cursor:pointer;font-weight:600;text-align:center;font-family:ui-monospace,monospace;}.names .n:hover{border-color:var(--brand);color:var(--brand);}</style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Username Generator</nav>
+    <div class="tool-head"><h1>Username Generator</h1><p>Enter your name or a word to get cool, unique username ideas for gaming and social media. Click to copy.</p></div>
+    <div class="panel">
+      <div class="row">
+        <div class="field" style="flex:3;"><label>Your name or keyword</label><input type="text" id="kw" value="alex" placeholder="e.g. alex, ninja, star"></div>
+        <div class="field" style="flex:1; display:flex; align-items:flex-end;"><button class="btn" onclick="gen()" style="width:100%;">Generate</button></div>
+      </div>
+      <div class="names" id="names"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>Tips</h2><p>Mix in numbers, underscores, or a cool adjective to make a username unique. Avoid personal info like your birth year for privacy.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      var adj=["cool","dark","swift","epic","mega","pixel","ghost","cyber","lunar","iron","mystic","turbo","shadow","frost","blaze"];
+      var noun=["wolf","ninja","star","rider","knight","fox","hawk","dragon","viper","phoenix","tiger","raven","storm","pirate","wizard"];
+      function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+      function num(){ return Math.floor(Math.random()*900+10); }
+      window.gen=function(){
+        var kw=(document.getElementById("kw").value.trim()||"user").replace(/\s+/g,"").toLowerCase();
+        var set={};
+        for(var i=0;i<40 && Object.keys(set).length<24;i++){
+          var r=Math.random();
+          if(r<0.25) set[kw+num()]=1;
+          else if(r<0.45) set[pick(adj)+"_"+kw]=1;
+          else if(r<0.65) set[kw+"_"+pick(noun)]=1;
+          else if(r<0.8) set[pick(adj)+kw.charAt(0).toUpperCase()+kw.slice(1)]=1;
+          else set["x"+kw+pick(noun)+"x"]=1;
+        }
+        var box=document.getElementById("names"); box.innerHTML="";
+        Object.keys(set).forEach(function(n){ var d=document.createElement("div"); d.className="n"; d.textContent=n; d.onclick=function(){ copyText(n); }; box.appendChild(d); });
+      };
+      gen();
+    })();
+  </script>
+</body>
+</html>

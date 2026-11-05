@@ -37,6 +37,32 @@
   <url><loc>https://toolzy-7eo.pages.dev/tools/image-to-text.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://toolzy-7eo.pages.dev/tools/heic-to-jpg.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
   <url><loc>https://toolzy-7eo.pages.dev/tools/barcode-generator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/url-encoder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/timestamp-converter.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/json-yaml-converter.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/regex-tester.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/markdown-preview.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/text-diff.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/jwt-decoder.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/business-name-generator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/username-generator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/band-name-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/podcast-name-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/uuid-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/random-picker.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/slug-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/hashtag-generator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/split-pdf.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/pdf-to-images.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/image-resizer.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/watermark.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/contrast-checker.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/days-between.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/due-date-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/timezone-converter.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/area-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/fuel-cost-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://toolzy-7eo.pages.dev/tools/electricity-bill-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://toolzy-7eo.pages.dev/about.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://toolzy-7eo.pages.dev/contact.html</loc><changefreq>yearly</changefreq><priority>0.5</priority></url>
   <url><loc>https://toolzy-7eo.pages.dev/privacy-policy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>

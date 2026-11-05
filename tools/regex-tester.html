@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Regex Tester — Test Regular Expressions Online | Toolzy</title>
+  <meta name="description" content="Free online regex tester. Test regular expressions against your text with live match highlighting and flags. Runs in your browser." />
+  <meta name="keywords" content="regex tester, regular expression, regex online, test regex, regex match" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/regex-tester.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    #hl { white-space: pre-wrap; word-break: break-word; min-height: 120px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); font-family: ui-monospace, monospace; font-size: .92rem; }
+    #hl mark { background: color-mix(in srgb, var(--brand) 40%, transparent); color: var(--text); border-radius: 3px; }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Regex Tester</nav>
+    <div class="tool-head"><h1>Regex Tester</h1><p>Write a regular expression and see what it matches in your text, highlighted live.</p></div>
+    <div class="panel">
+      <div class="row">
+        <div class="field" style="flex:3;"><label>Regular expression</label><input type="text" id="pat" placeholder="\\d+" value="\\w+" oninput="run()"></div>
+        <div class="field" style="flex:1;"><label>Flags</label><input type="text" id="flags" value="g" placeholder="gi" oninput="run()"></div>
+      </div>
+      <div class="field"><label>Test text</label><textarea id="text" oninput="run()">Toolzy has 36 free tools in 2026!</textarea></div>
+      <label style="font-weight:600; display:block; margin-bottom:6px;">Matches (<span id="count">0</span>)</label>
+      <div id="hl"></div>
+      <div id="err" style="color:var(--danger); font-size:.9rem; margin-top:8px;"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose">
+      <h2>Quick regex reference</h2>
+      <ul><li><code>\d</code> digit · <code>\w</code> word char · <code>\s</code> space</li><li><code>+</code> one or more · <code>*</code> zero or more · <code>?</code> optional</li><li><code>[abc]</code> any of · <code>^</code> start · <code>$</code> end</li></ul>
+      <p>Flags: <code>g</code> global, <code>i</code> ignore case, <code>m</code> multiline.</p>
+    </section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    window.run = function () {
+      var pat = document.getElementById("pat").value, flags = document.getElementById("flags").value;
+      var text = document.getElementById("text").value, err = document.getElementById("err");
+      var hl = document.getElementById("hl");
+      if (!pat) { hl.innerHTML = esc(text); document.getElementById("count").textContent = 0; err.textContent = ""; return; }
+      try {
+        var gf = flags.indexOf("g") === -1 ? flags + "g" : flags;
+        var re = new RegExp(pat, gf), count = 0, out = "", last = 0, m;
+        while ((m = re.exec(text)) !== null) {
+          count++;
+          out += esc(text.slice(last, m.index)) + "<mark>" + esc(m[0]) + "</mark>";
+          last = m.index + m[0].length;
+          if (m[0] === "") re.lastIndex++;
+        }
+        out += esc(text.slice(last));
+        hl.innerHTML = out || esc(text);
+        document.getElementById("count").textContent = count;
+        err.textContent = "";
+      } catch (e) { err.textContent = "Invalid regex: " + e.message; }
+    };
+    run();
+  </script>
+</body>
+</html>

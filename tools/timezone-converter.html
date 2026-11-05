@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Time Zone Converter — Convert Time Between Zones | Toolzy</title>
+  <meta name="description" content="Free time zone converter. Convert a time from one time zone to another instantly, with support for major world cities." />
+  <meta name="keywords" content="time zone converter, timezone convert, world clock, ist to est, utc converter" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/timezone-converter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Time Zone Converter</nav>
+    <div class="tool-head"><h1>Time Zone Converter</h1><p>Convert a date and time from one time zone to another. Great for scheduling meetings across the world.</p></div>
+    <div class="panel">
+      <div class="field"><label>Date &amp; time (in the "from" zone)</label><input type="datetime-local" id="dt" oninput="calc()"></div>
+      <div class="row">
+        <div class="field"><label>From zone</label><select id="from" onchange="calc()"></select></div>
+        <div class="field"><label>To zone</label><select id="to" onchange="calc()"></select></div>
+      </div>
+      <div class="result-box" id="out" style="text-align:center; font-size:1.2rem;"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>About time zones</h2><p>This converter uses your browser's built-in time-zone database, so daylight saving time is handled automatically for the supported cities.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      var zones=["UTC","Asia/Kolkata","America/New_York","America/Los_Angeles","America/Chicago","Europe/London","Europe/Paris","Europe/Berlin","Asia/Dubai","Asia/Singapore","Asia/Tokyo","Asia/Shanghai","Australia/Sydney","Pacific/Auckland","America/Sao_Paulo"];
+      var from=document.getElementById("from"), to=document.getElementById("to");
+      zones.forEach(function(z){ from.add(new Option(z,z)); to.add(new Option(z,z)); });
+      from.value="Asia/Kolkata"; to.value="America/New_York";
+      try{ document.getElementById("dt").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16); }catch(e){}
+      // get the UTC instant for a wall-clock time interpreted in a given zone
+      function zonedToUtc(str, tz){
+        var p=str.split("T"); var d=p[0].split("-"), t=p[1].split(":");
+        var asUtc=Date.UTC(+d[0],+d[1]-1,+d[2],+t[0],+t[1]);
+        // find offset of tz at that instant
+        var dtf=new Intl.DateTimeFormat("en-US",{timeZone:tz,hour12:false,year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"});
+        var parts=dtf.formatToParts(new Date(asUtc)).reduce(function(a,x){a[x.type]=x.value;return a;},{});
+        var local=Date.UTC(+parts.year,+parts.month-1,+parts.day,+parts.hour,+parts.minute,+parts.second);
+        var offset=local-asUtc;
+        return asUtc-offset;
+      }
+      window.calc=function(){
+        var v=document.getElementById("dt").value; if(!v) return;
+        var utc=zonedToUtc(v, from.value);
+        var out=new Date(utc).toLocaleString("en-US",{timeZone:to.value,weekday:"short",year:"numeric",month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"});
+        document.getElementById("out").innerHTML="<strong>"+out+"</strong><br><span style='font-size:.85rem;color:var(--text-muted)'>("+to.value+")</span>";
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

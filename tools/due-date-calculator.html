@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pregnancy Due Date Calculator | Toolzy</title>
+  <meta name="description" content="Free pregnancy due date calculator. Estimate your baby's due date and current week of pregnancy from your last menstrual period." />
+  <meta name="keywords" content="due date calculator, pregnancy calculator, edd, baby due date, weeks pregnant" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/due-date-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Due Date Calculator</nav>
+    <div class="tool-head"><h1>Pregnancy Due Date Calculator</h1><p>Estimate your baby's due date from the first day of your last menstrual period (LMP).</p></div>
+    <div class="panel">
+      <div class="field"><label>First day of last period (LMP)</label><input type="date" id="lmp" oninput="calc()"></div>
+      <div class="result-box" id="out" style="text-align:center;">Enter your LMP date.</div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>How it works</h2><p>The estimated due date (EDD) is calculated using Naegele's rule: 280 days (40 weeks) from the first day of your last period. This is an estimate — only about 1 in 20 babies arrive exactly on the due date.</p><div class="faq-item"><h3>Is this medical advice?</h3><p>No. Always confirm with your doctor or an ultrasound scan.</p></div></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    window.calc=function(){
+      var v=document.getElementById("lmp").value;
+      var out=document.getElementById("out");
+      if(!v){ out.textContent="Enter your LMP date."; return; }
+      var lmp=new Date(v);
+      var edd=new Date(lmp); edd.setDate(edd.getDate()+280);
+      var now=new Date(); now.setHours(0,0,0,0);
+      var daysPreg=Math.floor((now-lmp)/86400000);
+      var wk=Math.floor(daysPreg/7), dy=daysPreg%7;
+      var prog="";
+      if(daysPreg>=0 && daysPreg<=300){ prog="<br>You are approximately <strong>"+wk+" weeks "+dy+" days</strong> pregnant."; }
+      out.innerHTML="Estimated due date:<br><strong style='font-size:1.4rem'>"+edd.toLocaleDateString(undefined,{weekday:"long",year:"numeric",month:"long",day:"numeric"})+"</strong>"+prog;
+    };
+  </script>
+</body>
+</html>

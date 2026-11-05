@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Unix Timestamp Converter — Epoch to Date | Toolzy</title>
+  <meta name="description" content="Free Unix timestamp converter. Convert epoch timestamps to human-readable dates and back, in your local time and UTC. Live current timestamp." />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/timestamp-converter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Timestamp Converter</nav>
+    <div class="tool-head"><h1>Unix Timestamp Converter</h1><p>Convert a Unix/epoch timestamp to a readable date, or a date to a timestamp. Shows both local time and UTC.</p></div>
+    <div class="panel">
+      <div class="result-box" style="text-align:center;">Current timestamp: <strong id="now"></strong></div>
+      <div class="field" style="margin-top:16px;"><label>Timestamp → Date</label><input type="number" id="ts" placeholder="e.g. 1700000000" oninput="fromTs()"></div>
+      <div class="result-box" id="tsOut">—</div>
+      <div class="field" style="margin-top:16px;"><label>Date → Timestamp</label><input type="datetime-local" id="dt" oninput="fromDt()"></div>
+      <div class="result-box" id="dtOut">—</div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose">
+      <h2>What is a Unix timestamp?</h2>
+      <p>A Unix timestamp is the number of seconds since 1 January 1970 (UTC). It's a compact, timezone-independent way to store a moment in time, used throughout programming and databases.</p>
+      <div class="faq-item"><h3>Seconds or milliseconds?</h3><p>This tool treats input as seconds. JavaScript uses milliseconds internally, so it multiplies by 1000 automatically.</p></div>
+    </section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function () {
+      function show(d, el) {
+        if (isNaN(d.getTime())) { el.textContent = "—"; return; }
+        el.innerHTML = "<strong>Local:</strong> " + d.toLocaleString() + "<br><strong>UTC:</strong> " + d.toUTCString();
+      }
+      window.fromTs = function () {
+        var v = parseFloat(document.getElementById("ts").value);
+        if (isNaN(v)) { document.getElementById("tsOut").textContent = "—"; return; }
+        show(new Date(v * 1000), document.getElementById("tsOut"));
+      };
+      window.fromDt = function () {
+        var v = document.getElementById("dt").value;
+        if (!v) { document.getElementById("dtOut").textContent = "—"; return; }
+        var d = new Date(v);
+        document.getElementById("dtOut").innerHTML = "Timestamp (seconds): <strong>" + Math.floor(d.getTime() / 1000) + "</strong>";
+      };
+      setInterval(function () { document.getElementById("now").textContent = Math.floor(Date.now() / 1000); }, 1000);
+      document.getElementById("now").textContent = Math.floor(Date.now() / 1000);
+    })();
+  </script>
+</body>
+</html>

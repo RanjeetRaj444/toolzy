@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hashtag Generator — Create Hashtags from Text | Toolzy</title>
+  <meta name="description" content="Free hashtag generator. Turn your keywords or caption into ready-to-use hashtags for Instagram, TikTok and more." />
+  <meta name="keywords" content="hashtag generator, instagram hashtags, hashtags for reels, create hashtags" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/hashtag-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Hashtag Generator</nav>
+    <div class="tool-head"><h1>Hashtag Generator</h1><p>Turn your words or caption into ready-to-paste hashtags for social media.</p></div>
+    <div class="panel">
+      <div class="field"><label>Keywords or caption</label><textarea id="in" placeholder="coffee morning routine productivity" oninput="run()">coffee morning routine productivity</textarea></div>
+      <div class="field"><label>Result</label><div class="result-box" id="out"></div></div>
+      <div class="btn-row"><button class="btn secondary" onclick="copyText(document.getElementById('out').textContent)">Copy hashtags</button></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>Hashtag tips</h2><p>Mix popular and niche hashtags, keep them relevant to your post, and don't overdo it — a focused set often performs better than dozens of generic tags.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    window.run=function(){
+      var words=document.getElementById("in").value.toLowerCase().replace(/[^a-z0-9\s]/g,"").split(/\s+/).filter(Boolean);
+      var tags=[], seen={};
+      words.forEach(function(w){ if(!seen[w]){ seen[w]=1; tags.push("#"+w); } });
+      // add a couple of combined tags
+      if(words.length>=2){ tags.push("#"+words[0]+words[1]); }
+      document.getElementById("out").textContent = tags.join(" ") || "—";
+    };
+    run();
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Days Between Dates — Date Difference Calculator | Toolzy</title>
+  <meta name="description" content="Free days between dates calculator. Find the number of days, weeks and months between two dates. Fast and accurate." />
+  <meta name="keywords" content="days between dates, date difference, days calculator, date duration" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/days-between.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Days Between Dates</nav>
+    <div class="tool-head"><h1>Days Between Dates</h1><p>Find how many days, weeks and months lie between two dates.</p></div>
+    <div class="panel">
+      <div class="row">
+        <div class="field"><label>Start date</label><input type="date" id="start" oninput="calc()"></div>
+        <div class="field"><label>End date</label><input type="date" id="end" oninput="calc()"></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num" id="days">—</div><div class="lbl">Days</div></div>
+        <div class="stat"><div class="num" id="weeks">—</div><div class="lbl">Weeks</div></div>
+        <div class="stat"><div class="num" id="months">—</div><div class="lbl">Months</div></div>
+      </div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>About the calculator</h2><p>Enter two dates to see the exact gap between them. Handy for counting down to events, tracking deadlines, or working out age in days.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      var t=new Date(); document.getElementById("start").valueAsDate=t;
+      var e=new Date(); e.setDate(e.getDate()+30); document.getElementById("end").valueAsDate=e;
+      window.calc=function(){
+        var a=document.getElementById("start").value, b=document.getElementById("end").value;
+        if(!a||!b){ return; }
+        var d1=new Date(a), d2=new Date(b);
+        var days=Math.abs(Math.round((d2-d1)/86400000));
+        document.getElementById("days").textContent=days.toLocaleString();
+        document.getElementById("weeks").textContent=(days/7).toFixed(1);
+        document.getElementById("months").textContent=(days/30.44).toFixed(1);
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

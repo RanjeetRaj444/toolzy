@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Slug Generator — Convert Text to URL Slug | Toolzy</title>
+  <meta name="description" content="Free slug generator. Turn any title or text into a clean, SEO-friendly URL slug instantly." />
+  <meta name="keywords" content="slug generator, url slug, permalink generator, seo slug" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/slug-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Slug Generator</nav>
+    <div class="tool-head"><h1>Slug Generator</h1><p>Turn a title into a clean, lowercase, URL-friendly slug for blog posts and pages.</p></div>
+    <div class="panel">
+      <div class="field"><label>Title or text</label><input type="text" id="in" value="My Awesome Blog Post Title!" oninput="run()"></div>
+      <div class="field"><label>Separator</label>
+        <select id="sep" onchange="run()"><option value="-">Hyphen ( - )</option><option value="_">Underscore ( _ )</option></select>
+      </div>
+      <div class="result-box" id="out" style="font-family:ui-monospace,monospace;"></div>
+      <div class="btn-row"><button class="btn secondary" onclick="copyText(document.getElementById('out').textContent)">Copy slug</button></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>What is a slug?</h2><p>A slug is the part of a URL that identifies a page in a readable way (e.g. <code>/my-blog-post</code>). Clean slugs help SEO and are easier to share.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    window.run=function(){
+      var sep=document.getElementById("sep").value;
+      var s=document.getElementById("in").value.toLowerCase().trim()
+        .normalize("NFD").replace(/[̀-ͯ]/g,"")
+        .replace(/[^a-z0-9\s-_]/g,"").replace(/[\s-_]+/g,sep).replace(new RegExp("^\\"+sep+"+|\\"+sep+"+$","g"),"");
+      document.getElementById("out").textContent=s||"—";
+    };
+    run();
+  </script>
+</body>
+</html>

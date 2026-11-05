@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Text Diff Checker — Compare Two Texts Online | Toolzy</title>
+  <meta name="description" content="Free text diff checker. Compare two blocks of text line by line and see exactly what was added or removed. Runs in your browser." />
+  <meta name="keywords" content="text diff, compare text, diff checker, text comparison, find differences" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/text-diff.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .two textarea { min-height: 180px; font-family: ui-monospace, monospace; font-size: .9rem; }
+    #diff { font-family: ui-monospace, monospace; font-size: .9rem; white-space: pre-wrap; padding: 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); margin-top:14px; }
+    #diff .add { background: color-mix(in srgb, var(--ok) 18%, transparent); }
+    #diff .del { background: color-mix(in srgb, var(--danger) 16%, transparent); text-decoration: line-through; }
+    @media (max-width:640px){ .two { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Text Diff</nav>
+    <div class="tool-head"><h1>Text Diff Checker</h1><p>Paste two versions of text to see what changed, line by line.</p></div>
+    <div class="panel">
+      <div class="two">
+        <div class="field"><label>Original</label><textarea id="a" oninput="run()">Hello world
+This is line two
+Keep this line</textarea></div>
+        <div class="field"><label>Changed</label><textarea id="b" oninput="run()">Hello there world
+Keep this line
+A new line</textarea></div>
+      </div>
+      <label style="font-weight:600; display:block; margin-top:14px;">Differences</label>
+      <div id="diff"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose">
+      <h2>About the diff checker</h2>
+      <p>This compares your two texts line by line. Lines only in the original show in red (removed); lines only in the changed version show in green (added). Great for spotting edits in documents, code and configs.</p>
+    </section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    // LCS-based line diff
+    function diff(a, b) {
+      var n = a.length, m = b.length, dp = [];
+      for (var i = 0; i <= n; i++) { dp[i] = []; for (var j = 0; j <= m; j++) dp[i][j] = 0; }
+      for (i = n - 1; i >= 0; i--) for (j = m - 1; j >= 0; j--)
+        dp[i][j] = a[i] === b[j] ? dp[i+1][j+1] + 1 : Math.max(dp[i+1][j], dp[i][j+1]);
+      var out = [], i2 = 0, j2 = 0;
+      while (i2 < n && j2 < m) {
+        if (a[i2] === b[j2]) { out.push(["=", a[i2]]); i2++; j2++; }
+        else if (dp[i2+1][j2] >= dp[i2][j2+1]) { out.push(["-", a[i2]]); i2++; }
+        else { out.push(["+", b[j2]]); j2++; }
+      }
+      while (i2 < n) { out.push(["-", a[i2++]]); }
+      while (j2 < m) { out.push(["+", b[j2++]]); }
+      return out;
+    }
+    window.run = function () {
+      var a = document.getElementById("a").value.split("\n"), b = document.getElementById("b").value.split("\n");
+      var d = diff(a, b);
+      document.getElementById("diff").innerHTML = d.map(function (r) {
+        var cls = r[0] === "+" ? "add" : r[0] === "-" ? "del" : "";
+        var sign = r[0] === "=" ? "  " : r[0] + " ";
+        return "<div class='" + cls + "'>" + sign + esc(r[1]) + "</div>";
+      }).join("");
+    };
+    run();
+  </script>
+</body>
+</html>

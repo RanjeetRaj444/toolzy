@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Split PDF — Extract Pages from a PDF Online Free | Toolzy</title>
+  <meta name="description" content="Free split PDF tool. Extract a page range from a PDF into a new file, in your browser. No upload, no watermark." />
+  <meta name="keywords" content="split pdf, extract pdf pages, pdf page extractor, separate pdf" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/split-pdf.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Split PDF</nav>
+    <div class="tool-head"><h1>Split PDF</h1><p>Extract specific pages or a range from a PDF into a new file. Everything runs in your browser.</p></div>
+    <div class="panel">
+      <div class="field"><label for="file">Choose a PDF</label><input type="file" id="file" accept="application/pdf" onchange="loaded()"></div>
+      <div id="info" style="color:var(--text-muted); font-size:.9rem; margin-bottom:12px;"></div>
+      <div class="field"><label>Pages to extract (e.g. 1-3, 5, 8-10)</label><input type="text" id="range" placeholder="1-3, 5"></div>
+      <div class="btn-row"><button class="btn" onclick="split()">✂️ Extract pages</button></div>
+      <div class="result-box" id="status" style="display:none;"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>About splitting PDFs</h2><p>Enter page numbers and ranges separated by commas to pull just the pages you need into a new PDF. Your file never leaves your device.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      var srcBytes=null, total=0;
+      window.loaded=function(){
+        var f=document.getElementById("file").files[0]; if(!f) return;
+        f.arrayBuffer().then(function(buf){
+          srcBytes=buf;
+          return PDFLib.PDFDocument.load(buf).then(function(d){ total=d.getPageCount(); document.getElementById("info").textContent="This PDF has "+total+" page(s)."; });
+        }).catch(function(){ document.getElementById("info").textContent="Couldn't read that PDF."; });
+      };
+      function parseRange(str,max){
+        var out=[];
+        str.split(",").forEach(function(part){
+          part=part.trim(); if(!part) return;
+          if(part.indexOf("-")!==-1){ var p=part.split("-"); var a=parseInt(p[0],10), b=parseInt(p[1],10); for(var i=a;i<=b;i++) if(i>=1&&i<=max) out.push(i-1); }
+          else { var n=parseInt(part,10); if(n>=1&&n<=max) out.push(n-1); }
+        });
+        return out;
+      }
+      window.split=async function(){
+        if(!srcBytes){ showToast("Choose a PDF first"); return; }
+        if(typeof PDFLib==="undefined"){ showToast("PDF library failed to load"); return; }
+        var idx=parseRange(document.getElementById("range").value, total);
+        if(!idx.length){ showToast("Enter a valid page range"); return; }
+        var status=document.getElementById("status"); status.style.display="block"; status.textContent="Extracting…";
+        try{
+          var src=await PDFLib.PDFDocument.load(srcBytes);
+          var out=await PDFLib.PDFDocument.create();
+          var pages=await out.copyPages(src, idx);
+          pages.forEach(function(p){ out.addPage(p); });
+          var bytes=await out.save();
+          var blob=new Blob([bytes],{type:"application/pdf"});
+          var a=document.createElement("a"); a.href=URL.createObjectURL(blob); a.download="extracted.pdf";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          status.textContent="✔ Extracted "+idx.length+" page(s) — download started.";
+        }catch(e){ status.textContent="✖ Couldn't split the PDF."; }
+      };
+    })();
+  </script>
+</body>
+</html>

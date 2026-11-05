@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Electricity Bill Calculator — Units & Cost | Toolzy</title>
+  <meta name="description" content="Free electricity bill calculator. Estimate your bill from units consumed and rate per unit, plus daily appliance cost. Simple and fast." />
+  <meta name="keywords" content="electricity bill calculator, units to cost, power bill, kwh cost, appliance cost" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/electricity-bill-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Electricity Bill Calculator</nav>
+    <div class="tool-head"><h1>Electricity Bill Calculator</h1><p>Estimate your electricity cost from units consumed, or work out what an appliance costs to run.</p></div>
+    <div class="panel">
+      <h3 style="margin-top:0;">By units consumed</h3>
+      <div class="row">
+        <div class="field"><label>Units (kWh)</label><input type="number" id="units" value="200" oninput="calc()"></div>
+        <div class="field"><label>Rate per unit</label><input type="number" id="rate" value="8" step="0.1" oninput="calc()"></div>
+        <div class="field"><label>Fixed charge</label><input type="number" id="fixed" value="100" oninput="calc()"></div>
+      </div>
+      <div class="result-box" id="billOut" style="text-align:center; font-size:1.3rem;"></div>
+    </div>
+    <div class="panel" style="margin-top:18px;">
+      <h3 style="margin-top:0;">Appliance running cost</h3>
+      <div class="row">
+        <div class="field"><label>Power (watts)</label><input type="number" id="watts" value="1000" oninput="appl()"></div>
+        <div class="field"><label>Hours per day</label><input type="number" id="hours" value="5" oninput="appl()"></div>
+      </div>
+      <div class="result-box" id="applOut" style="text-align:center;"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>How it works</h2><p>Bill = (units × rate) + fixed charge. One "unit" is 1 kWh. An appliance's daily usage (kWh) = watts ÷ 1000 × hours; multiply by the rate for the cost.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      function n(id){ return +document.getElementById(id).value||0; }
+      window.calc=function(){
+        var bill=n("units")*n("rate")+n("fixed");
+        document.getElementById("billOut").innerHTML="Estimated bill: <strong>₹"+bill.toLocaleString("en-IN",{maximumFractionDigits:2})+"</strong>";
+      };
+      window.appl=function(){
+        var kwh=n("watts")/1000*n("hours");
+        var cost=kwh*n("rate");
+        document.getElementById("applOut").innerHTML="<strong>"+kwh.toFixed(2)+" kWh/day</strong> · about <strong>₹"+cost.toFixed(2)+"/day</strong> · ₹"+(cost*30).toFixed(0)+"/month";
+      };
+      calc(); appl();
+    })();
+  </script>
+</body>
+</html>

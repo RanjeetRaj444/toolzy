@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fuel Cost Calculator — Trip Fuel Cost Estimator | Toolzy</title>
+  <meta name="description" content="Free fuel cost calculator. Estimate the fuel cost of a trip from distance, mileage and fuel price. Works for petrol, diesel and CNG." />
+  <meta name="keywords" content="fuel cost calculator, petrol cost, trip cost calculator, mileage cost, fuel calculator" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/fuel-cost-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Fuel Cost Calculator</nav>
+    <div class="tool-head"><h1>Fuel Cost Calculator</h1><p>Estimate what a trip will cost in fuel from the distance, your vehicle's mileage and the fuel price.</p></div>
+    <div class="panel">
+      <div class="row">
+        <div class="field"><label>Distance (km)</label><input type="number" id="dist" value="300" oninput="calc()"></div>
+        <div class="field"><label>Mileage (km per litre)</label><input type="number" id="mpg" value="15" oninput="calc()"></div>
+        <div class="field"><label>Fuel price (per litre)</label><input type="number" id="price" value="100" oninput="calc()"></div>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num" id="litres">—</div><div class="lbl">Fuel needed</div></div>
+        <div class="stat"><div class="num" id="cost">—</div><div class="lbl">Total cost</div></div>
+      </div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>How it works</h2><p>Fuel needed = distance ÷ mileage. Cost = fuel needed × price per litre. Tip: for a round trip, double the distance.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      function n(id){ return +document.getElementById(id).value||0; }
+      window.calc=function(){
+        var dist=n("dist"), mpg=n("mpg"), price=n("price");
+        var litres=mpg>0?dist/mpg:0, cost=litres*price;
+        document.getElementById("litres").textContent=litres? litres.toFixed(2)+" L":"—";
+        document.getElementById("cost").textContent=litres? "₹"+cost.toLocaleString("en-IN",{maximumFractionDigits:0}):"—";
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

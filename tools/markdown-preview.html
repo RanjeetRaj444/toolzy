@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Markdown Preview — Live Markdown Editor Online | Toolzy</title>
+  <meta name="description" content="Free live Markdown previewer. Type Markdown and see the formatted HTML instantly, side by side. Runs in your browser." />
+  <meta name="keywords" content="markdown preview, markdown editor, markdown to html, md viewer" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/markdown-preview.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <style>
+    .md-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .md-grid textarea { min-height: 340px; font-family: ui-monospace, monospace; font-size: .92rem; }
+    #out { min-height: 340px; padding: 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); overflow:auto; }
+    #out h1,#out h2,#out h3 { margin-top: .6em; }
+    #out code { background: var(--surface); padding: 2px 5px; border-radius: 4px; }
+    #out pre { background: var(--surface); padding: 12px; border-radius: 8px; overflow:auto; }
+    @media (max-width:720px){ .md-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Markdown Preview</nav>
+    <div class="tool-head"><h1>Markdown Preview</h1><p>Type Markdown on the left and see the live preview on the right.</p></div>
+    <div class="panel">
+      <div class="md-grid">
+        <textarea id="md" oninput="render()"># Hello Toolzy
+
+Type **Markdown** here.
+
+- Live preview
+- [Links](https://toolzy-7eo.pages.dev)
+- `code` and more
+
+> Blockquote example
+</textarea>
+        <div id="out"></div>
+      </div>
+      <div class="btn-row" style="margin-top:14px;"><button class="btn secondary" onclick="copyHtml()">Copy HTML</button></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose">
+      <h2>About Markdown</h2>
+      <p>Markdown is a simple way to format text using plain characters — <code>#</code> for headings, <code>**bold**</code>, <code>- lists</code> and more. It's used on GitHub, Reddit, and many note apps.</p>
+    </section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    window.render = function () {
+      var md = document.getElementById("md").value;
+      document.getElementById("out").innerHTML = (typeof marked !== "undefined") ? marked.parse(md) : "Markdown engine failed to load.";
+    };
+    window.copyHtml = function () { copyText(document.getElementById("out").innerHTML); };
+    render();
+  </script>
+</body>
+</html>

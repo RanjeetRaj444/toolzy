@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PDF to Images — Convert PDF Pages to JPG/PNG | Toolzy</title>
+  <meta name="description" content="Free PDF to images converter. Turn each page of a PDF into a downloadable PNG image, right in your browser. No upload." />
+  <meta name="keywords" content="pdf to image, pdf to jpg, pdf to png, convert pdf to images, pdf pages to picture" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/pdf-to-images.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <style>.pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:14px;}.pages .pg{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface);}.pages canvas{width:100%;display:block;}.pages a{display:block;text-align:center;padding:8px;font-size:.85rem;font-weight:600;}</style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / PDF to Images</nav>
+    <div class="tool-head"><h1>PDF to Images</h1><p>Convert each page of a PDF into a PNG image you can download. Runs entirely in your browser.</p></div>
+    <div class="panel">
+      <div class="field"><label for="file">Choose a PDF</label><input type="file" id="file" accept="application/pdf" onchange="convert()"></div>
+      <div id="status" style="color:var(--text-muted); font-size:.9rem;"></div>
+      <div class="pages" id="pages"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>About PDF to images</h2><p>Each page is rendered to a high-quality PNG. Useful for sharing a single page as a picture, or pulling graphics out of a document. Your PDF stays on your device.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      if(typeof pdfjsLib!=="undefined") pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+      window.convert=async function(){
+        var f=document.getElementById("file").files[0]; if(!f) return;
+        if(typeof pdfjsLib==="undefined"){ showToast("PDF engine failed to load"); return; }
+        var status=document.getElementById("status"), pages=document.getElementById("pages");
+        pages.innerHTML=""; status.textContent="Rendering…";
+        try{
+          var buf=await f.arrayBuffer();
+          var pdf=await pdfjsLib.getDocument({data:buf}).promise;
+          for(var i=1;i<=pdf.numPages;i++){
+            status.textContent="Rendering page "+i+" of "+pdf.numPages+"…";
+            var page=await pdf.getPage(i);
+            var vp=page.getViewport({scale:2});
+            var c=document.createElement("canvas"); c.width=vp.width; c.height=vp.height;
+            await page.render({canvasContext:c.getContext("2d"),viewport:vp}).promise;
+            var div=document.createElement("div"); div.className="pg";
+            div.appendChild(c);
+            var a=document.createElement("a"); a.textContent="⬇ Page "+i; a.href=c.toDataURL("image/png"); a.download="page-"+i+".png";
+            div.appendChild(a); pages.appendChild(div);
+          }
+          status.textContent="✔ Done — "+pdf.numPages+" page(s).";
+        }catch(e){ status.textContent="✖ Couldn't render that PDF."; }
+      };
+    })();
+  </script>
+</body>
+</html>

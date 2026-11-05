@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Podcast Name Generator — Catchy Podcast Name Ideas | Toolzy</title>
+  <meta name="description" content="Free podcast name generator. Enter your topic and get catchy podcast name ideas instantly." />
+  <meta name="keywords" content="podcast name generator, podcast name ideas, show name generator" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/podcast-name-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:14px;}.names .n{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);cursor:pointer;font-weight:600;text-align:center;}.names .n:hover{border-color:var(--brand);color:var(--brand);}</style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Podcast Name Generator</nav>
+    <div class="tool-head"><h1>Podcast Name Generator</h1><p>Enter your podcast topic and get catchy show-name ideas. Click to copy.</p></div>
+    <div class="panel">
+      <div class="row">
+        <div class="field" style="flex:3;"><label>Topic</label><input type="text" id="kw" value="tech" placeholder="e.g. tech, true crime, business"></div>
+        <div class="field" style="flex:1; display:flex; align-items:flex-end;"><button class="btn" onclick="gen()" style="width:100%;">Generate</button></div>
+      </div>
+      <div class="names" id="names"></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>Tips</h2><p>Make it easy to say and search for. Check that the name is free on your podcast host and that a matching handle is available.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }
+      var pat=["The {k} Show","{k} Talk","Talking {k}","{k} Unplugged","The {k} Hour","Beyond {k}","{k} Weekly","Real {k}","{k} & Chill","Inside {k}","The {k} Diaries","{k} Uncut"];
+      window.gen=function(){
+        var kw=cap(document.getElementById("kw").value.trim()||"Topic");
+        var set={};
+        pat.forEach(function(p){ set[p.replace(/\{k\}/g,kw)]=1; });
+        var box=document.getElementById("names"); box.innerHTML="";
+        Object.keys(set).forEach(function(n){ var d=document.createElement("div"); d.className="n"; d.textContent=n; d.onclick=function(){ copyText(n); }; box.appendChild(d); });
+      };
+      gen();
+    })();
+  </script>
+</body>
+</html>

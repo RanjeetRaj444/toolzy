@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>URL Encoder / Decoder — Online Free | Toolzy</title>
+  <meta name="description" content="Free URL encoder and decoder. Percent-encode text for URLs or decode encoded URLs instantly in your browser." />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/url-encoder.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / URL Encoder / Decoder</nav>
+    <div class="tool-head"><h1>URL Encoder / Decoder</h1><p>Percent-encode text so it's safe in a URL, or decode an encoded URL back to readable text. Runs in your browser.</p></div>
+    <div class="panel">
+      <div class="field"><label for="input">Input</label><textarea id="input" placeholder="Type or paste text / URL here…"></textarea></div>
+      <div class="btn-row">
+        <button class="btn" onclick="run('enc')">Encode</button>
+        <button class="btn" onclick="run('dec')">Decode</button>
+        <button class="btn secondary" onclick="copyText(document.getElementById('output').value)">Copy result</button>
+        <button class="btn secondary" onclick="document.getElementById('input').value='';document.getElementById('output').value='';">Clear</button>
+      </div>
+      <div class="field" style="margin-top:16px;"><label for="output">Result</label><textarea id="output" readonly></textarea></div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose">
+      <h2>When do you need URL encoding?</h2>
+      <p>URLs can only contain certain characters. Spaces, &amp;, ?, # and non-English letters must be "percent-encoded" (e.g. a space becomes <code>%20</code>) so links and query parameters work correctly.</p>
+      <div class="faq-item"><h3>Encode vs encodeURIComponent?</h3><p>This tool uses component encoding, which escapes characters like &amp;, = and ? — ideal for query-string values.</p></div>
+    </section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    window.run = function (m) {
+      var i = document.getElementById("input").value, o = document.getElementById("output");
+      try { o.value = m === "enc" ? encodeURIComponent(i) : decodeURIComponent(i); }
+      catch (e) { o.value = ""; showToast("Couldn't " + (m === "enc" ? "encode" : "decode") + " that input"); }
+    };
+  </script>
+</body>
+</html>

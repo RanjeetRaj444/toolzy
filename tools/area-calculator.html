@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Area Calculator — Rectangle, Circle, Triangle & More | Toolzy</title>
+  <meta name="description" content="Free area calculator. Calculate the area of a rectangle, square, circle, triangle, trapezoid and more. Fast and simple." />
+  <meta name="keywords" content="area calculator, area of circle, area of triangle, area of rectangle, geometry calculator" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/area-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Area Calculator</nav>
+    <div class="tool-head"><h1>Area Calculator</h1><p>Pick a shape and enter its dimensions to calculate the area.</p></div>
+    <div class="panel">
+      <div class="field"><label>Shape</label>
+        <select id="shape" onchange="build()">
+          <option value="rectangle">Rectangle</option><option value="square">Square</option><option value="circle">Circle</option><option value="triangle">Triangle</option><option value="trapezoid">Trapezoid</option><option value="parallelogram">Parallelogram</option>
+        </select>
+      </div>
+      <div id="inputs" class="row"></div>
+      <div class="result-box" id="out" style="text-align:center; font-size:1.3rem;">—</div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>Area formulas</h2><ul><li>Rectangle: length × width</li><li>Square: side²</li><li>Circle: π × radius²</li><li>Triangle: ½ × base × height</li><li>Trapezoid: ½ × (a + b) × height</li><li>Parallelogram: base × height</li></ul></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      var fields={ rectangle:[["Length","l"],["Width","w"]], square:[["Side","s"]], circle:[["Radius","r"]], triangle:[["Base","b"],["Height","h"]], trapezoid:[["Side a","a"],["Side b","b"],["Height","h"]], parallelogram:[["Base","b"],["Height","h"]] };
+      window.build=function(){
+        var sh=document.getElementById("shape").value;
+        var box=document.getElementById("inputs"); box.innerHTML="";
+        fields[sh].forEach(function(f){ var d=document.createElement("div"); d.className="field"; d.innerHTML="<label>"+f[0]+"</label><input type='number' id='f_"+f[1]+"' value='1' oninput='calc()'>"; box.appendChild(d); });
+        calc();
+      };
+      function v(id){ var el=document.getElementById("f_"+id); return el?(+el.value||0):0; }
+      window.calc=function(){
+        var sh=document.getElementById("shape").value, a=0;
+        if(sh==="rectangle") a=v("l")*v("w");
+        else if(sh==="square") a=v("s")*v("s");
+        else if(sh==="circle") a=Math.PI*v("r")*v("r");
+        else if(sh==="triangle") a=0.5*v("b")*v("h");
+        else if(sh==="trapezoid") a=0.5*(v("a")+v("b"))*v("h");
+        else if(sh==="parallelogram") a=v("b")*v("h");
+        document.getElementById("out").innerHTML="Area = <strong>"+(Math.round(a*10000)/10000).toLocaleString()+"</strong> sq units";
+      };
+      build();
+    })();
+  </script>
+</body>
+</html>

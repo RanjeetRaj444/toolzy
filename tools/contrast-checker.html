@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Contrast Checker — WCAG Accessibility | Toolzy</title>
+  <meta name="description" content="Free WCAG color contrast checker. Test text and background colors for accessibility and see if they pass AA and AAA standards." />
+  <meta name="keywords" content="contrast checker, wcag contrast, color accessibility, aa aaa contrast ratio" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/contrast-checker.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header"><div class="container nav">
+    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
+  </div></header>
+  <main class="content"><div class="container">
+    <nav class="breadcrumb"><a href="../index.html">Home</a> / Contrast Checker</nav>
+    <div class="tool-head"><h1>Color Contrast Checker</h1><p>Check whether your text and background colors meet WCAG accessibility standards.</p></div>
+    <div class="panel">
+      <div class="row">
+        <div class="field"><label>Text color</label><input type="color" id="fg" value="#333333" oninput="calc()"></div>
+        <div class="field"><label>Background color</label><input type="color" id="bg" value="#ffffff" oninput="calc()"></div>
+      </div>
+      <div id="sample" style="padding:28px; border-radius:var(--radius-sm); text-align:center; margin-bottom:14px; border:1px solid var(--border);">
+        <span style="font-size:1.4rem; font-weight:700;">Large sample text</span><br><span>Normal body text sample for contrast.</span>
+      </div>
+      <div class="result-box" id="ratio" style="text-align:center; font-size:1.2rem;"></div>
+      <div class="stats" style="margin-top:14px;">
+        <div class="stat"><div class="num" id="aaNormal">—</div><div class="lbl">AA normal</div></div>
+        <div class="stat"><div class="num" id="aaLarge">—</div><div class="lbl">AA large</div></div>
+        <div class="stat"><div class="num" id="aaaNormal">—</div><div class="lbl">AAA normal</div></div>
+      </div>
+    </div>
+    <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+    <section class="prose"><h2>WCAG contrast standards</h2><p>The contrast ratio ranges from 1:1 (no contrast) to 21:1 (black on white). WCAG AA requires at least 4.5:1 for normal text and 3:1 for large text; AAA requires 7:1. Good contrast makes your content readable for everyone.</p></section>
+  </div></main>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <script>
+    (function(){
+      function lum(hex){
+        var r=parseInt(hex.substr(1,2),16)/255, g=parseInt(hex.substr(3,2),16)/255, b=parseInt(hex.substr(5,2),16)/255;
+        function f(c){ return c<=0.03928 ? c/12.92 : Math.pow((c+0.055)/1.055,2.4); }
+        return 0.2126*f(r)+0.7152*f(g)+0.0722*f(b);
+      }
+      function mark(ok){ return ok ? "<span style='color:var(--ok)'>✓ Pass</span>" : "<span style='color:var(--danger)'>✗ Fail</span>"; }
+      window.calc=function(){
+        var fg=document.getElementById("fg").value, bg=document.getElementById("bg").value;
+        var l1=lum(fg), l2=lum(bg);
+        var ratio=(Math.max(l1,l2)+0.05)/(Math.min(l1,l2)+0.05);
+        var s=document.getElementById("sample"); s.style.color=fg; s.style.background=bg;
+        document.getElementById("ratio").innerHTML="Contrast ratio: <strong>"+ratio.toFixed(2)+":1</strong>";
+        document.getElementById("aaNormal").innerHTML=mark(ratio>=4.5);
+        document.getElementById("aaLarge").innerHTML=mark(ratio>=3);
+        document.getElementById("aaaNormal").innerHTML=mark(ratio>=7);
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>
