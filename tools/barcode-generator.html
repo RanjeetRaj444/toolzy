@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Barcode Generator — Free Online (CODE128, EAN, UPC) | Toolzy</title>
+  <meta name="description" content="Free barcode generator. Create CODE128, EAN-13, UPC, CODE39 and more barcodes and download them as PNG. Works in your browser, no sign-up." />
+  <meta name="keywords" content="barcode generator, create barcode, code128, ean13, upc barcode, barcode maker" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/barcode-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.6/JsBarcode.all.min.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Barcode Generator</nav>
+      <div class="tool-head">
+        <h1>Barcode Generator</h1>
+        <p>Create a barcode from any text or number, pick the format, and download it as a PNG image. Runs entirely in your browser.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field"><label>Value</label><input type="text" id="value" value="Toolzy123" oninput="render()"></div>
+          <div class="field">
+            <label>Format</label>
+            <select id="fmt" onchange="render()">
+              <option value="CODE128">CODE128 (text & numbers)</option>
+              <option value="EAN13">EAN-13 (12–13 digits)</option>
+              <option value="UPC">UPC-A (11–12 digits)</option>
+              <option value="CODE39">CODE39</option>
+              <option value="ITF14">ITF-14</option>
+              <option value="pharmacode">Pharmacode</option>
+            </select>
+          </div>
+        </div>
+        <div style="text-align:center; margin-top:10px; background:#fff; padding:16px; border-radius:var(--radius-sm); border:1px solid var(--border);">
+          <svg id="barcode"></svg>
+        </div>
+        <div id="err" style="color:var(--danger); text-align:center; margin-top:8px; font-size:.9rem;"></div>
+        <div class="btn-row" style="margin-top:14px;">
+          <button class="btn" onclick="download()">⬇ Download PNG</button>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About barcodes</h2>
+        <p>Barcodes encode text or numbers as a pattern of bars that scanners can read. <strong>CODE128</strong> handles letters and numbers and is the most versatile. <strong>EAN-13</strong> and <strong>UPC</strong> are used on retail products and need a specific number of digits.</p>
+        <div class="faq-item"><h3>Why does my value show an error?</h3><p>Some formats require an exact length or only digits. For free-form text or mixed values, use CODE128.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      window.render = function () {
+        var val = document.getElementById("value").value;
+        var fmt = document.getElementById("fmt").value;
+        var err = document.getElementById("err");
+        if (typeof JsBarcode === "undefined") { err.textContent = "Barcode library failed to load — check your connection."; return; }
+        try {
+          JsBarcode("#barcode", val || " ", { format: fmt, displayValue: true, width: 2, height: 90, margin: 10 });
+          err.textContent = "";
+        } catch (e) {
+          err.textContent = "That value isn't valid for " + fmt + ". Try CODE128 for free-form text.";
+        }
+      };
+      window.download = function () {
+        var svg = document.getElementById("barcode");
+        if (!svg.innerHTML.trim()) { showToast("Generate a barcode first"); return; }
+        var xml = new XMLSerializer().serializeToString(svg);
+        var img = new Image();
+        img.onload = function () {
+          var c = document.createElement("canvas");
+          c.width = img.width || 300; c.height = img.height || 150;
+          var ctx = c.getContext("2d");
+          ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height);
+          ctx.drawImage(img, 0, 0);
+          var a = document.createElement("a");
+          a.href = c.toDataURL("image/png"); a.download = "barcode.png";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        };
+        img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(xml)));
+      };
+      render();
+    })();
+  </script>
+</body>
+</html>
