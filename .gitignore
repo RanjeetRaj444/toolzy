@@ -15,3 +15,4 @@ Thumbs.db
 
 # Build output (deployed to Cloudflare Pages, not committed)
 dist/
+.wrangler/
