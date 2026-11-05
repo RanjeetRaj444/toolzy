@@ -228,6 +228,16 @@ a:hover { text-decoration: underline; }
 .no-results { color: var(--text-muted); padding: 12px 2px; display: none; }
 
 /* ---------- Tool page ---------- */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin: 22px 0 0; padding: 8px 15px;
+  border: 1px solid var(--border-strong); border-radius: 999px;
+  background: var(--surface); color: var(--text-muted);
+  font-weight: 600; font-size: .88rem;
+  transition: color .15s, border-color .15s, background .15s, transform .15s;
+}
+.back-btn:hover { color: var(--brand); border-color: var(--brand); background: var(--surface-2); text-decoration: none; transform: translateX(-2px); }
+.back-btn + .breadcrumb { padding-top: 10px; }
 .breadcrumb { font-size: .9rem; color: var(--text-muted); padding: 26px 0 6px; }
 .breadcrumb a { color: var(--text-muted); }
 .breadcrumb a:hover { color: var(--brand); }

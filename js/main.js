@@ -105,10 +105,34 @@
     });
   }
 
+  // ---- Back button (returns to where the user came from) ----
+  function initBack() {
+    var bc = document.querySelector(".breadcrumb");
+    if (!bc) return; // only on tool/content pages, not the homepage
+    var inTools = location.pathname.indexOf("/tools/") !== -1;
+    var fallback = (inTools ? "../" : "") + "index.html#tools";
+    var a = document.createElement("a");
+    a.className = "back-btn";
+    a.href = fallback;
+    a.innerHTML = "← Back";
+    a.addEventListener("click", function (e) {
+      // Prefer real browser-back so they land exactly where they chose the tool.
+      try {
+        var ref = document.referrer;
+        if (ref && new URL(ref).origin === location.origin && history.length > 1) {
+          e.preventDefault();
+          history.back();
+        }
+      } catch (err) {}
+    });
+    bc.parentNode.insertBefore(a, bc);
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     updateThemeIcon();
     initSearch();
     initYear();
     initDatePickers();
+    initBack();
   });
 })();
