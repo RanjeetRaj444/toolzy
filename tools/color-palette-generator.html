@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Palette Generator — Random Color Schemes | Toolzy</title>
+  <meta name="description" content="Free color palette generator. Create beautiful random color schemes, lock the ones you like, and copy HEX codes. Perfect for designers and developers." />
+  <meta name="keywords" content="color palette generator, color scheme, random colors, hex palette, design colors" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/color-palette-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .palette { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+    .sw { border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--border); cursor: pointer; }
+    .sw .box { height: 150px; }
+    .sw .meta { padding: 8px; text-align: center; background: var(--surface); }
+    .sw .hex { font-family: ui-monospace, monospace; font-weight: 700; font-size: .9rem; }
+    .sw .lock { font-size: .75rem; color: var(--text-muted); }
+    @media (max-width: 620px){ .palette { grid-template-columns: repeat(2, 1fr); } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Color Palette Generator</nav>
+      <div class="tool-head">
+        <h1>Color Palette Generator</h1>
+        <p>Generate a fresh color scheme instantly. Click a color to lock it, then regenerate the rest. Click the HEX to copy it.</p>
+      </div>
+
+      <div class="panel">
+        <div class="btn-row" style="margin-bottom:16px;">
+          <button class="btn" onclick="generate()">🎲 Generate (or press Space)</button>
+        </div>
+        <div class="palette" id="palette"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>Tips</h2>
+        <ul>
+          <li><strong>Lock</strong> colors you like by clicking the swatch, then regenerate to keep them.</li>
+          <li><strong>Copy</strong> any HEX code by clicking it.</li>
+          <li>Press the <strong>Spacebar</strong> to generate a new palette quickly.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var colors = [null, null, null, null, null];
+      var locks = [false, false, false, false, false];
+      function rand() {
+        var h = Math.floor(Math.random() * 360), s = 55 + Math.floor(Math.random() * 35), l = 45 + Math.floor(Math.random() * 20);
+        return hslToHex(h, s, l);
+      }
+      function hslToHex(h, s, l) {
+        s /= 100; l /= 100;
+        var c = (1 - Math.abs(2 * l - 1)) * s, x = c * (1 - Math.abs((h / 60) % 2 - 1)), m = l - c / 2, r, g, b;
+        if (h < 60) { r = c; g = x; b = 0; } else if (h < 120) { r = x; g = c; b = 0; }
+        else if (h < 180) { r = 0; g = c; b = x; } else if (h < 240) { r = 0; g = x; b = c; }
+        else if (h < 300) { r = x; g = 0; b = c; } else { r = c; g = 0; b = x; }
+        function hx(v){ return Math.round((v + m) * 255).toString(16).padStart(2, "0"); }
+        return "#" + hx(r) + hx(g) + hx(b);
+      }
+      function textColor(hex) {
+        var r = parseInt(hex.substr(1,2),16), g = parseInt(hex.substr(3,2),16), b = parseInt(hex.substr(5,2),16);
+        return (0.299*r + 0.587*g + 0.114*b) > 150 ? "#111" : "#fff";
+      }
+      function render() {
+        var box = document.getElementById("palette");
+        box.innerHTML = "";
+        colors.forEach(function (c, i) {
+          var div = document.createElement("div"); div.className = "sw";
+          div.innerHTML = "<div class='box' style='background:" + c + "'></div>" +
+            "<div class='meta'><div class='hex'>" + c.toUpperCase() + "</div><div class='lock'>" + (locks[i] ? "🔒 locked" : "click to lock") + "</div></div>";
+          div.querySelector(".box").onclick = function () { locks[i] = !locks[i]; render(); };
+          div.querySelector(".hex").onclick = function (e) { e.stopPropagation(); copyText(c.toUpperCase()); };
+          box.appendChild(div);
+        });
+      }
+      window.generate = function () {
+        for (var i = 0; i < 5; i++) if (!locks[i]) colors[i] = rand();
+        render();
+      };
+      document.addEventListener("keydown", function (e) {
+        if (e.code === "Space" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") { e.preventDefault(); generate(); }
+      });
+      generate();
+    })();
+  </script>
+</body>
+</html>

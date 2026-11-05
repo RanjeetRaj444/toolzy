@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mortgage Calculator — Monthly Payment & Total Interest | Toolzy</title>
+  <meta name="description" content="Free mortgage calculator. Estimate your monthly home loan payment, total interest and total cost from loan amount, down payment, interest rate and term." />
+  <meta name="keywords" content="mortgage calculator, home loan calculator, monthly payment, mortgage payment, loan interest" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/mortgage-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Mortgage Calculator</nav>
+      <div class="tool-head">
+        <h1>Mortgage Calculator</h1>
+        <p>Estimate your monthly home loan payment, total interest paid, and the total cost of the loan. Enter your numbers below.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field"><label>Home price</label><input type="number" id="price" value="5000000" oninput="calc()"></div>
+          <div class="field"><label>Down payment</label><input type="number" id="down" value="1000000" oninput="calc()"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Interest rate (% per year)</label><input type="number" id="rate" value="8.5" step="0.1" oninput="calc()"></div>
+          <div class="field"><label>Loan term (years)</label><input type="number" id="years" value="20" oninput="calc()"></div>
+          <div class="field">
+            <label>Currency</label>
+            <select id="cur" onchange="calc()"><option value="₹">₹</option><option value="$">$</option><option value="€">€</option><option value="£">£</option></select>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num" id="emi">—</div><div class="lbl">Monthly payment</div></div>
+          <div class="stat"><div class="num" id="principal">—</div><div class="lbl">Loan amount</div></div>
+          <div class="stat"><div class="num" id="interest">—</div><div class="lbl">Total interest</div></div>
+          <div class="stat"><div class="num" id="total">—</div><div class="lbl">Total paid</div></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How the mortgage payment is calculated</h2>
+        <p>The loan amount is the home price minus your down payment. The monthly payment uses the standard amortization formula: <strong>M = P · r(1+r)ⁿ ÷ ((1+r)ⁿ − 1)</strong>, where P is the loan amount, r is the monthly interest rate and n is the number of monthly payments.</p>
+        <div class="faq-item"><h3>Does this include taxes and insurance?</h3><p>No — this shows principal and interest only. Property tax, insurance and other fees are extra. This is an estimate, not a loan offer.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function n(id){ return +document.getElementById(id).value || 0; }
+      window.calc = function () {
+        var sym = document.getElementById("cur").value;
+        var P = Math.max(0, n("price") - n("down"));
+        var r = n("rate") / 12 / 100;
+        var months = n("years") * 12;
+        var m = (months <= 0) ? 0 : (r === 0 ? P / months : P * r * Math.pow(1+r, months) / (Math.pow(1+r, months) - 1));
+        var total = m * months, interest = total - P;
+        function f(x){ return sym + Math.round(x).toLocaleString("en-IN"); }
+        document.getElementById("emi").textContent = m ? f(m) : "—";
+        document.getElementById("principal").textContent = f(P);
+        document.getElementById("interest").textContent = m ? f(interest) : "—";
+        document.getElementById("total").textContent = m ? f(total) : "—";
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

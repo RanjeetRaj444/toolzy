@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meme Generator — Add Text to Images Online Free | Toolzy</title>
+  <meta name="description" content="Free meme generator. Upload any image, add top and bottom text in the classic meme style, and download it. No watermark, runs in your browser." />
+  <meta name="keywords" content="meme generator, meme maker, add text to image, caption image, make a meme" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/meme-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Meme Generator</nav>
+      <div class="tool-head">
+        <h1>Meme Generator</h1>
+        <p>Upload an image, add top and bottom text in the classic meme style, and download your meme. Everything runs in your browser — no watermark.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="file">Choose an image</label>
+          <input type="file" id="file" accept="image/*" />
+        </div>
+        <div class="row">
+          <div class="field"><label>Top text</label><input type="text" id="top" placeholder="TOP TEXT" oninput="draw()"></div>
+          <div class="field"><label>Bottom text</label><input type="text" id="bottom" placeholder="BOTTOM TEXT" oninput="draw()"></div>
+        </div>
+        <div class="field">
+          <label>Font size: <span id="fsVal">42</span>px</label>
+          <input type="range" id="fs" min="18" max="90" value="42" oninput="document.getElementById('fsVal').textContent=this.value; draw();">
+        </div>
+        <div style="text-align:center; margin-top:8px;">
+          <canvas id="canvas" style="max-width:100%; border-radius:var(--radius-sm); border:1px solid var(--border); background:var(--surface-2);"></canvas>
+        </div>
+        <div class="btn-row" style="margin-top:14px;">
+          <button class="btn" onclick="download()">⬇ Download meme</button>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About the meme generator</h2>
+        <p>Add bold, outlined, all-caps captions to any picture — the classic meme look. Your image is processed entirely in your browser and never uploaded.</p>
+        <div class="faq-item"><h3>Is there a watermark?</h3><p>No watermark and no sign-up. The meme is yours to use.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var canvas = document.getElementById("canvas");
+      var ctx = canvas.getContext("2d");
+      var img = new Image();
+      var hasImg = false;
+
+      document.getElementById("file").addEventListener("change", function (e) {
+        var f = e.target.files[0]; if (!f) return;
+        var r = new FileReader();
+        r.onload = function (ev) { img.onload = function () { hasImg = true; draw(); }; img.src = ev.target.result; };
+        r.readAsDataURL(f);
+      });
+
+      function wrap(text, maxW) {
+        var words = text.split(" "), lines = [], line = "";
+        for (var i = 0; i < words.length; i++) {
+          var test = line ? line + " " + words[i] : words[i];
+          if (ctx.measureText(test).width > maxW && line) { lines.push(line); line = words[i]; }
+          else line = test;
+        }
+        if (line) lines.push(line);
+        return lines;
+      }
+
+      window.draw = function () {
+        if (!hasImg) return;
+        canvas.width = img.naturalWidth;
+        canvas.height = img.naturalHeight;
+        ctx.drawImage(img, 0, 0);
+        var fs = parseInt(document.getElementById("fs").value, 10) * (canvas.width / 500);
+        ctx.font = "bold " + fs + "px Impact, 'Arial Black', sans-serif";
+        ctx.textAlign = "center";
+        ctx.lineWidth = Math.max(2, fs / 12);
+        ctx.strokeStyle = "#000"; ctx.fillStyle = "#fff";
+        ctx.textBaseline = "top";
+        var maxW = canvas.width * 0.92;
+        var top = (document.getElementById("top").value || "").toUpperCase();
+        if (top) {
+          var tl = wrap(top, maxW), y = fs * 0.3;
+          tl.forEach(function (ln) { ctx.strokeText(ln, canvas.width/2, y); ctx.fillText(ln, canvas.width/2, y); y += fs * 1.05; });
+        }
+        ctx.textBaseline = "bottom";
+        var bottom = (document.getElementById("bottom").value || "").toUpperCase();
+        if (bottom) {
+          var bl = wrap(bottom, maxW), y2 = canvas.height - fs * 0.3;
+          for (var i = bl.length - 1; i >= 0; i--) { ctx.strokeText(bl[i], canvas.width/2, y2); ctx.fillText(bl[i], canvas.width/2, y2); y2 -= fs * 1.05; }
+        }
+      };
+      window.download = function () {
+        if (!hasImg) { showToast("Choose an image first"); return; }
+        var a = document.createElement("a");
+        a.href = canvas.toDataURL("image/png"); a.download = "meme.png";
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      };
+    })();
+  </script>
+</body>
+</html>

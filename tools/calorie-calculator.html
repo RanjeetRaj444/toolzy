@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calorie Calculator — Daily Calorie & BMR Needs | Toolzy</title>
+  <meta name="description" content="Free calorie calculator. Find your BMR and daily calorie needs to maintain, lose or gain weight, based on age, sex, height, weight and activity level." />
+  <meta name="keywords" content="calorie calculator, bmr calculator, daily calorie needs, tdee calculator, maintenance calories" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/calorie-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Calorie Calculator</nav>
+      <div class="tool-head">
+        <h1>Calorie Calculator</h1>
+        <p>Estimate your daily calorie needs using the Mifflin-St Jeor equation. See the calories to maintain, lose, or gain weight based on your activity level.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field">
+            <label>Sex</label>
+            <select id="sex" onchange="calc()"><option value="m">Male</option><option value="f">Female</option></select>
+          </div>
+          <div class="field"><label>Age (years)</label><input type="number" id="age" value="25" oninput="calc()"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Height (cm)</label><input type="number" id="h" value="170" oninput="calc()"></div>
+          <div class="field"><label>Weight (kg)</label><input type="number" id="w" value="65" oninput="calc()"></div>
+        </div>
+        <div class="field">
+          <label>Activity level</label>
+          <select id="act" onchange="calc()">
+            <option value="1.2">Sedentary (little or no exercise)</option>
+            <option value="1.375">Light (1–3 days/week)</option>
+            <option value="1.55" selected>Moderate (3–5 days/week)</option>
+            <option value="1.725">Active (6–7 days/week)</option>
+            <option value="1.9">Very active (hard exercise/physical job)</option>
+          </select>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num" id="bmr">—</div><div class="lbl">BMR</div></div>
+          <div class="stat"><div class="num" id="maintain">—</div><div class="lbl">Maintain</div></div>
+          <div class="stat"><div class="num" id="lose">—</div><div class="lbl">Lose (−0.5kg/wk)</div></div>
+          <div class="stat"><div class="num" id="gain">—</div><div class="lbl">Gain (+0.5kg/wk)</div></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How it works</h2>
+        <p><strong>BMR</strong> (Basal Metabolic Rate) is the calories your body burns at rest. Multiplying BMR by an activity factor gives your <strong>maintenance calories</strong> (TDEE). To lose about 0.5 kg/week, eat ~500 fewer calories/day; to gain, eat ~500 more.</p>
+        <div class="faq-item"><h3>Is this medical advice?</h3><p>No. These are general estimates. Consult a doctor or dietitian before major diet changes.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function n(id){ return +document.getElementById(id).value || 0; }
+      window.calc = function () {
+        var sex = document.getElementById("sex").value;
+        var bmr = 10 * n("w") + 6.25 * n("h") - 5 * n("age") + (sex === "m" ? 5 : -161);
+        var tdee = bmr * +document.getElementById("act").value;
+        function r(x){ return Math.round(x).toLocaleString() + " kcal"; }
+        document.getElementById("bmr").textContent = bmr > 0 ? r(bmr) : "—";
+        document.getElementById("maintain").textContent = bmr > 0 ? r(tdee) : "—";
+        document.getElementById("lose").textContent = bmr > 0 ? r(tdee - 500) : "—";
+        document.getElementById("gain").textContent = bmr > 0 ? r(tdee + 500) : "—";
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

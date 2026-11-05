@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fancy Font Generator — Cool Text & Fonts to Copy | Toolzy</title>
+  <meta name="description" content="Free fancy font generator. Turn your text into 15+ cool unicode fonts — bold, italic, script, bubble, strikethrough and more — to copy into Instagram, bios and chats." />
+  <meta name="keywords" content="font generator, fancy text, cool fonts, instagram fonts, text generator, stylish text, copy paste fonts" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/font-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .font-out { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-2); margin-bottom: 10px; }
+    .font-out .txt { font-size: 1.15rem; overflow-x: auto; white-space: nowrap; flex: 1; }
+    .font-out .lbl { font-size: .72rem; color: var(--text-muted); display: block; margin-bottom: 2px; }
+    .font-out button { flex: 0 0 auto; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Fancy Font Generator</nav>
+      <div class="tool-head">
+        <h1>Fancy Font Generator</h1>
+        <p>Type your text and get it in 15+ cool unicode styles you can copy straight into Instagram, TikTok, bios, usernames and chats.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="input">Your text</label>
+          <input type="text" id="input" value="Toolzy" placeholder="Type something…" oninput="render()">
+        </div>
+        <div id="outputs"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How does this work?</h2>
+        <p>These aren't images or custom fonts — they're real Unicode characters, so they work almost anywhere you can paste text: Instagram, Twitter/X, Discord, WhatsApp, usernames and bios. Just hit copy and paste.</p>
+        <div class="faq-item"><h3>Will it show on every app?</h3><p>Most do, but a few older apps or devices may show boxes for some styles. If one doesn't show, try another style.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function off(cp, base, start) { return String.fromCodePoint(base + (cp - start)); }
+      // base-offset styles: {U: upperBase, L: lowerBase, D: digitBase, ex: {char:replacement}}
+      var styles = [
+        { name: "Bold", U: 0x1D400, L: 0x1D41A, D: 0x1D7CE },
+        { name: "Italic", U: 0x1D434, L: 0x1D44E, ex: { h: "ℎ" } },
+        { name: "Bold Italic", U: 0x1D468, L: 0x1D482 },
+        { name: "Sans", U: 0x1D5A0, L: 0x1D5BA, D: 0x1D7E2 },
+        { name: "Sans Bold", U: 0x1D5D4, L: 0x1D5EE, D: 0x1D7EC },
+        { name: "Monospace", U: 0x1D670, L: 0x1D68A, D: 0x1D7F6 },
+        { name: "Script", U: 0x1D49C, L: 0x1D4B6, ex: { B:"ℬ",E:"ℰ",F:"ℱ",H:"ℋ",I:"ℐ",L:"ℒ",M:"ℳ",R:"ℛ",e:"ℯ",g:"ℊ",o:"ℴ" } },
+        { name: "Fraktur", U: 0x1D504, L: 0x1D51E, ex: { C:"ℭ",H:"ℌ",I:"ℑ",R:"ℜ",Z:"ℨ" } },
+        { name: "Double-struck", U: 0x1D538, L: 0x1D552, D: 0x1D7D8, ex: { C:"ℂ",H:"ℍ",N:"ℕ",P:"ℙ",Q:"ℚ",R:"ℝ",Z:"ℤ" } },
+        { name: "Fullwidth", fw: true },
+        { name: "Circled", map: true, circled: true },
+        { name: "Small Caps", lookup: "small" },
+        { name: "Upside Down", lookup: "flip" }
+      ];
+      var combines = [ { name: "Strikethrough", c: "̶" }, { name: "Underline", c: "̲" } ];
+
+      var smallMap = { a:"ᴀ",b:"ʙ",c:"ᴄ",d:"ᴅ",e:"ᴇ",f:"ꜰ",g:"ɢ",h:"ʜ",i:"ɪ",j:"ᴊ",k:"ᴋ",l:"ʟ",m:"ᴍ",n:"ɴ",o:"ᴏ",p:"ᴘ",q:"q",r:"ʀ",s:"s",t:"ᴛ",u:"ᴜ",v:"ᴠ",w:"ᴡ",x:"x",y:"ʏ",z:"ᴢ" };
+      var flipMap = { a:"ɐ",b:"q",c:"ɔ",d:"p",e:"ǝ",f:"ɟ",g:"ƃ",h:"ɥ",i:"ᴉ",j:"ɾ",k:"ʞ",l:"l",m:"ɯ",n:"u",o:"o",p:"d",q:"b",r:"ɹ",s:"s",t:"ʇ",u:"n",v:"ʌ",w:"ʍ",x:"x",y:"ʎ",z:"z","?":"¿",".":"˙",",":"'","!":"¡" };
+
+      function convert(text, s) {
+        var out = "";
+        for (var i = 0; i < text.length; i++) {
+          var ch = text[i], cp = text.charCodeAt(i), r = null;
+          if (s.ex && s.ex[ch] !== undefined) r = s.ex[ch];
+          else if (s.fw) {
+            if (ch === " ") r = "　";
+            else if (cp >= 33 && cp <= 126) r = String.fromCharCode(cp + 0xFEE0);
+          } else if (s.circled) {
+            if (ch >= "A" && ch <= "Z") r = String.fromCodePoint(0x24B6 + cp - 65);
+            else if (ch >= "a" && ch <= "z") r = String.fromCodePoint(0x24D0 + cp - 97);
+            else if (ch >= "1" && ch <= "9") r = String.fromCodePoint(0x2460 + cp - 49);
+            else if (ch === "0") r = "⓪";
+          } else if (s.lookup === "small") { r = smallMap[ch.toLowerCase()]; }
+          else if (s.lookup === "flip") { r = flipMap[ch.toLowerCase()]; }
+          else {
+            if (ch >= "A" && ch <= "Z" && s.U) r = off(cp, s.U, 65);
+            else if (ch >= "a" && ch <= "z" && s.L) r = off(cp, s.L, 97);
+            else if (ch >= "0" && ch <= "9" && s.D) r = off(cp, s.D, 48);
+          }
+          out += (r !== null && r !== undefined) ? r : ch;
+        }
+        return out;
+      }
+      function combine(text, c) {
+        var out = "";
+        for (var i = 0; i < text.length; i++) out += text[i] + (text[i] !== " " ? c : "");
+        return out;
+      }
+
+      window.render = function () {
+        var text = document.getElementById("input").value || "";
+        var box = document.getElementById("outputs");
+        box.innerHTML = "";
+        var items = styles.map(function (s) { return { name: s.name, val: convert(text, s) }; })
+          .concat(combines.map(function (s) { return { name: s.name, val: combine(text, s.c) }; }));
+        items.forEach(function (it) {
+          var div = document.createElement("div");
+          div.className = "font-out";
+          var left = document.createElement("div");
+          left.innerHTML = "<span class='lbl'>" + it.name + "</span>";
+          var span = document.createElement("div"); span.className = "txt"; span.textContent = it.val;
+          left.appendChild(span);
+          var btn = document.createElement("button"); btn.className = "btn secondary"; btn.textContent = "Copy";
+          btn.onclick = function () { copyText(it.val); };
+          div.appendChild(left); div.appendChild(btn);
+          box.appendChild(div);
+        });
+      };
+      render();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice Generator — Create & Download a PDF Invoice Free | Toolzy</title>
+  <meta name="description" content="Free invoice generator. Fill in your details and line items, then download a clean PDF invoice instantly. No sign-up, no watermark, made in your browser." />
+  <meta name="keywords" content="invoice generator, free invoice, pdf invoice, create invoice, billing, invoice maker" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/invoice-generator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <style>
+    .item { display: grid; grid-template-columns: 1fr 70px 90px 90px 34px; gap: 8px; margin-bottom: 8px; align-items: center; }
+    .item .amt { text-align: right; font-weight: 600; color: var(--text-muted); font-size: .9rem; }
+    .item .del { border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: 8px; height: 40px; cursor: pointer; }
+    .totbox { text-align: right; margin-top: 12px; font-size: 1.05rem; }
+    .totbox .grand { font-size: 1.3rem; font-weight: 800; color: var(--brand); }
+    @media (max-width: 560px){ .item { grid-template-columns: 1fr 1fr; } .item .amt { grid-column: 1 / -1; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Invoice Generator</nav>
+      <div class="tool-head">
+        <h1>Invoice Generator</h1>
+        <p>Fill in your details and items, then download a clean PDF invoice — free, no watermark, made entirely in your browser.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field"><label>From (your name / business)</label><input type="text" id="from" placeholder="Your Company"></div>
+          <div class="field"><label>Bill to (client)</label><input type="text" id="to" placeholder="Client Name"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Invoice #</label><input type="text" id="num" value="INV-001"></div>
+          <div class="field"><label>Date</label><input type="date" id="date"></div>
+          <div class="field">
+            <label>Currency</label>
+            <select id="cur" onchange="recalc()"><option value="Rs.">₹ (Rs.)</option><option value="$">$</option><option value="EUR ">€</option><option value="GBP ">£</option></select>
+          </div>
+        </div>
+
+        <label style="font-weight:600; display:block; margin:10px 0 8px;">Items</label>
+        <div class="item" style="font-size:.78rem; color:var(--text-muted); text-transform:uppercase;">
+          <div>Description</div><div>Qty</div><div>Rate</div><div>Amount</div><div></div>
+        </div>
+        <div id="items"></div>
+        <button class="btn secondary" onclick="addItem()" style="margin-top:6px;">+ Add item</button>
+
+        <div class="row" style="margin-top:16px;">
+          <div class="field"><label>Tax (%)</label><input type="number" id="tax" value="0" oninput="recalc()"></div>
+          <div class="field"><label>Notes (optional)</label><input type="text" id="notes" placeholder="Thank you for your business!"></div>
+        </div>
+
+        <div class="totbox">
+          <div>Subtotal: <span id="subtotal">—</span></div>
+          <div>Tax: <span id="taxAmt">—</span></div>
+          <div class="grand">Total: <span id="grand">—</span></div>
+        </div>
+
+        <div class="btn-row" style="margin-top:16px;">
+          <button class="btn" onclick="makePdf()">📄 Download PDF invoice</button>
+        </div>
+        <div class="result-box" id="status" style="display:none;"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About the invoice generator</h2>
+        <p>Create professional invoices in seconds — add your business and client details, list your items, apply tax, and download a ready-to-send PDF. Everything stays in your browser, so your data is private.</p>
+        <div class="faq-item"><h3>Is it really free?</h3><p>Yes — no sign-up, no watermark, no limits.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var items = document.getElementById("items");
+      try { document.getElementById("date").valueAsDate = new Date(); } catch (e) {}
+      function cur(){ return document.getElementById("cur").value; }
+      function money(x){ return cur() + x.toLocaleString("en-IN", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+
+      window.addItem = function (desc, qty, rate) {
+        var div = document.createElement("div"); div.className = "item";
+        div.innerHTML = "<input type='text' placeholder='Item description' value='" + (desc||"") + "'>" +
+          "<input type='number' class='q' value='" + (qty||1) + "' min='0' oninput='recalc()'>" +
+          "<input type='number' class='r' value='" + (rate||0) + "' min='0' step='0.01' oninput='recalc()'>" +
+          "<div class='amt'>—</div><button class='del'>✕</button>";
+        div.querySelector(".del").onclick = function(){ div.remove(); recalc(); };
+        items.appendChild(div); recalc();
+      };
+      window.recalc = function () {
+        var sub = 0;
+        items.querySelectorAll(".item").forEach(function (row) {
+          var q = +row.querySelector(".q").value || 0, r = +row.querySelector(".r").value || 0;
+          var amt = q * r; sub += amt;
+          row.querySelector(".amt").textContent = money(amt);
+        });
+        var taxPct = +document.getElementById("tax").value || 0;
+        var taxAmt = sub * taxPct / 100;
+        document.getElementById("subtotal").textContent = money(sub);
+        document.getElementById("taxAmt").textContent = money(taxAmt);
+        document.getElementById("grand").textContent = money(sub + taxAmt);
+      };
+
+      window.makePdf = async function () {
+        if (typeof PDFLib === "undefined") { showToast("PDF library failed to load"); return; }
+        var status = document.getElementById("status"); status.style.display = "block"; status.textContent = "Generating…";
+        try {
+          var doc = await PDFLib.PDFDocument.create();
+          var page = doc.addPage([595.28, 841.89]);
+          var font = await doc.embedFont(PDFLib.StandardFonts.Helvetica);
+          var bold = await doc.embedFont(PDFLib.StandardFonts.HelveticaBold);
+          var dark = PDFLib.rgb(0.07, 0.09, 0.16), gray = PDFLib.rgb(0.4, 0.45, 0.55), brand = PDFLib.rgb(0.39, 0.36, 1);
+          var x = 50, y = 790;
+          function t(str, opt){ page.drawText(String(str || ""), { x: opt.x, y: opt.y, size: opt.s || 10, font: opt.b ? bold : font, color: opt.c || dark }); }
+
+          t("INVOICE", { x: x, y: y, s: 28, b: true, c: brand });
+          t("#" + (document.getElementById("num").value || ""), { x: 450, y: y + 6, s: 12, b: true });
+          var dt = document.getElementById("date").value || "";
+          t("Date: " + dt, { x: 450, y: y - 10, s: 9, c: gray });
+          y -= 50;
+          t("FROM", { x: x, y: y, s: 8, b: true, c: gray });
+          t("BILL TO", { x: 320, y: y, s: 8, b: true, c: gray });
+          y -= 15;
+          t(document.getElementById("from").value, { x: x, y: y, s: 11, b: true });
+          t(document.getElementById("to").value, { x: 320, y: y, s: 11, b: true });
+          y -= 34;
+          // table header
+          page.drawRectangle({ x: x, y: y - 4, width: 495, height: 22, color: PDFLib.rgb(0.93, 0.94, 0.98) });
+          t("DESCRIPTION", { x: x + 6, y: y, s: 8, b: true, c: gray });
+          t("QTY", { x: 330, y: y, s: 8, b: true, c: gray });
+          t("RATE", { x: 390, y: y, s: 8, b: true, c: gray });
+          t("AMOUNT", { x: 480, y: y, s: 8, b: true, c: gray });
+          y -= 24;
+          var sub = 0;
+          items.querySelectorAll(".item").forEach(function (row) {
+            var d = row.querySelector("input[type=text]").value || "";
+            var q = +row.querySelector(".q").value || 0, r = +row.querySelector(".r").value || 0, amt = q * r; sub += amt;
+            t(d.slice(0, 55), { x: x + 6, y: y, s: 10 });
+            t(q, { x: 330, y: y, s: 10 });
+            t(money(r), { x: 390, y: y, s: 10 });
+            t(money(amt), { x: 480, y: y, s: 10 });
+            y -= 20;
+            if (y < 120) { page = doc.addPage([595.28, 841.89]); y = 790; }
+          });
+          var taxPct = +document.getElementById("tax").value || 0, taxAmt = sub * taxPct / 100;
+          y -= 10;
+          page.drawLine({ start: { x: 360, y: y + 8 }, end: { x: 545, y: y + 8 }, thickness: 0.5, color: gray });
+          t("Subtotal:", { x: 390, y: y - 6, s: 10, c: gray }); t(money(sub), { x: 480, y: y - 6, s: 10 });
+          t("Tax (" + taxPct + "%):", { x: 390, y: y - 24, s: 10, c: gray }); t(money(taxAmt), { x: 480, y: y - 24, s: 10 });
+          t("Total:", { x: 390, y: y - 46, s: 13, b: true }); t(money(sub + taxAmt), { x: 480, y: y - 46, s: 13, b: true, c: brand });
+          var notes = document.getElementById("notes").value;
+          if (notes) t("Notes: " + notes, { x: x, y: 90, s: 9, c: gray });
+          t("Generated with Toolzy", { x: x, y: 50, s: 8, c: gray });
+
+          var bytes = await doc.save();
+          var blob = new Blob([bytes], { type: "application/pdf" });
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob); a.download = (document.getElementById("num").value || "invoice") + ".pdf";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          status.textContent = "✔ Invoice PDF downloaded.";
+        } catch (e) { status.textContent = "✖ Couldn't generate the PDF. Please check your inputs."; }
+      };
+
+      addItem("Service / product", 1, 1000);
+      addItem("", 1, 0);
+    })();
+  </script>
+</body>
+</html>
