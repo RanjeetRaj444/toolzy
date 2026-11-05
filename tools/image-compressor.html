@@ -41,17 +41,28 @@
           <input type="file" id="file" accept="image/*" />
         </div>
         <div class="field">
-          <label>Quality: <span id="qVal">80</span>%</label>
-          <input type="range" id="quality" min="10" max="100" value="80" oninput="document.getElementById('qVal').textContent=this.value; reprocess();">
+          <label>Compression preset</label>
+          <div class="btn-row" id="presets">
+            <button type="button" class="btn" onclick="setPreset(92,'image/webp')">✨ Visually lossless</button>
+            <button type="button" class="btn secondary" onclick="setPreset(80,'image/webp')">Balanced</button>
+            <button type="button" class="btn secondary" onclick="setPreset(60,'image/webp')">Smallest</button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Quality: <span id="qVal">92</span>%</label>
+          <input type="range" id="quality" min="10" max="100" value="92" oninput="document.getElementById('qVal').textContent=this.value; reprocess();">
         </div>
         <div class="field">
           <label for="fmt">Output format</label>
           <select id="fmt" onchange="reprocess()">
+            <option value="image/webp" selected>WebP (recommended — smallest, keeps quality)</option>
             <option value="image/jpeg">JPG (best for photos)</option>
-            <option value="image/webp">WebP (smallest)</option>
-            <option value="image/png">PNG (lossless)</option>
+            <option value="image/png">PNG (lossless, larger)</option>
           </select>
         </div>
+        <p style="font-size:.85rem; color:var(--text-muted); margin:-4px 0 8px;">
+          💡 <strong>Visually lossless</strong> shrinks the file a lot while keeping it looking identical to the eye. Compare the preview below with your original to confirm.
+        </p>
 
         <div id="output" style="display:none;">
           <div class="stats">
@@ -109,6 +120,16 @@
         reader.readAsDataURL(f);
       });
 
+      window.setPreset = function (q, fmt) {
+        document.getElementById("quality").value = q;
+        document.getElementById("qVal").textContent = q;
+        document.getElementById("fmt").value = fmt;
+        var btns = document.querySelectorAll("#presets button");
+        btns.forEach(function (b) { b.className = "btn secondary"; });
+        var map = { 92: 0, 80: 1, 60: 2 };
+        if (map[q] !== undefined) btns[map[q]].className = "btn";
+        reprocess();
+      };
       window.reprocess = function () {
         if (!img.src) return;
         var fmt = document.getElementById("fmt").value;

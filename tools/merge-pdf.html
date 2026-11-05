@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Merge PDF — Combine PDF Files Online Free | Toolzy</title>
+  <meta name="description" content="Free online PDF merger. Combine multiple PDF files into one, in your chosen order, right in your browser. No upload, no watermark, no sign-up." />
+  <meta name="keywords" content="merge pdf, combine pdf, join pdf, pdf merger online, merge pdf free" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/merge-pdf.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <style>
+    .file-list { list-style: none; padding: 0; margin: 14px 0 0; }
+    .file-list li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); margin-bottom: 8px; background: var(--surface-2); }
+    .file-list .nm { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .file-list button { border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); border-radius: 8px; width: 32px; height: 32px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Merge PDF</nav>
+      <div class="tool-head">
+        <h1>Merge PDF</h1>
+        <p>Combine several PDF files into one. Add your files, arrange the order, and download the merged PDF. Runs entirely in your browser — nothing is uploaded.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="files">Choose PDF files</label>
+          <input type="file" id="files" accept="application/pdf" multiple onchange="addFiles()" />
+        </div>
+        <ul class="file-list" id="list"></ul>
+        <div class="btn-row" style="margin-top:14px;">
+          <button class="btn" onclick="merge()">🔗 Merge PDFs</button>
+          <button class="btn secondary" onclick="clearAll()">Clear</button>
+        </div>
+        <div class="result-box" id="status" style="display:none;"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About merging PDFs</h2>
+        <p>This tool joins multiple PDF documents into a single file, keeping every page and the order you set. Use the arrows to reorder files before merging.</p>
+        <div class="faq-item"><h3>Are my PDFs uploaded anywhere?</h3><p>No. The merge happens locally in your browser using pdf-lib — your documents stay private.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var files = [];
+      function render() {
+        var ul = document.getElementById("list");
+        ul.innerHTML = "";
+        files.forEach(function (f, i) {
+          var li = document.createElement("li");
+          li.innerHTML = "<span class='nm'>" + (i + 1) + ". " + f.name + "</span>";
+          var up = document.createElement("button"); up.textContent = "↑"; up.title = "Move up";
+          up.onclick = function () { if (i > 0) { var t = files[i - 1]; files[i - 1] = files[i]; files[i] = t; render(); } };
+          var dn = document.createElement("button"); dn.textContent = "↓"; dn.title = "Move down";
+          dn.onclick = function () { if (i < files.length - 1) { var t = files[i + 1]; files[i + 1] = files[i]; files[i] = t; render(); } };
+          var rm = document.createElement("button"); rm.textContent = "✕"; rm.title = "Remove";
+          rm.onclick = function () { files.splice(i, 1); render(); };
+          li.appendChild(up); li.appendChild(dn); li.appendChild(rm);
+          ul.appendChild(li);
+        });
+      }
+      window.addFiles = function () {
+        var picked = Array.prototype.slice.call(document.getElementById("files").files);
+        files = files.concat(picked);
+        document.getElementById("files").value = "";
+        render();
+      };
+      window.clearAll = function () { files = []; render(); document.getElementById("status").style.display = "none"; };
+      window.merge = async function () {
+        if (files.length < 2) { showToast("Add at least two PDF files"); return; }
+        if (typeof PDFLib === "undefined") { showToast("PDF library failed to load — check your connection"); return; }
+        var status = document.getElementById("status");
+        status.style.display = "block"; status.textContent = "Merging…";
+        try {
+          var out = await PDFLib.PDFDocument.create();
+          for (var i = 0; i < files.length; i++) {
+            var buf = await files[i].arrayBuffer();
+            var src = await PDFLib.PDFDocument.load(buf);
+            var pages = await out.copyPages(src, src.getPageIndices());
+            pages.forEach(function (p) { out.addPage(p); });
+          }
+          var bytes = await out.save();
+          var blob = new Blob([bytes], { type: "application/pdf" });
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob); a.download = "merged.pdf";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          status.textContent = "✔ Merged " + files.length + " files — download started.";
+        } catch (e) {
+          status.textContent = "✖ Couldn't merge. Make sure all files are valid, unencrypted PDFs.";
+        }
+      };
+    })();
+  </script>
+</body>
+</html>

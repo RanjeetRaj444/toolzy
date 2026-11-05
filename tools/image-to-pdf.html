@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image to PDF — Convert JPG/PNG to PDF Online Free | Toolzy</title>
+  <meta name="description" content="Free image to PDF converter. Combine JPG, PNG or WebP images into a single PDF in your browser — no upload, no watermark, no sign-up." />
+  <meta name="keywords" content="image to pdf, jpg to pdf, png to pdf, convert images to pdf, photos to pdf" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/image-to-pdf.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <style>
+    .thumbs { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px,1fr)); gap: 10px; margin-top: 14px; }
+    .thumbs img { width: 100%; height: 90px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Image to PDF</nav>
+      <div class="tool-head">
+        <h1>Image to PDF</h1>
+        <p>Combine one or more images (JPG, PNG, WebP) into a single PDF — in the order you add them. Everything happens in your browser; nothing is uploaded.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="files">Choose images (you can select several)</label>
+          <input type="file" id="files" accept="image/*" multiple onchange="preview()" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Page size</label>
+            <select id="size">
+              <option value="a4">A4 (portrait)</option>
+              <option value="fit">Fit to each image</option>
+            </select>
+          </div>
+        </div>
+        <div class="thumbs" id="thumbs"></div>
+        <div class="btn-row" style="margin-top:16px;">
+          <button class="btn" onclick="makePdf()">📄 Create PDF</button>
+        </div>
+        <div class="result-box" id="status" style="display:none;"></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>About image to PDF</h2>
+        <p>This tool turns your pictures into a single, shareable PDF document — handy for sending scanned pages, receipts, or photo collections as one file. Images are added in the order you select them.</p>
+        <div class="faq-item"><h3>Is there a watermark or limit?</h3><p>No watermark, no sign-up, no file limit. And since it runs in your browser, your images stay private.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var files = [];
+      window.preview = function () {
+        files = Array.prototype.slice.call(document.getElementById("files").files);
+        var box = document.getElementById("thumbs");
+        box.innerHTML = "";
+        files.forEach(function (f) {
+          var im = document.createElement("img");
+          im.src = URL.createObjectURL(f); box.appendChild(im);
+        });
+      };
+      function imgToPng(file) {
+        return new Promise(function (resolve, reject) {
+          var r = new FileReader();
+          r.onload = function (e) {
+            var im = new Image();
+            im.onload = function () {
+              var c = document.createElement("canvas");
+              c.width = im.naturalWidth; c.height = im.naturalHeight;
+              var ctx = c.getContext("2d");
+              ctx.drawImage(im, 0, 0);
+              c.toBlob(function (blob) {
+                blob.arrayBuffer().then(function (buf) { resolve({ bytes: new Uint8Array(buf), w: c.width, h: c.height }); });
+              }, "image/png");
+            };
+            im.onerror = reject; im.src = e.target.result;
+          };
+          r.onerror = reject; r.readAsDataURL(file);
+        });
+      }
+      window.makePdf = async function () {
+        if (!files.length) { showToast("Choose at least one image"); return; }
+        if (typeof PDFLib === "undefined") { showToast("PDF library failed to load — check your connection"); return; }
+        var status = document.getElementById("status");
+        status.style.display = "block"; status.textContent = "Building PDF…";
+        try {
+          var doc = await PDFLib.PDFDocument.create();
+          var mode = document.getElementById("size").value;
+          for (var i = 0; i < files.length; i++) {
+            var im = await imgToPng(files[i]);
+            var png = await doc.embedPng(im.bytes);
+            var page;
+            if (mode === "fit") {
+              page = doc.addPage([im.w, im.h]);
+              page.drawImage(png, { x: 0, y: 0, width: im.w, height: im.h });
+            } else {
+              var A4W = 595.28, A4H = 841.89, m = 20;
+              page = doc.addPage([A4W, A4H]);
+              var scale = Math.min((A4W - 2 * m) / im.w, (A4H - 2 * m) / im.h, 1);
+              var w = im.w * scale, h = im.h * scale;
+              page.drawImage(png, { x: (A4W - w) / 2, y: (A4H - h) / 2, width: w, height: h });
+            }
+          }
+          var bytes = await doc.save();
+          var blob = new Blob([bytes], { type: "application/pdf" });
+          var a = document.createElement("a");
+          a.href = URL.createObjectURL(blob); a.download = "images.pdf";
+          document.body.appendChild(a); a.click(); document.body.removeChild(a);
+          status.textContent = "✔ PDF created with " + files.length + " page(s) — download started.";
+        } catch (e) {
+          status.textContent = "✖ Something went wrong creating the PDF. Try fewer or smaller images.";
+        }
+      };
+    })();
+  </script>
+</body>
+</html>

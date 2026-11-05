@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Converter — JPG, PNG & WebP Online Free | Toolzy</title>
+  <meta name="description" content="Free online image converter. Convert between JPG, PNG and WebP right in your browser — no upload, no sign-up. Fast, private and unlimited." />
+  <meta name="keywords" content="image converter, jpg to png, png to jpg, webp to png, convert image online, png to webp" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/image-converter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Image Converter</nav>
+      <div class="tool-head">
+        <h1>Image Converter</h1>
+        <p>Convert images between JPG, PNG and WebP — all in your browser. Your files never leave your device.</p>
+      </div>
+
+      <div class="panel">
+        <div class="field">
+          <label for="file">Choose an image</label>
+          <input type="file" id="file" accept="image/*" />
+        </div>
+        <div class="row">
+          <div class="field">
+            <label for="fmt">Convert to</label>
+            <select id="fmt" onchange="reprocess()">
+              <option value="image/png">PNG</option>
+              <option value="image/jpeg">JPG</option>
+              <option value="image/webp">WebP</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Quality (JPG/WebP): <span id="qVal">90</span>%</label>
+            <input type="range" id="quality" min="10" max="100" value="90" oninput="document.getElementById('qVal').textContent=this.value; reprocess();">
+          </div>
+        </div>
+        <div id="output" style="display:none;">
+          <div style="text-align:center; margin-top:8px;">
+            <img id="preview" alt="Converted preview" style="max-width:100%; max-height:340px; border-radius:var(--radius-sm); border:1px solid var(--border);" />
+          </div>
+          <div class="result-box" id="info" style="text-align:center; margin-top:14px;"></div>
+          <div class="btn-row" style="margin-top:14px;">
+            <button class="btn" onclick="downloadImg()">⬇ Download converted image</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>Which format should I choose?</h2>
+        <ul>
+          <li><strong>PNG</strong> — lossless, supports transparency. Best for logos, icons, screenshots.</li>
+          <li><strong>JPG</strong> — smaller files for photos, no transparency.</li>
+          <li><strong>WebP</strong> — modern format, smallest size with great quality.</li>
+        </ul>
+        <div class="faq-item"><h3>Are my images uploaded?</h3><p>No. Conversion happens entirely in your browser using the HTML canvas.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var img = new Image(), name = "image", lastBlob = null, ext = "png";
+      function fmtBytes(b){ if(b<1024)return b+" B"; if(b<1048576)return (b/1024).toFixed(1)+" KB"; return (b/1048576).toFixed(2)+" MB"; }
+      document.getElementById("file").addEventListener("change", function (e) {
+        var f = e.target.files[0]; if (!f) return;
+        name = f.name.replace(/\.[^.]+$/, "") || "image";
+        var r = new FileReader();
+        r.onload = function (ev) { img.onload = reprocess; img.src = ev.target.result; };
+        r.readAsDataURL(f);
+      });
+      window.reprocess = function () {
+        if (!img.src) return;
+        var fmt = document.getElementById("fmt").value;
+        var q = parseInt(document.getElementById("quality").value, 10) / 100;
+        var c = document.createElement("canvas");
+        c.width = img.naturalWidth; c.height = img.naturalHeight;
+        var ctx = c.getContext("2d");
+        if (fmt === "image/jpeg") { ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, c.width, c.height); }
+        ctx.drawImage(img, 0, 0);
+        c.toBlob(function (blob) {
+          if (!blob) { showToast("This format isn't supported by your browser"); return; }
+          lastBlob = blob;
+          ext = fmt === "image/jpeg" ? "jpg" : fmt === "image/webp" ? "webp" : "png";
+          document.getElementById("preview").src = URL.createObjectURL(blob);
+          document.getElementById("info").innerHTML = "Converted to <strong>" + ext.toUpperCase() + "</strong> · " + fmtBytes(blob.size) + " · " + img.naturalWidth + "×" + img.naturalHeight + "px";
+          document.getElementById("output").style.display = "block";
+        }, fmt, q);
+      };
+      window.downloadImg = function () {
+        if (!lastBlob) { showToast("Choose an image first"); return; }
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(lastBlob); a.download = name + "." + ext;
+        document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      };
+    })();
+  </script>
+</body>
+</html>
