@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Discount Calculator — Sale Price & Savings | Toolzy</title>
+  <meta name="description" content="Free discount calculator. Find the final price after a discount, how much you save, and work out the original price from a sale price. Fast and simple." />
+  <meta name="keywords" content="discount calculator, sale price calculator, percentage off, savings calculator" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/discount-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Discount Calculator</nav>
+      <div class="tool-head">
+        <h1>Discount Calculator</h1>
+        <p>Quickly find the price after a discount and how much you save. Great for shopping, sales and billing.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field"><label>Original price</label><input type="number" id="price" placeholder="e.g. 2000" oninput="calc()"></div>
+          <div class="field"><label>Discount (%)</label><input type="number" id="disc" placeholder="e.g. 25" oninput="calc()"></div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num" id="final">—</div><div class="lbl">Final price</div></div>
+          <div class="stat"><div class="num" id="saved">—</div><div class="lbl">You save</div></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How it works</h2>
+        <p><strong>Savings = original × discount ÷ 100</strong>, and <strong>final price = original − savings</strong>. For example, 25% off ₹2,000 saves ₹500, so you pay ₹1,500.</p>
+        <div class="faq-item"><h3>Can I stack two discounts?</h3><p>Stacked discounts apply one after the other, not added together. A 20% + 10% off isn't 30% off — it's 20% off, then 10% off the reduced price (28% total).</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function money(n) { return "₹" + n.toLocaleString("en-IN", { maximumFractionDigits: 2 }); }
+      window.calc = function () {
+        var p = +document.getElementById("price").value || 0;
+        var d = +document.getElementById("disc").value || 0;
+        var saved = p * d / 100;
+        document.getElementById("final").textContent = money(p - saved);
+        document.getElementById("saved").textContent = money(saved);
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>

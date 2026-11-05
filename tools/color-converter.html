@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Color Converter — HEX, RGB & HSL Picker | Toolzy</title>
+  <meta name="description" content="Free color converter and picker. Convert between HEX, RGB and HSL, pick colors visually, and copy the code. Perfect for designers and developers." />
+  <meta name="keywords" content="color converter, hex to rgb, rgb to hex, hsl converter, color picker, hex code" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/color-converter.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .swatch { height: 120px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 18px; }
+    .code-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .code-row label { width: 54px; font-weight: 700; color: var(--text-muted); }
+    .code-row input { flex: 1; font-family: ui-monospace, monospace; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / Color Converter</nav>
+      <div class="tool-head">
+        <h1>Color Converter &amp; Picker</h1>
+        <p>Pick a color or type a HEX code, and instantly get its RGB and HSL values. Click any field's copy button to grab the code.</p>
+      </div>
+
+      <div class="panel">
+        <div class="swatch" id="swatch"></div>
+        <div class="row" style="margin-bottom:18px;">
+          <div class="field"><label>Pick a color</label><input type="color" id="picker" value="#635bff" oninput="fromPicker()"></div>
+        </div>
+        <div class="code-row"><label>HEX</label><input type="text" id="hex" value="#635bff" oninput="fromHex()"><button class="btn secondary" onclick="copyText(document.getElementById('hex').value)">Copy</button></div>
+        <div class="code-row"><label>RGB</label><input type="text" id="rgb" readonly><button class="btn secondary" onclick="copyText(document.getElementById('rgb').value)">Copy</button></div>
+        <div class="code-row"><label>HSL</label><input type="text" id="hsl" readonly><button class="btn secondary" onclick="copyText(document.getElementById('hsl').value)">Copy</button></div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>HEX, RGB and HSL explained</h2>
+        <ul>
+          <li><strong>HEX</strong> — a 6-digit code like <code>#635bff</code>, common in CSS and design tools.</li>
+          <li><strong>RGB</strong> — red, green, blue values from 0–255, e.g. <code>rgb(99, 91, 255)</code>.</li>
+          <li><strong>HSL</strong> — hue, saturation, lightness — intuitive for adjusting shades.</li>
+        </ul>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function hexToRgb(hex) {
+        hex = hex.replace("#", "");
+        if (hex.length === 3) hex = hex.split("").map(function (c) { return c + c; }).join("");
+        if (!/^[0-9a-fA-F]{6}$/.test(hex)) return null;
+        return { r: parseInt(hex.slice(0, 2), 16), g: parseInt(hex.slice(2, 4), 16), b: parseInt(hex.slice(4, 6), 16) };
+      }
+      function rgbToHsl(r, g, b) {
+        r /= 255; g /= 255; b /= 255;
+        var max = Math.max(r, g, b), min = Math.min(r, g, b), h, s, l = (max + min) / 2;
+        if (max === min) { h = s = 0; }
+        else {
+          var d = max - min;
+          s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+          if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+          else if (max === g) h = (b - r) / d + 2;
+          else h = (r - g) / d + 4;
+          h /= 6;
+        }
+        return { h: Math.round(h * 360), s: Math.round(s * 100), l: Math.round(l * 100) };
+      }
+      function update(hex) {
+        var rgb = hexToRgb(hex);
+        if (!rgb) return;
+        var full = "#" + hex.replace("#", "").padStart(6, "0").slice(-6);
+        document.getElementById("swatch").style.background = full;
+        document.getElementById("rgb").value = "rgb(" + rgb.r + ", " + rgb.g + ", " + rgb.b + ")";
+        var hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+        document.getElementById("hsl").value = "hsl(" + hsl.h + ", " + hsl.s + "%, " + hsl.l + "%)";
+        document.getElementById("picker").value = full;
+      }
+      window.fromPicker = function () {
+        var v = document.getElementById("picker").value;
+        document.getElementById("hex").value = v; update(v);
+      };
+      window.fromHex = function () {
+        var v = document.getElementById("hex").value.trim();
+        if (hexToRgb(v)) update(v);
+      };
+      update("#635bff");
+    })();
+  </script>
+</body>
+</html>

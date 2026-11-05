@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FD Calculator — Fixed Deposit Maturity & Interest | Toolzy</title>
+  <meta name="description" content="Free fixed deposit (FD) calculator. Find your FD maturity amount and interest earned based on principal, rate, tenure and compounding frequency. Instant results." />
+  <meta name="keywords" content="fd calculator, fixed deposit calculator, fd maturity, fd interest calculator, compound interest" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/fd-calculator.html" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../index.html#tools">All Tools</a></li>
+        <li><a href="../about.html">About</a></li>
+        <li><a href="../contact.html">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="../index.html">Home</a> / FD Calculator</nav>
+      <div class="tool-head">
+        <h1>FD Calculator</h1>
+        <p>Calculate the maturity value and interest earned on a fixed deposit. Choose how often the interest compounds for an accurate estimate.</p>
+      </div>
+
+      <div class="panel">
+        <div class="row">
+          <div class="field"><label>Deposit amount (₹)</label><input type="number" id="p" value="100000" oninput="calc()"></div>
+          <div class="field"><label>Interest rate (% p.a.)</label><input type="number" id="r" value="7" step="0.1" oninput="calc()"></div>
+        </div>
+        <div class="row">
+          <div class="field"><label>Tenure (years)</label><input type="number" id="y" value="5" step="0.5" oninput="calc()"></div>
+          <div class="field">
+            <label>Compounding</label>
+            <select id="n" onchange="calc()">
+              <option value="4" selected>Quarterly</option>
+              <option value="12">Monthly</option>
+              <option value="2">Half-yearly</option>
+              <option value="1">Yearly</option>
+            </select>
+          </div>
+        </div>
+        <div class="stats">
+          <div class="stat"><div class="num" id="invested">—</div><div class="lbl">Deposited</div></div>
+          <div class="stat"><div class="num" id="interest">—</div><div class="lbl">Interest earned</div></div>
+          <div class="stat"><div class="num" id="maturity">—</div><div class="lbl">Maturity value</div></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How FD interest is calculated</h2>
+        <p>Fixed deposits use compound interest: <strong>A = P × (1 + r/n)^(n×t)</strong>, where P is the principal, r is the annual rate (as a decimal), n is how many times interest compounds per year, and t is the number of years. Most Indian banks compound FD interest quarterly.</p>
+        <div class="faq-item"><h3>Is TDS included?</h3><p>No. This shows the gross maturity value. Banks may deduct TDS on interest above certain limits — check with your bank for the net amount.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      function money(n) { return "₹" + Math.round(n).toLocaleString("en-IN"); }
+      window.calc = function () {
+        var P = +document.getElementById("p").value || 0;
+        var r = (+document.getElementById("r").value || 0) / 100;
+        var t = +document.getElementById("y").value || 0;
+        var n = +document.getElementById("n").value;
+        var A = P * Math.pow(1 + r / n, n * t);
+        document.getElementById("invested").textContent = money(P);
+        document.getElementById("interest").textContent = money(A - P);
+        document.getElementById("maturity").textContent = money(A);
+      };
+      calc();
+    })();
+  </script>
+</body>
+</html>
