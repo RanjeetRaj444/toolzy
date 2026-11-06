@@ -234,6 +234,49 @@
     bc.parentNode.insertBefore(a, bc);
   }
 
+  // ---- Enhance file inputs into friendly drag-and-drop zones ----
+  function initFileZones() {
+    var inputs = document.querySelectorAll('input[type="file"]');
+    Array.prototype.forEach.call(inputs, function (inp) {
+      if (inp.getAttribute("data-dz")) return;
+      inp.setAttribute("data-dz", "1");
+      var multiple = inp.multiple;
+      var accept = (inp.getAttribute("accept") || "").toLowerCase();
+      var kind = accept.indexOf("pdf") !== -1 ? (multiple ? "PDF files" : "a PDF")
+               : accept.indexOf("image") !== -1 ? (multiple ? "images" : "an image")
+               : (multiple ? "files" : "a file");
+      var zone = document.createElement("div");
+      zone.className = "dropzone";
+      zone.innerHTML =
+        "<div class='dz-ico'>⬆</div>" +
+        "<div class='dz-main'>Drag &amp; drop " + kind + " here</div>" +
+        "<div class='dz-sub'>or <span class='dz-link'>click to browse</span></div>" +
+        "<div class='dz-note'>🔒 Processed in your browser — files never leave your device</div>";
+      inp.parentNode.insertBefore(zone, inp);
+      inp.style.display = "none";
+      zone.addEventListener("click", function () { inp.click(); });
+      ["dragenter", "dragover"].forEach(function (ev) {
+        zone.addEventListener(ev, function (e) { e.preventDefault(); zone.classList.add("drag"); });
+      });
+      ["dragleave", "dragend", "drop"].forEach(function (ev) {
+        zone.addEventListener(ev, function (e) { e.preventDefault(); zone.classList.remove("drag"); });
+      });
+      zone.addEventListener("drop", function (e) {
+        var files = e.dataTransfer && e.dataTransfer.files;
+        if (!files || !files.length) return;
+        try { var dt = new DataTransfer(); for (var i = 0; i < files.length; i++) dt.items.add(files[i]); inp.files = dt.files; } catch (err) {}
+        inp.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+      inp.addEventListener("change", function () {
+        var n = inp.files ? inp.files.length : 0;
+        var m = zone.querySelector(".dz-main");
+        if (!m) return;
+        if (n === 1) m.textContent = "✓ " + inp.files[0].name;
+        else if (n > 1) m.textContent = "✓ " + n + " files selected";
+      });
+    });
+  }
+
   // ---- Scroll to top button ----
   function initScrollTop() {
     var btn = document.createElement("button");
@@ -255,6 +298,7 @@
     initDatePickers();
     initBack();
     initRelated();
+    initFileZones();
     initScrollTop();
   });
 })();
