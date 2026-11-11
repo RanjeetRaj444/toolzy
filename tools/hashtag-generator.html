@@ -7,18 +7,105 @@
   <meta name="description" content="Free hashtag generator. Turn your keywords or caption into ready-to-use hashtags for Instagram, TikTok and more." />
   <meta name="keywords" content="hashtag generator, instagram hashtags, hashtags for reels, create hashtags" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/hashtag-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Hashtag Generator — Create Hashtags from Text | Toolzy" />
+  <meta property="og:description" content="Free hashtag generator. Turn your keywords or caption into ready-to-use hashtags for Instagram, TikTok and more." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/hashtag-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Hashtag Generator — Create Hashtags from Text | Toolzy" />
+  <meta name="twitter:description" content="Free hashtag generator. Turn your keywords or caption into ready-to-use hashtags for Instagram, TikTok and more." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Hashtag Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/hashtag-generator",
+      "description": "Free hashtag generator. Turn your keywords or caption into ready-to-use hashtags for Instagram, TikTok and more.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Hashtag Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/hashtag-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Should I use popular or niche hashtags?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A balanced strategy combines broad tags with specific niche tags. Niche tags have less competition and allow your post to remain in top search results longer."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I copy all hashtags with one click?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Click the 'Copy all' button to copy your tags formatted with the '#' symbol ready for pasting into your caption or first comment."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this tool free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, completely free with no limits on the number of tag sets generated."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Hashtag Generator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Hashtag Generator</nav>
     <div class="tool-head"><h1>Hashtag Generator</h1><p>Turn your words or caption into ready-to-paste hashtags for social media.</p></div>
     <div class="panel">
       <div class="field"><label>Keywords or caption</label><textarea id="in" placeholder="coffee morning routine productivity" oninput="run()">coffee morning routine productivity</textarea></div>
@@ -26,9 +113,22 @@
       <div class="btn-row"><button class="btn secondary" onclick="copyText(document.getElementById('out').textContent)">Copy hashtags</button></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>Hashtag tips</h2><p>Mix popular and niche hashtags, keep them relevant to your post, and don't overdo it — a focused set often performs better than dozens of generic tags.</p></section>
+        <section class="prose">
+      <h2>Generate High-Engagement Hashtags for Social Media</h2>
+      <p>Hashtags index your content on social networks so users searching for specific topics can discover your posts. This generator extracts keywords and pairs them with trending topic tags for Instagram, TikTok, LinkedIn, YouTube, and X (Twitter).</p>
+      <h3>Strategic Hashtag Guidelines</h3>
+      <ul>
+        <li><strong>Instagram:</strong> Use 3 to 5 highly relevant, specific hashtags per post for optimal algorithmic reach.</li>
+        <li><strong>LinkedIn:</strong> Stick to 3 professional topic tags to categorize industry insights.</li>
+        <li><strong>TikTok:</strong> Combine 2 broad trending tags with 3 niche-specific community tags.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Should I use popular or niche hashtags?</h3><p>A balanced strategy combines broad tags with specific niche tags. Niche tags have less competition and allow your post to remain in top search results longer.</p></div>
+      <div class="faq-item"><h3>Can I copy all hashtags with one click?</h3><p>Yes. Click the 'Copy all' button to copy your tags formatted with the '#' symbol ready for pasting into your caption or first comment.</p></div>
+      <div class="faq-item"><h3>Is this tool free?</h3><p>Yes, completely free with no limits on the number of tag sets generated.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     window.run=function(){
       var words=document.getElementById("in").value.toLowerCase().replace(/[^a-z0-9\s]/g,"").split(/\s+/).filter(Boolean);

@@ -7,19 +7,90 @@
   <meta name="description" content="Free calorie calculator. Find your BMR and daily calorie needs to maintain, lose or gain weight, based on age, sex, height, weight and activity level." />
   <meta name="keywords" content="calorie calculator, bmr calculator, daily calorie needs, tdee calculator, maintenance calories" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/calorie-calculator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Calorie Calculator — Daily Calorie & BMR Needs | Toolzy" />
+  <meta property="og:description" content="Free calorie calculator. Find your BMR and daily calorie needs to maintain, lose or gain weight, based on age, sex, height, weight and activity level." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/calorie-calculator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Calorie Calculator — Daily Calorie & BMR Needs | Toolzy" />
+  <meta name="twitter:description" content="Free calorie calculator. Find your BMR and daily calorie needs to maintain, lose or gain weight, based on age, sex, height, weight and activity level." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Calorie Calculator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/calorie-calculator",
+      "description": "Free calorie calculator. Find your BMR and daily calorie needs to maintain, lose or gain weight, based on age, sex, height, weight and activity level.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Calorie Calculator",
+          "item": "https://toolzy-7eo.pages.dev/tools/calorie-calculator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is this medical advice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. These are general estimates. Consult a doctor or dietitian before major diet changes."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../index.html#tools">All Tools</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
@@ -30,7 +101,7 @@
 
   <main class="content">
     <div class="container">
-      <nav class="breadcrumb"><a href="../index.html">Home</a> / Calorie Calculator</nav>
+      <nav class="breadcrumb"><a href="/">Home</a> / Calorie Calculator</nav>
       <div class="tool-head">
         <h1>Calorie Calculator</h1>
         <p>Estimate your daily calorie needs using the Mifflin-St Jeor equation. See the calories to maintain, lose, or gain weight based on your activity level.</p>
@@ -78,7 +149,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div>
     </div>
   </footer>
 

@@ -7,18 +7,105 @@
   <meta name="description" content="Free days between dates calculator. Find the number of days, weeks and months between two dates. Fast and accurate." />
   <meta name="keywords" content="days between dates, date difference, days calculator, date duration" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/days-between" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Days Between Dates — Date Difference Calculator | Toolzy" />
+  <meta property="og:description" content="Free days between dates calculator. Find the number of days, weeks and months between two dates. Fast and accurate." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/days-between" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Days Between Dates — Date Difference Calculator | Toolzy" />
+  <meta name="twitter:description" content="Free days between dates calculator. Find the number of days, weeks and months between two dates. Fast and accurate." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Days Between Dates — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/days-between",
+      "description": "Free days between dates calculator. Find the number of days, weeks and months between two dates. Fast and accurate.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Days Between Dates",
+          "item": "https://toolzy-7eo.pages.dev/tools/days-between"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does the calculation include both the start and end dates?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The tool calculates the net elapsed difference between the two dates. If you need both endpoints inclusively, add 1 day to the final count."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool account for leap years?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. February 29th leap years are automatically computed with complete astronomical accuracy."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I estimate business days (working days)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "As a rule of thumb, standard working weeks consist of 5 business days for every 7 calendar days (approximately 71.4% of total days, minus national public holidays)."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Days Between Dates</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Days Between Dates</nav>
     <div class="tool-head"><h1>Days Between Dates</h1><p>Find how many days, weeks and months lie between two dates.</p></div>
     <div class="panel">
       <div class="row">
@@ -32,9 +119,18 @@
       </div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>About the calculator</h2><p>Enter two dates to see the exact gap between them. Handy for counting down to events, tracking deadlines, or working out age in days.</p></section>
+        <section class="prose">
+      <h2>Calculate Exact Duration Between Two Dates</h2>
+      <p>Counting the number of days between two dates is essential for project management deadlines, visa stay durations, age calculations, pregnancy countdowns, and contract milestones. This tool calculates the exact elapsed days, weeks, months, and full calendar years between any two points in time.</p>
+      <h3>Calendar & Leap Year Accuracy</h3>
+      <p>Unlike simple division, this tool accurately accounts for varying month lengths (28, 30, and 31 days) as well as leap years (366 days every four years) based on standard Gregorian calendar rules.</p>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Does the calculation include both the start and end dates?</h3><p>The tool calculates the net elapsed difference between the two dates. If you need both endpoints inclusively, add 1 day to the final count.</p></div>
+      <div class="faq-item"><h3>Does this tool account for leap years?</h3><p>Yes. February 29th leap years are automatically computed with complete astronomical accuracy.</p></div>
+      <div class="faq-item"><h3>How can I estimate business days (working days)?</h3><p>As a rule of thumb, standard working weeks consist of 5 business days for every 7 calendar days (approximately 71.4% of total days, minus national public holidays).</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       var t=new Date(); document.getElementById("start").valueAsDate=t;

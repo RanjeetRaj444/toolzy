@@ -9,22 +9,48 @@
   <meta name="keywords" content="free online tools, word counter, password generator, qr code generator, age calculator, percentage calculator, text tools" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/" />
   <meta name="robots" content="index, follow" />
-  <!-- Open Graph -->
-  <meta property="og:title" content="Toolzy — Free Online Tools" />
-  <meta property="og:description" content="A free collection of fast, privacy-friendly online tools. No sign-up needed." />
+  <!-- Open Graph & Twitter Cards -->
+  <meta property="og:title" content="Toolzy — Free Online Tools for Everyday Tasks" />
+  <meta property="og:description" content="A free collection of fast, privacy-friendly online tools. Word counter, password generator, calculators, converters, image and PDF tools. No sign-up needed." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://toolzy-7eo.pages.dev/" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Toolzy — Free Online Tools" />
+  <meta name="twitter:description" content="Free, fast, browser-based tools for writing, finance, math, images, and developer utilities." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="css/style.css" />
   <script defer src="js/main.js"></script>
-  <!-- Structured data: Website -->
+  <!-- Structured data: WebSite & Organization -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Toolzy",
-    "url": "https://toolzy-7eo.pages.dev/",
-    "description": "Free online tools for everyday tasks."
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://toolzy-7eo.pages.dev/#website",
+        "name": "Toolzy",
+        "url": "https://toolzy-7eo.pages.dev/",
+        "description": "Free, privacy-friendly online tools for everyday tasks.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://toolzy-7eo.pages.dev/?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://toolzy-7eo.pages.dev/#organization",
+        "name": "Toolzy",
+        "url": "https://toolzy-7eo.pages.dev/",
+        "logo": "https://toolzy-7eo.pages.dev/favicon.svg"
+      }
+    ]
   }
   </script>
 </head>
@@ -36,8 +62,8 @@
       <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="index.html#tools">All Tools</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="about">About</a></li>
+        <li><a href="contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
@@ -77,248 +103,248 @@
       <div class="cat-bar" id="toolCats"></div>
 
       <div class="grid">
-        <a class="tool-card" href="tools/word-counter.html" data-tool="word counter character words text writing">
+        <a class="tool-card" href="tools/word-counter" data-tool="word counter character words text writing">
           <div class="ico">📝</div>
           <h3>Word Counter</h3>
           <p>Count words, characters, sentences, and reading time instantly.</p>
         </a>
 
-        <a class="tool-card" href="tools/password-generator.html" data-tool="password generator security strong random secure">
+        <a class="tool-card" href="tools/password-generator" data-tool="password generator security strong random secure">
           <div class="ico">🔑</div>
           <h3>Password Generator</h3>
           <p>Create strong, random, secure passwords with custom rules.</p>
         </a>
 
-        <a class="tool-card" href="tools/case-converter.html" data-tool="case converter uppercase lowercase title text transform">
+        <a class="tool-card" href="tools/case-converter" data-tool="case converter uppercase lowercase title text transform">
           <div class="ico">🔤</div>
           <h3>Case Converter</h3>
           <p>Convert text to UPPER, lower, Title, or Sentence case.</p>
         </a>
 
-        <a class="tool-card" href="tools/age-calculator.html" data-tool="age calculator birthday date years months days">
+        <a class="tool-card" href="tools/age-calculator" data-tool="age calculator birthday date years months days">
           <div class="ico">🎂</div>
           <h3>Age Calculator</h3>
           <p>Find exact age in years, months, days from a birth date.</p>
         </a>
 
-        <a class="tool-card" href="tools/percentage-calculator.html" data-tool="percentage calculator percent math increase decrease">
+        <a class="tool-card" href="tools/percentage-calculator" data-tool="percentage calculator percent math increase decrease">
           <div class="ico">📊</div>
           <h3>Percentage Calculator</h3>
           <p>Work out percentages, increases, and decreases in seconds.</p>
         </a>
 
-        <a class="tool-card" href="tools/qr-generator.html" data-tool="qr code generator link url image scan">
+        <a class="tool-card" href="tools/qr-generator" data-tool="qr code generator link url image scan">
           <div class="ico">⬛</div>
           <h3>QR Code Generator</h3>
           <p>Turn any link or text into a downloadable QR code.</p>
         </a>
 
-        <a class="tool-card" href="tools/math-solver.html" data-tool="math solver step by step equation algebra calculus derivative integral quadratic homework">
+        <a class="tool-card" href="tools/math-solver" data-tool="math solver step by step equation algebra calculus derivative integral quadratic homework">
           <div class="ico">🧮</div>
           <h3>Math Problem Solver</h3>
           <p>Solve equations & calculus with full step-by-step working.</p>
         </a>
 
-        <a class="tool-card" href="tools/bmi-calculator.html" data-tool="bmi calculator body mass index weight health fitness">
+        <a class="tool-card" href="tools/bmi-calculator" data-tool="bmi calculator body mass index weight health fitness">
           <div class="ico">⚖️</div>
           <h3>BMI Calculator</h3>
           <p>Check your Body Mass Index in metric or imperial units.</p>
         </a>
 
-        <a class="tool-card" href="tools/emi-calculator.html" data-tool="emi calculator loan interest home car personal finance">
+        <a class="tool-card" href="tools/emi-calculator" data-tool="emi calculator loan interest home car personal finance">
           <div class="ico">🏦</div>
           <h3>EMI Calculator</h3>
           <p>Calculate loan EMI, total interest and amount payable.</p>
         </a>
 
-        <a class="tool-card" href="tools/image-compressor.html" data-tool="image compressor reduce jpg png webp size photo optimize">
+        <a class="tool-card" href="tools/image-compressor" data-tool="image compressor reduce jpg png webp size photo optimize">
           <div class="ico">🖼️</div>
           <h3>Image Compressor</h3>
           <p>Shrink JPG, PNG & WebP images right in your browser.</p>
         </a>
 
-        <a class="tool-card" href="tools/unit-converter.html" data-tool="unit converter length weight temperature area speed data metric imperial">
+        <a class="tool-card" href="tools/unit-converter" data-tool="unit converter length weight temperature area speed data metric imperial">
           <div class="ico">📐</div>
           <h3>Unit Converter</h3>
           <p>Convert length, weight, temperature, speed and more.</p>
         </a>
 
-        <a class="tool-card" href="tools/base64.html" data-tool="base64 encode decode developer text data url">
+        <a class="tool-card" href="tools/base64" data-tool="base64 encode decode developer text data url">
           <div class="ico">🧬</div>
           <h3>Base64 Encode / Decode</h3>
           <p>Convert text to Base64 and back, with Unicode support.</p>
         </a>
 
-        <a class="tool-card" href="tools/lorem-ipsum.html" data-tool="lorem ipsum generator placeholder dummy text design mockup">
+        <a class="tool-card" href="tools/lorem-ipsum" data-tool="lorem ipsum generator placeholder dummy text design mockup">
           <div class="ico">📄</div>
           <h3>Lorem Ipsum Generator</h3>
           <p>Create placeholder text by paragraphs, sentences or words.</p>
         </a>
 
-        <a class="tool-card" href="tools/crypto-tracker.html" data-tool="crypto bitcoin ethereum price tracker live trading cryptocurrency inr btc">
+        <a class="tool-card" href="tools/crypto-tracker" data-tool="crypto bitcoin ethereum price tracker live trading cryptocurrency inr btc">
           <div class="ico">₿</div>
           <h3>Live Crypto Prices</h3>
           <p>Real-time Bitcoin, Ethereum & top coin prices in INR/USD.</p>
         </a>
 
-        <a class="tool-card" href="tools/currency-converter.html" data-tool="currency converter exchange rate usd inr eur forex money travel">
+        <a class="tool-card" href="tools/currency-converter" data-tool="currency converter exchange rate usd inr eur forex money travel">
           <div class="ico">💱</div>
           <h3>Currency Converter</h3>
           <p>Convert 150+ currencies with live exchange rates.</p>
         </a>
 
-        <a class="tool-card" href="tools/json-formatter.html" data-tool="json formatter validator beautify minify developer code">
+        <a class="tool-card" href="tools/json-formatter" data-tool="json formatter validator beautify minify developer code">
           <div class="ico">{ }</div>
           <h3>JSON Formatter</h3>
           <p>Beautify, minify and validate JSON with error messages.</p>
         </a>
 
-        <a class="tool-card" href="tools/gst-calculator.html" data-tool="gst calculator india tax cgst sgst add remove 18 percent">
+        <a class="tool-card" href="tools/gst-calculator" data-tool="gst calculator india tax cgst sgst add remove 18 percent">
           <div class="ico">🧾</div>
           <h3>GST Calculator</h3>
           <p>Add or remove GST with CGST/SGST split (India).</p>
         </a>
 
-        <a class="tool-card" href="tools/sip-calculator.html" data-tool="sip calculator mutual fund investment returns monthly finance">
+        <a class="tool-card" href="tools/sip-calculator" data-tool="sip calculator mutual fund investment returns monthly finance">
           <div class="ico">📈</div>
           <h3>SIP Calculator</h3>
           <p>Project mutual fund SIP returns and maturity value.</p>
         </a>
 
-        <a class="tool-card" href="tools/fd-calculator.html" data-tool="fd calculator fixed deposit maturity interest compound bank finance">
+        <a class="tool-card" href="tools/fd-calculator" data-tool="fd calculator fixed deposit maturity interest compound bank finance">
           <div class="ico">🏛️</div>
           <h3>FD Calculator</h3>
           <p>Fixed deposit maturity and interest earned.</p>
         </a>
 
-        <a class="tool-card" href="tools/discount-calculator.html" data-tool="discount calculator sale price percent off savings shopping">
+        <a class="tool-card" href="tools/discount-calculator" data-tool="discount calculator sale price percent off savings shopping">
           <div class="ico">🏷️</div>
           <h3>Discount Calculator</h3>
           <p>Final price after a discount and how much you save.</p>
         </a>
 
-        <a class="tool-card" href="tools/color-converter.html" data-tool="color converter hex rgb hsl picker design developer code">
+        <a class="tool-card" href="tools/color-converter" data-tool="color converter hex rgb hsl picker design developer code">
           <div class="ico">🎨</div>
           <h3>Color Converter</h3>
           <p>Convert & pick colors: HEX, RGB and HSL.</p>
         </a>
 
-        <a class="tool-card" href="tools/hash-generator.html" data-tool="hash generator sha256 sha512 checksum developer crypto security">
+        <a class="tool-card" href="tools/hash-generator" data-tool="hash generator sha256 sha512 checksum developer crypto security">
           <div class="ico">🔐</div>
           <h3>Hash Generator</h3>
           <p>Create SHA-256/384/512 hashes from any text.</p>
         </a>
 
-        <a class="tool-card" href="tools/image-converter.html" data-tool="image converter jpg png webp convert format photo">
+        <a class="tool-card" href="tools/image-converter" data-tool="image converter jpg png webp convert format photo">
           <div class="ico">🔄</div>
           <h3>Image Converter</h3>
           <p>Convert images between JPG, PNG and WebP.</p>
         </a>
 
-        <a class="tool-card" href="tools/image-to-pdf.html" data-tool="image to pdf jpg png convert document scan photos">
+        <a class="tool-card" href="tools/image-to-pdf" data-tool="image to pdf jpg png convert document scan photos">
           <div class="ico">📄</div>
           <h3>Image to PDF</h3>
           <p>Combine JPG/PNG images into a single PDF.</p>
         </a>
 
-        <a class="tool-card" href="tools/merge-pdf.html" data-tool="merge pdf combine join documents files">
+        <a class="tool-card" href="tools/merge-pdf" data-tool="merge pdf combine join documents files">
           <div class="ico">🔗</div>
           <h3>Merge PDF</h3>
           <p>Combine multiple PDF files into one.</p>
         </a>
 
-        <a class="tool-card" href="tools/mortgage-calculator.html" data-tool="mortgage calculator home loan monthly payment interest">
+        <a class="tool-card" href="tools/mortgage-calculator" data-tool="mortgage calculator home loan monthly payment interest">
           <div class="ico">🏠</div>
           <h3>Mortgage Calculator</h3>
           <p>Monthly home loan payment, interest and total cost.</p>
         </a>
 
-        <a class="tool-card" href="tools/calorie-calculator.html" data-tool="calorie calculator bmr tdee daily calories diet weight fitness health">
+        <a class="tool-card" href="tools/calorie-calculator" data-tool="calorie calculator bmr tdee daily calories diet weight fitness health">
           <div class="ico">🍎</div>
           <h3>Calorie Calculator</h3>
           <p>Daily calorie & BMR needs for your goals.</p>
         </a>
 
-        <a class="tool-card" href="tools/gpa-calculator.html" data-tool="gpa calculator grade point average college student 4.0">
+        <a class="tool-card" href="tools/gpa-calculator" data-tool="gpa calculator grade point average college student 4.0">
           <div class="ico">🎓</div>
           <h3>GPA Calculator</h3>
           <p>Calculate your grade point average (4.0 scale).</p>
         </a>
 
-        <a class="tool-card" href="tools/font-generator.html" data-tool="fancy font generator cool text instagram stylish unicode copy paste">
+        <a class="tool-card" href="tools/font-generator" data-tool="fancy font generator cool text instagram stylish unicode copy paste">
           <div class="ico">✏️</div>
           <h3>Fancy Font Generator</h3>
           <p>Turn text into 15+ cool fonts to copy & paste.</p>
         </a>
 
-        <a class="tool-card" href="tools/meme-generator.html" data-tool="meme generator maker add text image caption">
+        <a class="tool-card" href="tools/meme-generator" data-tool="meme generator maker add text image caption">
           <div class="ico">😂</div>
           <h3>Meme Generator</h3>
           <p>Add top & bottom text to any image, no watermark.</p>
         </a>
 
-        <a class="tool-card" href="tools/color-palette-generator.html" data-tool="color palette generator scheme random hex design">
+        <a class="tool-card" href="tools/color-palette-generator" data-tool="color palette generator scheme random hex design">
           <div class="ico">🌈</div>
           <h3>Color Palette Generator</h3>
           <p>Generate & lock beautiful color schemes.</p>
         </a>
 
-        <a class="tool-card" href="tools/tip-calculator.html" data-tool="tip calculator split bill gratuity per person restaurant">
+        <a class="tool-card" href="tools/tip-calculator" data-tool="tip calculator split bill gratuity per person restaurant">
           <div class="ico">💸</div>
           <h3>Tip Calculator</h3>
           <p>Calculate tip and split the bill per person.</p>
         </a>
 
-        <a class="tool-card" href="tools/invoice-generator.html" data-tool="invoice generator pdf bill billing create download free">
+        <a class="tool-card" href="tools/invoice-generator" data-tool="invoice generator pdf bill billing create download free">
           <div class="ico">🧮</div>
           <h3>Invoice Generator</h3>
           <p>Create & download a clean PDF invoice.</p>
         </a>
 
-        <a class="tool-card" href="tools/image-to-text.html" data-tool="image to text ocr extract scan photo screenshot picture">
+        <a class="tool-card" href="tools/image-to-text" data-tool="image to text ocr extract scan photo screenshot picture">
           <div class="ico">🔎</div>
           <h3>Image to Text (OCR)</h3>
           <p>Extract text from photos & screenshots.</p>
         </a>
 
-        <a class="tool-card" href="tools/heic-to-jpg.html" data-tool="heic to jpg iphone photo convert heif jpeg">
+        <a class="tool-card" href="tools/heic-to-jpg" data-tool="heic to jpg iphone photo convert heif jpeg">
           <div class="ico">📱</div>
           <h3>HEIC to JPG</h3>
           <p>Convert iPhone HEIC photos to JPG.</p>
         </a>
 
-        <a class="tool-card" href="tools/barcode-generator.html" data-tool="barcode generator code128 ean upc create barcode">
+        <a class="tool-card" href="tools/barcode-generator" data-tool="barcode generator code128 ean upc create barcode">
           <div class="ico">▐║▌</div>
           <h3>Barcode Generator</h3>
           <p>Create CODE128, EAN, UPC barcodes as PNG.</p>
         </a>
 
-        <a class="tool-card" href="tools/url-encoder.html" data-tool="url encoder decoder percent encode developer"><div class="ico">🔗</div><h3>URL Encoder / Decoder</h3><p>Percent-encode or decode URLs and text.</p></a>
-        <a class="tool-card" href="tools/timestamp-converter.html" data-tool="unix timestamp converter epoch date developer time"><div class="ico">⏱️</div><h3>Timestamp Converter</h3><p>Convert Unix/epoch timestamps to dates.</p></a>
-        <a class="tool-card" href="tools/json-yaml-converter.html" data-tool="json to yaml converter yaml json developer config"><div class="ico">🔁</div><h3>JSON ↔ YAML</h3><p>Convert between JSON and YAML formats.</p></a>
-        <a class="tool-card" href="tools/regex-tester.html" data-tool="regex tester regular expression match developer"><div class="ico">⚡</div><h3>Regex Tester</h3><p>Test regular expressions with live highlighting.</p></a>
-        <a class="tool-card" href="tools/markdown-preview.html" data-tool="markdown preview editor md html developer"><div class="ico">📝</div><h3>Markdown Preview</h3><p>Live Markdown editor and preview.</p></a>
-        <a class="tool-card" href="tools/text-diff.html" data-tool="text diff compare difference checker"><div class="ico">🔀</div><h3>Text Diff Checker</h3><p>Compare two texts and see what changed.</p></a>
-        <a class="tool-card" href="tools/jwt-decoder.html" data-tool="jwt decoder json web token developer auth"><div class="ico">🔓</div><h3>JWT Decoder</h3><p>Decode a JWT's header and payload.</p></a>
-        <a class="tool-card" href="tools/business-name-generator.html" data-tool="business name generator company brand startup ideas"><div class="ico">🏢</div><h3>Business Name Generator</h3><p>Catchy company & brand name ideas.</p></a>
-        <a class="tool-card" href="tools/username-generator.html" data-tool="username generator cool gaming social handle"><div class="ico">🧑‍💻</div><h3>Username Generator</h3><p>Cool, unique usernames to copy.</p></a>
-        <a class="tool-card" href="tools/band-name-generator.html" data-tool="band name generator music group random"><div class="ico">🎸</div><h3>Band Name Generator</h3><p>Creative band & music project names.</p></a>
-        <a class="tool-card" href="tools/podcast-name-generator.html" data-tool="podcast name generator show ideas"><div class="ico">🎙️</div><h3>Podcast Name Generator</h3><p>Catchy podcast name ideas by topic.</p></a>
-        <a class="tool-card" href="tools/uuid-generator.html" data-tool="uuid generator guid v4 random developer"><div class="ico">🆔</div><h3>UUID Generator</h3><p>Generate random v4 UUIDs in bulk.</p></a>
-        <a class="tool-card" href="tools/random-picker.html" data-tool="random picker name number raffle giveaway decision"><div class="ico">🎲</div><h3>Random Picker</h3><p>Pick a random name or number.</p></a>
-        <a class="tool-card" href="tools/slug-generator.html" data-tool="slug generator url permalink seo"><div class="ico">🐌</div><h3>Slug Generator</h3><p>Turn text into a clean URL slug.</p></a>
-        <a class="tool-card" href="tools/hashtag-generator.html" data-tool="hashtag generator instagram social tags"><div class="ico">#️⃣</div><h3>Hashtag Generator</h3><p>Create hashtags from your keywords.</p></a>
-        <a class="tool-card" href="tools/split-pdf.html" data-tool="split pdf extract pages separate"><div class="ico">✂️</div><h3>Split PDF</h3><p>Extract pages from a PDF into a new file.</p></a>
-        <a class="tool-card" href="tools/pdf-to-images.html" data-tool="pdf to images jpg png convert pages"><div class="ico">🖼️</div><h3>PDF to Images</h3><p>Convert PDF pages to PNG images.</p></a>
-        <a class="tool-card" href="tools/image-resizer.html" data-tool="image resizer resize photo pixels scale"><div class="ico">📐</div><h3>Image Resizer</h3><p>Resize images by pixels, keep aspect ratio.</p></a>
-        <a class="tool-card" href="tools/watermark.html" data-tool="watermark image add text protect photo"><div class="ico">🌊</div><h3>Add Watermark</h3><p>Add a text watermark to any image.</p></a>
-        <a class="tool-card" href="tools/contrast-checker.html" data-tool="contrast checker wcag accessibility color aa aaa"><div class="ico">◐</div><h3>Contrast Checker</h3><p>Check color contrast for WCAG accessibility.</p></a>
-        <a class="tool-card" href="tools/days-between.html" data-tool="days between dates difference duration calculator"><div class="ico">📅</div><h3>Days Between Dates</h3><p>Days, weeks & months between two dates.</p></a>
-        <a class="tool-card" href="tools/due-date-calculator.html" data-tool="pregnancy due date calculator edd baby weeks"><div class="ico">👶</div><h3>Due Date Calculator</h3><p>Estimate a pregnancy due date (EDD).</p></a>
-        <a class="tool-card" href="tools/timezone-converter.html" data-tool="time zone converter world clock meeting ist est utc"><div class="ico">🌍</div><h3>Time Zone Converter</h3><p>Convert time between world zones.</p></a>
-        <a class="tool-card" href="tools/area-calculator.html" data-tool="area calculator circle triangle rectangle geometry"><div class="ico">🔺</div><h3>Area Calculator</h3><p>Area of circle, triangle, rectangle & more.</p></a>
-        <a class="tool-card" href="tools/fuel-cost-calculator.html" data-tool="fuel cost calculator petrol trip mileage"><div class="ico">⛽</div><h3>Fuel Cost Calculator</h3><p>Estimate the fuel cost of a trip.</p></a>
-        <a class="tool-card" href="tools/electricity-bill-calculator.html" data-tool="electricity bill calculator units kwh appliance cost power"><div class="ico">💡</div><h3>Electricity Bill Calculator</h3><p>Estimate your bill & appliance running cost.</p></a>
+        <a class="tool-card" href="tools/url-encoder" data-tool="url encoder decoder percent encode developer"><div class="ico">🔗</div><h3>URL Encoder / Decoder</h3><p>Percent-encode or decode URLs and text.</p></a>
+        <a class="tool-card" href="tools/timestamp-converter" data-tool="unix timestamp converter epoch date developer time"><div class="ico">⏱️</div><h3>Timestamp Converter</h3><p>Convert Unix/epoch timestamps to dates.</p></a>
+        <a class="tool-card" href="tools/json-yaml-converter" data-tool="json to yaml converter yaml json developer config"><div class="ico">🔁</div><h3>JSON ↔ YAML</h3><p>Convert between JSON and YAML formats.</p></a>
+        <a class="tool-card" href="tools/regex-tester" data-tool="regex tester regular expression match developer"><div class="ico">⚡</div><h3>Regex Tester</h3><p>Test regular expressions with live highlighting.</p></a>
+        <a class="tool-card" href="tools/markdown-preview" data-tool="markdown preview editor md html developer"><div class="ico">📝</div><h3>Markdown Preview</h3><p>Live Markdown editor and preview.</p></a>
+        <a class="tool-card" href="tools/text-diff" data-tool="text diff compare difference checker"><div class="ico">🔀</div><h3>Text Diff Checker</h3><p>Compare two texts and see what changed.</p></a>
+        <a class="tool-card" href="tools/jwt-decoder" data-tool="jwt decoder json web token developer auth"><div class="ico">🔓</div><h3>JWT Decoder</h3><p>Decode a JWT's header and payload.</p></a>
+        <a class="tool-card" href="tools/business-name-generator" data-tool="business name generator company brand startup ideas"><div class="ico">🏢</div><h3>Business Name Generator</h3><p>Catchy company & brand name ideas.</p></a>
+        <a class="tool-card" href="tools/username-generator" data-tool="username generator cool gaming social handle"><div class="ico">🧑‍💻</div><h3>Username Generator</h3><p>Cool, unique usernames to copy.</p></a>
+        <a class="tool-card" href="tools/band-name-generator" data-tool="band name generator music group random"><div class="ico">🎸</div><h3>Band Name Generator</h3><p>Creative band & music project names.</p></a>
+        <a class="tool-card" href="tools/podcast-name-generator" data-tool="podcast name generator show ideas"><div class="ico">🎙️</div><h3>Podcast Name Generator</h3><p>Catchy podcast name ideas by topic.</p></a>
+        <a class="tool-card" href="tools/uuid-generator" data-tool="uuid generator guid v4 random developer"><div class="ico">🆔</div><h3>UUID Generator</h3><p>Generate random v4 UUIDs in bulk.</p></a>
+        <a class="tool-card" href="tools/random-picker" data-tool="random picker name number raffle giveaway decision"><div class="ico">🎲</div><h3>Random Picker</h3><p>Pick a random name or number.</p></a>
+        <a class="tool-card" href="tools/slug-generator" data-tool="slug generator url permalink seo"><div class="ico">🐌</div><h3>Slug Generator</h3><p>Turn text into a clean URL slug.</p></a>
+        <a class="tool-card" href="tools/hashtag-generator" data-tool="hashtag generator instagram social tags"><div class="ico">#️⃣</div><h3>Hashtag Generator</h3><p>Create hashtags from your keywords.</p></a>
+        <a class="tool-card" href="tools/split-pdf" data-tool="split pdf extract pages separate"><div class="ico">✂️</div><h3>Split PDF</h3><p>Extract pages from a PDF into a new file.</p></a>
+        <a class="tool-card" href="tools/pdf-to-images" data-tool="pdf to images jpg png convert pages"><div class="ico">🖼️</div><h3>PDF to Images</h3><p>Convert PDF pages to PNG images.</p></a>
+        <a class="tool-card" href="tools/image-resizer" data-tool="image resizer resize photo pixels scale"><div class="ico">📐</div><h3>Image Resizer</h3><p>Resize images by pixels, keep aspect ratio.</p></a>
+        <a class="tool-card" href="tools/watermark" data-tool="watermark image add text protect photo"><div class="ico">🌊</div><h3>Add Watermark</h3><p>Add a text watermark to any image.</p></a>
+        <a class="tool-card" href="tools/contrast-checker" data-tool="contrast checker wcag accessibility color aa aaa"><div class="ico">◐</div><h3>Contrast Checker</h3><p>Check color contrast for WCAG accessibility.</p></a>
+        <a class="tool-card" href="tools/days-between" data-tool="days between dates difference duration calculator"><div class="ico">📅</div><h3>Days Between Dates</h3><p>Days, weeks & months between two dates.</p></a>
+        <a class="tool-card" href="tools/due-date-calculator" data-tool="pregnancy due date calculator edd baby weeks"><div class="ico">👶</div><h3>Due Date Calculator</h3><p>Estimate a pregnancy due date (EDD).</p></a>
+        <a class="tool-card" href="tools/timezone-converter" data-tool="time zone converter world clock meeting ist est utc"><div class="ico">🌍</div><h3>Time Zone Converter</h3><p>Convert time between world zones.</p></a>
+        <a class="tool-card" href="tools/area-calculator" data-tool="area calculator circle triangle rectangle geometry"><div class="ico">🔺</div><h3>Area Calculator</h3><p>Area of circle, triangle, rectangle & more.</p></a>
+        <a class="tool-card" href="tools/fuel-cost-calculator" data-tool="fuel cost calculator petrol trip mileage"><div class="ico">⛽</div><h3>Fuel Cost Calculator</h3><p>Estimate the fuel cost of a trip.</p></a>
+        <a class="tool-card" href="tools/electricity-bill-calculator" data-tool="electricity bill calculator units kwh appliance cost power"><div class="ico">💡</div><h3>Electricity Bill Calculator</h3><p>Estimate your bill & appliance running cost.</p></a>
       </div>
       <p class="no-results" id="noResults">No tools match your search. Try another word.</p>
 
@@ -347,23 +373,23 @@
         <div class="footer-col">
           <h4>Popular tools</h4>
           <ul>
-            <li><a href="tools/word-counter.html">Word Counter</a></li>
-            <li><a href="tools/password-generator.html">Password Generator</a></li>
-            <li><a href="tools/qr-generator.html">QR Code Generator</a></li>
+            <li><a href="tools/word-counter">Word Counter</a></li>
+            <li><a href="tools/password-generator">Password Generator</a></li>
+            <li><a href="tools/qr-generator">QR Code Generator</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="about.html">About</a></li>
-            <li><a href="contact.html">Contact</a></li>
+            <li><a href="about">About</a></li>
+            <li><a href="contact">Contact</a></li>
           </ul>
         </div>
         <div class="footer-col">
           <h4>Legal</h4>
           <ul>
-            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-            <li><a href="terms.html">Terms of Use</a></li>
+            <li><a href="privacy-policy">Privacy Policy</a></li>
+            <li><a href="terms">Terms of Use</a></li>
           </ul>
         </div>
       </div>

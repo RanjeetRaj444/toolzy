@@ -7,27 +7,127 @@
   <meta name="description" content="Free pregnancy due date calculator. Estimate your baby's due date and current week of pregnancy from your last menstrual period." />
   <meta name="keywords" content="due date calculator, pregnancy calculator, edd, baby due date, weeks pregnant" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/due-date-calculator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Pregnancy Due Date Calculator | Toolzy" />
+  <meta property="og:description" content="Free pregnancy due date calculator. Estimate your baby's due date and current week of pregnancy from your last menstrual period." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/due-date-calculator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Pregnancy Due Date Calculator | Toolzy" />
+  <meta name="twitter:description" content="Free pregnancy due date calculator. Estimate your baby's due date and current week of pregnancy from your last menstrual period." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Pregnancy Due Date Calculator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/due-date-calculator",
+      "description": "Free pregnancy due date calculator. Estimate your baby's due date and current week of pregnancy from your last menstrual period.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Pregnancy Due Date Calculator",
+          "item": "https://toolzy-7eo.pages.dev/tools/due-date-calculator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How many babies arrive on their exact due date?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Only about 4% to 5% of babies are born on their exact predicted due date. Most full-term deliveries take place within two weeks before or after the estimated date."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What if my menstrual cycle is longer or shorter than 28 days?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "If your cycle differs significantly from the 28-day average, early first-trimester dating ultrasounds provide the most reliable clinical due date estimate."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my personal health data private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Toolzy processes all calculations entirely inside your browser memory. No health data or dates are ever sent to a server."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Due Date Calculator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Due Date Calculator</nav>
     <div class="tool-head"><h1>Pregnancy Due Date Calculator</h1><p>Estimate your baby's due date from the first day of your last menstrual period (LMP).</p></div>
     <div class="panel">
       <div class="field"><label>First day of last period (LMP)</label><input type="date" id="lmp" oninput="calc()"></div>
       <div class="result-box" id="out" style="text-align:center;">Enter your LMP date.</div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>How it works</h2><p>The estimated due date (EDD) is calculated using Naegele's rule: 280 days (40 weeks) from the first day of your last period. This is an estimate — only about 1 in 20 babies arrive exactly on the due date.</p><div class="faq-item"><h3>Is this medical advice?</h3><p>No. Always confirm with your doctor or an ultrasound scan.</p></div></section>
+        <section class="prose">
+      <h2>How the Pregnancy Due Date Is Calculated</h2>
+      <p>An estimated due date (EDD) is calculated using <strong>Naegele's rule</strong>, which assumes a typical pregnancy duration of 280 days (40 weeks) from the first day of your last menstrual period (LMP). Healthcare professionals use this standard calculation worldwide to track gestational milestones.</p>
+      <h3>Pregnancy Trimester Breakdown</h3>
+      <ul>
+        <li><strong>First Trimester:</strong> Weeks 1 through 13 (organ development and initial ultrasound)</li>
+        <li><strong>Second Trimester:</strong> Weeks 14 through 27 (fetal growth and anatomy scan)</li>
+        <li><strong>Third Trimester:</strong> Weeks 28 through 40+ (final development and preparation for birth)</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>How many babies arrive on their exact due date?</h3><p>Only about 4% to 5% of babies are born on their exact predicted due date. Most full-term deliveries take place within two weeks before or after the estimated date.</p></div>
+      <div class="faq-item"><h3>What if my menstrual cycle is longer or shorter than 28 days?</h3><p>If your cycle differs significantly from the 28-day average, early first-trimester dating ultrasounds provide the most reliable clinical due date estimate.</p></div>
+      <div class="faq-item"><h3>Is my personal health data private?</h3><p>Yes. Toolzy processes all calculations entirely inside your browser memory. No health data or dates are ever sent to a server.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     window.calc=function(){
       var v=document.getElementById("lmp").value;

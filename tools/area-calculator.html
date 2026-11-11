@@ -7,18 +7,105 @@
   <meta name="description" content="Free area calculator. Calculate the area of a rectangle, square, circle, triangle, trapezoid and more. Fast and simple." />
   <meta name="keywords" content="area calculator, area of circle, area of triangle, area of rectangle, geometry calculator" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/area-calculator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Area Calculator — Rectangle, Circle, Triangle & More | Toolzy" />
+  <meta property="og:description" content="Free area calculator. Calculate the area of a rectangle, square, circle, triangle, trapezoid and more. Fast and simple." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/area-calculator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Area Calculator — Rectangle, Circle, Triangle & More | Toolzy" />
+  <meta name="twitter:description" content="Free area calculator. Calculate the area of a rectangle, square, circle, triangle, trapezoid and more. Fast and simple." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Area Calculator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/area-calculator",
+      "description": "Free area calculator. Calculate the area of a rectangle, square, circle, triangle, trapezoid and more. Fast and simple.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Area Calculator",
+          "item": "https://toolzy-7eo.pages.dev/tools/area-calculator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What measurement units does this calculator use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The calculator works with any consistent unit of measurement (feet, meters, inches, yards, centimeters). If you enter dimensions in meters, the answer is in square meters."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I calculate the area of an L-shaped room?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Divide the L-shape into two separate rectangles, calculate the area of each rectangle individually using length × width, and add the two totals together."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this area calculator free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Toolzy's area calculator is 100% free with no sign-up or installation required."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Area Calculator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Area Calculator</nav>
     <div class="tool-head"><h1>Area Calculator</h1><p>Pick a shape and enter its dimensions to calculate the area.</p></div>
     <div class="panel">
       <div class="field"><label>Shape</label>
@@ -30,9 +117,27 @@
       <div class="result-box" id="out" style="text-align:center; font-size:1.3rem;">—</div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>Area formulas</h2><ul><li>Rectangle: length × width</li><li>Square: side²</li><li>Circle: π × radius²</li><li>Triangle: ½ × base × height</li><li>Trapezoid: ½ × (a + b) × height</li><li>Parallelogram: base × height</li></ul></section>
+        <section class="prose">
+      <h2>How to Calculate Area for Common Shapes</h2>
+      <p>Area measures the two-dimensional space occupied by a shape, expressed in square units such as square feet (sq ft), square meters (sq m), or square inches. Whether you are measuring flooring for a home renovation, planning a garden bed, or solving a geometry problem, this tool provides instant, precise calculations.</p>
+      <h3>Area Formulas Used</h3>
+      <ul>
+        <li><strong>Rectangle:</strong> Length × Width</li>
+        <li><strong>Square:</strong> Side² (Side × Side)</li>
+        <li><strong>Circle:</strong> π × Radius² (approx. 3.14159 × r²)</li>
+        <li><strong>Triangle:</strong> ½ × Base × Height</li>
+        <li><strong>Trapezoid:</strong> ½ × (Side a + Side b) × Height</li>
+        <li><strong>Parallelogram:</strong> Base × Height</li>
+      </ul>
+      <h3>Example Calculation</h3>
+      <p>Suppose you want to tile a rectangular room that is 14 feet long and 10 feet wide. Multiply 14 × 10 = <strong>140 square feet</strong>. If each box of tiles covers 20 sq ft, you would need 7 boxes (plus 10% extra for cuts and waste).</p>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>What measurement units does this calculator use?</h3><p>The calculator works with any consistent unit of measurement (feet, meters, inches, yards, centimeters). If you enter dimensions in meters, the answer is in square meters.</p></div>
+      <div class="faq-item"><h3>How do I calculate the area of an L-shaped room?</h3><p>Divide the L-shape into two separate rectangles, calculate the area of each rectangle individually using length × width, and add the two totals together.</p></div>
+      <div class="faq-item"><h3>Is this area calculator free to use?</h3><p>Yes. Toolzy's area calculator is 100% free with no sign-up or installation required.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       var fields={ rectangle:[["Length","l"],["Width","w"]], square:[["Side","s"]], circle:[["Radius","r"]], triangle:[["Base","b"],["Height","h"]], trapezoid:[["Side a","a"],["Side b","b"],["Height","h"]], parallelogram:[["Base","b"],["Height","h"]] };

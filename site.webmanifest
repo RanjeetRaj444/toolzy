@@ -1,0 +1,16 @@
+{
+  "name": "Toolzy — Free Online Tools",
+  "short_name": "Toolzy",
+  "description": "60+ free, fast, private online tools for everyday tasks. Everything runs in your browser.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#635bff",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

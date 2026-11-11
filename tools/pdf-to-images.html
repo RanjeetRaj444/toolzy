@@ -7,20 +7,107 @@
   <meta name="description" content="Free PDF to images converter. Turn each page of a PDF into a downloadable PNG image, right in your browser. No upload." />
   <meta name="keywords" content="pdf to image, pdf to jpg, pdf to png, convert pdf to images, pdf pages to picture" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/pdf-to-images" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
   <style>.pages{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px;margin-top:14px;}.pages .pg{border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;background:var(--surface);}.pages canvas{width:100%;display:block;}.pages a{display:block;text-align:center;padding:8px;font-size:.85rem;font-weight:600;}</style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="PDF to Images — Convert PDF Pages to JPG/PNG | Toolzy" />
+  <meta property="og:description" content="Free PDF to images converter. Turn each page of a PDF into a downloadable PNG image, right in your browser. No upload." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/pdf-to-images" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="PDF to Images — Convert PDF Pages to JPG/PNG | Toolzy" />
+  <meta name="twitter:description" content="Free PDF to images converter. Turn each page of a PDF into a downloadable PNG image, right in your browser. No upload." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "PDF to Images — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/pdf-to-images",
+      "description": "Free PDF to images converter. Turn each page of a PDF into a downloadable PNG image, right in your browser. No upload.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "PDF to Images",
+          "item": "https://toolzy-7eo.pages.dev/tools/pdf-to-images"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What image resolution is generated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Pages are rendered at high resolution to preserve fine typography, tables, and vector graphics clearly."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is it safe to convert sensitive business or financial PDFs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Absolutely. The PDF rendering library executes entirely inside your browser tab. Confidential documents are never uploaded across the network."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I convert multi-page documents?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Each page is processed sequentially, and you can download all extracted page images."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / PDF to Images</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / PDF to Images</nav>
     <div class="tool-head"><h1>PDF to Images</h1><p>Convert each page of a PDF into a PNG image you can download. Runs entirely in your browser.</p></div>
     <div class="panel">
       <div class="field"><label for="file">Choose a PDF</label><input type="file" id="file" accept="application/pdf" onchange="convert()"></div>
@@ -28,9 +115,22 @@
       <div class="pages" id="pages"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>About PDF to images</h2><p>Each page is rendered to a high-quality PNG. Useful for sharing a single page as a picture, or pulling graphics out of a document. Your PDF stays on your device.</p></section>
+        <section class="prose">
+      <h2>Convert PDF Pages into High-Quality Images</h2>
+      <p>Need to share a PDF slide on social media, insert a PDF invoice into a presentation, or view documents without a dedicated PDF reader? This converter turns each page of your PDF into crisp, standalone PNG or JPG images.</p>
+      <h3>Common Use Cases</h3>
+      <ul>
+        <li><strong>Social Media Sharing:</strong> Share infographic sheets and portfolio pages on Instagram or LinkedIn.</li>
+        <li><strong>Presentations & Docs:</strong> Embed exact vector document pages directly into Word or PowerPoint.</li>
+        <li><strong>Web Publishing:</strong> Display document previews on web pages without requiring PDF viewer plugins.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>What image resolution is generated?</h3><p>Pages are rendered at high resolution to preserve fine typography, tables, and vector graphics clearly.</p></div>
+      <div class="faq-item"><h3>Is it safe to convert sensitive business or financial PDFs?</h3><p>Absolutely. The PDF rendering library executes entirely inside your browser tab. Confidential documents are never uploaded across the network.</p></div>
+      <div class="faq-item"><h3>Can I convert multi-page documents?</h3><p>Yes. Each page is processed sequentially, and you can download all extracted page images.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       if(typeof pdfjsLib!=="undefined") pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";

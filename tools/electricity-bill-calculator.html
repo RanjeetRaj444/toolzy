@@ -7,18 +7,105 @@
   <meta name="description" content="Free electricity bill calculator. Estimate your bill from units consumed and rate per unit, plus daily appliance cost. Simple and fast." />
   <meta name="keywords" content="electricity bill calculator, units to cost, power bill, kwh cost, appliance cost" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/electricity-bill-calculator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Electricity Bill Calculator — Units & Cost | Toolzy" />
+  <meta property="og:description" content="Free electricity bill calculator. Estimate your bill from units consumed and rate per unit, plus daily appliance cost. Simple and fast." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/electricity-bill-calculator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Electricity Bill Calculator — Units & Cost | Toolzy" />
+  <meta name="twitter:description" content="Free electricity bill calculator. Estimate your bill from units consumed and rate per unit, plus daily appliance cost. Simple and fast." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Electricity Bill Calculator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/electricity-bill-calculator",
+      "description": "Free electricity bill calculator. Estimate your bill from units consumed and rate per unit, plus daily appliance cost. Simple and fast.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Electricity Bill Calculator",
+          "item": "https://toolzy-7eo.pages.dev/tools/electricity-bill-calculator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is 1 unit of electricity?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "1 unit of electricity equals 1 kilowatt-hour (kWh), which is 1,000 watts of electricity used over one hour. For example, running a 1,000-watt iron for one hour consumes exactly 1 unit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How can I reduce my monthly electricity bill?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Switching to 5-star inverter appliances, using energy-efficient LED lighting, setting air conditioning to 24°C–26°C, and unplugging idle chargers can reduce power consumption by 20% to 35%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does my actual bill differ from this estimate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Electric utilities frequently use tiered slab billing (where higher units cost more per unit), fuel adjustment surcharges, and municipal taxes which vary by region."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Electricity Bill Calculator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Electricity Bill Calculator</nav>
     <div class="tool-head"><h1>Electricity Bill Calculator</h1><p>Estimate your electricity cost from units consumed, or work out what an appliance costs to run.</p></div>
     <div class="panel">
       <h3 style="margin-top:0;">By units consumed</h3>
@@ -38,9 +125,29 @@
       <div class="result-box" id="applOut" style="text-align:center;"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>How it works</h2><p>Bill = (units × rate) + fixed charge. One "unit" is 1 kWh. An appliance's daily usage (kWh) = watts ÷ 1000 × hours; multiply by the rate for the cost.</p></section>
+        <section class="prose">
+      <h2>How Electricity Bills Are Calculated</h2>
+      <p>Your electricity consumption is measured in kilowatt-hours (kWh), commonly referred to on utility bills as <strong>units</strong>. One unit is equal to 1,000 watts of electrical power consumed continuously for one hour. Your monthly electric bill is calculated by multiplying total units consumed by your local tariff rate, plus any fixed service charges and taxes.</p>
+      <h3>Appliance Consumption Formula</h3>
+      <p>To find how much power an individual appliance uses:</p>
+      <p><code>Daily kWh = (Appliance Wattage × Hours Used Per Day) ÷ 1,000</code></p>
+      <p><code>Daily Cost = Daily kWh × Rate per Unit</code></p>
+      <h3>Average Wattage of Common Household Appliances</h3>
+      <ul>
+        <li><strong>Air Conditioner (1.5 Ton):</strong> 1,500 – 2,000 watts</li>
+        <li><strong>Refrigerator:</strong> 150 – 250 watts (runs intermittently)</li>
+        <li><strong>Ceiling Fan:</strong> 60 – 75 watts</li>
+        <li><strong>LED Television (55"):</strong> 80 – 120 watts</li>
+        <li><strong>Microwave Oven:</strong> 800 – 1,200 watts</li>
+        <li><strong>LED Light Bulb:</strong> 9 – 12 watts</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>What is 1 unit of electricity?</h3><p>1 unit of electricity equals 1 kilowatt-hour (kWh), which is 1,000 watts of electricity used over one hour. For example, running a 1,000-watt iron for one hour consumes exactly 1 unit.</p></div>
+      <div class="faq-item"><h3>How can I reduce my monthly electricity bill?</h3><p>Switching to 5-star inverter appliances, using energy-efficient LED lighting, setting air conditioning to 24°C–26°C, and unplugging idle chargers can reduce power consumption by 20% to 35%.</p></div>
+      <div class="faq-item"><h3>Why does my actual bill differ from this estimate?</h3><p>Electric utilities frequently use tiered slab billing (where higher units cost more per unit), fuel adjustment surcharges, and municipal taxes which vary by region.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       function n(id){ return +document.getElementById(id).value||0; }

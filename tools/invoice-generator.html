@@ -7,7 +7,8 @@
   <meta name="description" content="Free invoice generator. Fill in your details and line items, then download a clean PDF invoice instantly. No sign-up, no watermark, made in your browser." />
   <meta name="keywords" content="invoice generator, free invoice, pdf invoice, create invoice, billing, invoice maker" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/invoice-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
@@ -19,16 +20,86 @@
     .totbox .grand { font-size: 1.3rem; font-weight: 800; color: var(--brand); }
     @media (max-width: 560px){ .item { grid-template-columns: 1fr 1fr; } .item .amt { grid-column: 1 / -1; } }
   </style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Invoice Generator — Create & Download a PDF Invoice Free | Toolzy" />
+  <meta property="og:description" content="Free invoice generator. Fill in your details and line items, then download a clean PDF invoice instantly. No sign-up, no watermark, made in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/invoice-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Invoice Generator — Create & Download a PDF Invoice Free | Toolzy" />
+  <meta name="twitter:description" content="Free invoice generator. Fill in your details and line items, then download a clean PDF invoice instantly. No sign-up, no watermark, made in your browser." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Invoice Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/invoice-generator",
+      "description": "Free invoice generator. Fill in your details and line items, then download a clean PDF invoice instantly. No sign-up, no watermark, made in your browser.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Invoice Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/invoice-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is it really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes — no sign-up, no watermark, no limits."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../index.html#tools">All Tools</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
@@ -39,7 +110,7 @@
 
   <main class="content">
     <div class="container">
-      <nav class="breadcrumb"><a href="../index.html">Home</a> / Invoice Generator</nav>
+      <nav class="breadcrumb"><a href="/">Home</a> / Invoice Generator</nav>
       <div class="tool-head">
         <h1>Invoice Generator</h1>
         <p>Fill in your details and items, then download a clean PDF invoice — free, no watermark, made entirely in your browser.</p>
@@ -95,7 +166,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div>
     </div>
   </footer>
 

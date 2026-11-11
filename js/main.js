@@ -75,7 +75,11 @@
     ["dev","Developer"],["generator","Generators"],["more","Crypto & More"]
   ];
   function catLabel(id) { for (var i = 0; i < CATS.length; i++) if (CATS[i][0] === id) return CATS[i][1]; return ""; }
-  function slugOf(href) { var m = (href || "").match(/([a-z0-9-]+)\.html(?:[#?].*)?$/i); return m ? m[1] : ""; }
+  function slugOf(href) {
+    var path = (href || "").split(/[#?]/)[0].replace(/\/+$/, "");
+    var last = path.substring(path.lastIndexOf("/") + 1);
+    return last.replace(/\.html$/i, "");
+  }
   function toolBySlug(s) { for (var i = 0; i < TOOLS.length; i++) if (TOOLS[i][0] === s) return TOOLS[i]; return null; }
 
   // ---- Theme (persisted, with safe storage) ----
@@ -197,9 +201,9 @@
     var heading = cat ? "More " + catLabel(cat).toLowerCase() + " tools" : "More tools";
     var html = "<h2>" + heading + "</h2><div class='related-grid'>";
     related.forEach(function (t) {
-      html += "<a class='related-card' href='" + t[0] + ".html'><span class='ri'>" + t[2] + "</span><span>" + t[1] + "</span></a>";
+      html += "<a class='related-card' href='" + t[0] + "'><span class='ri'>" + t[2] + "</span><span>" + t[1] + "</span></a>";
     });
-    html += "</div><div class='related-all'><a class='btn secondary' href='../index.html#tools'>⊞ Browse all tools</a></div>";
+    html += "</div><div class='related-all'><a class='btn secondary' href='../#tools'>⊞ Browse all tools</a></div>";
     sec.innerHTML = html;
     main.appendChild(sec);
   }
@@ -220,7 +224,7 @@
     var bc = document.querySelector(".breadcrumb");
     if (!bc) return;
     var inTools = location.pathname.indexOf("/tools/") !== -1;
-    var fallback = (inTools ? "../" : "") + "index.html#tools";
+    var fallback = inTools ? "../#tools" : "#tools";
     var a = document.createElement("a");
     a.className = "back-btn";
     a.href = fallback;

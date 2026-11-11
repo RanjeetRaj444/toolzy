@@ -7,7 +7,8 @@
   <meta name="description" content="Free live cryptocurrency price tracker. See real-time Bitcoin, Ethereum and top coin prices in INR or USD, 24-hour change and market cap. Updated live, no sign-up." />
   <meta name="keywords" content="crypto prices, bitcoin price, ethereum price, live crypto tracker, cryptocurrency inr, btc to inr" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/crypto-tracker" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>
@@ -30,16 +31,94 @@
     .table-wrap { overflow-x: auto; }
     @media (max-width: 560px){ .hide-sm { display:none; } }
   </style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Live Crypto Prices — Bitcoin, Ethereum & Top Coins Tracker | Toolzy" />
+  <meta property="og:description" content="Free live cryptocurrency price tracker. See real-time Bitcoin, Ethereum and top coin prices in INR or USD, 24-hour change and market cap. Updated live, no sign-up." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/crypto-tracker" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Live Crypto Prices — Bitcoin, Ethereum & Top Coins Tracker | Toolzy" />
+  <meta name="twitter:description" content="Free live cryptocurrency price tracker. See real-time Bitcoin, Ethereum and top coin prices in INR or USD, 24-hour change and market cap. Updated live, no sign-up." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Live Crypto Prices — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/crypto-tracker",
+      "description": "Free live cryptocurrency price tracker. See real-time Bitcoin, Ethereum and top coin prices in INR or USD, 24-hour change and market cap. Updated live, no sign-up.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Live Crypto Prices",
+          "item": "https://toolzy-7eo.pages.dev/tools/crypto-tracker"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How often do prices update?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Prices load fresh each time you open the page or hit refresh, straight from the CoinGecko market data API."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this investment advice?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Toolzy provides price information only. Nothing here is a recommendation to buy or sell. Always do your own research."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../index.html#tools">All Tools</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
@@ -50,7 +129,7 @@
 
   <main class="content">
     <div class="container">
-      <nav class="breadcrumb"><a href="../index.html">Home</a> / Live Crypto Prices</nav>
+      <nav class="breadcrumb"><a href="/">Home</a> / Live Crypto Prices</nav>
       <div class="tool-head">
         <h1>Live Crypto Prices</h1>
         <p>Real-time prices for Bitcoin, Ethereum and the top cryptocurrencies, with 24-hour change and market cap. Switch between INR and USD. Data refreshes live from CoinGecko.</p>
@@ -100,7 +179,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div>
     </div>
   </footer>
 

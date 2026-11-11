@@ -7,7 +7,8 @@
   <meta name="description" content="Free live Markdown previewer. Type Markdown and see the formatted HTML instantly, side by side. Runs in your browser." />
   <meta name="keywords" content="markdown preview, markdown editor, markdown to html, md viewer" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/markdown-preview" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
@@ -20,15 +21,101 @@
     #out pre { background: var(--surface); padding: 12px; border-radius: 8px; overflow:auto; }
     @media (max-width:720px){ .md-grid { grid-template-columns: 1fr; } }
   </style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Markdown Preview — Live Markdown Editor Online | Toolzy" />
+  <meta property="og:description" content="Free live Markdown previewer. Type Markdown and see the formatted HTML instantly, side by side. Runs in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/markdown-preview" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Markdown Preview — Live Markdown Editor Online | Toolzy" />
+  <meta name="twitter:description" content="Free live Markdown previewer. Type Markdown and see the formatted HTML instantly, side by side. Runs in your browser." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Markdown Preview — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/markdown-preview",
+      "description": "Free live Markdown previewer. Type Markdown and see the formatted HTML instantly, side by side. Runs in your browser.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Markdown Preview",
+          "item": "https://toolzy-7eo.pages.dev/tools/markdown-preview"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can I copy the converted HTML output?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can copy either the rendered visual layout or the underlying HTML markup with one click."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it support GitHub Flavored Markdown (GFM)?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Strikethrough, task checklists, tables, and fenced code blocks are supported."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my draft saved if I close the tab?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The editor operates live in browser memory. Remember to copy your text before navigating away."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Markdown Preview</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Markdown Preview</nav>
     <div class="tool-head"><h1>Markdown Preview</h1><p>Type Markdown on the left and see the live preview on the right.</p></div>
     <div class="panel">
       <div class="md-grid">
@@ -47,12 +134,25 @@ Type **Markdown** here.
       <div class="btn-row" style="margin-top:14px;"><button class="btn secondary" onclick="copyHtml()">Copy HTML</button></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose">
-      <h2>About Markdown</h2>
-      <p>Markdown is a simple way to format text using plain characters — <code>#</code> for headings, <code>**bold**</code>, <code>- lists</code> and more. It's used on GitHub, Reddit, and many note apps.</p>
+        <section class="prose">
+      <h2>Live Markdown Editor & HTML Preview</h2>
+      <p>Markdown is the web's most popular lightweight markup language for README files, documentation, blog posts, and forum discussions. This editor gives you an instant side-by-side preview so you can format notes with clean headings, code snippets, lists, and tables.</p>
+      <h3>Essential Markdown Syntax Quick Reference</h3>
+      <ul>
+        <li><code># Heading 1</code> and <code>## Heading 2</code></li>
+        <li><code>**bold text**</code> and <code>*italic text*</code></li>
+        <li><code>[Link Text](https://example.com)</code></li>
+        <li><code>`inline code`</code> and <code>```code block```</code></li>
+        <li><code>- Unordered list item</code> and <code>1. Numbered item</code></li>
+        <li><code>&gt; Blockquote text</code></li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Can I copy the converted HTML output?</h3><p>Yes. You can copy either the rendered visual layout or the underlying HTML markup with one click.</p></div>
+      <div class="faq-item"><h3>Does it support GitHub Flavored Markdown (GFM)?</h3><p>Yes. Strikethrough, task checklists, tables, and fenced code blocks are supported.</p></div>
+      <div class="faq-item"><h3>Is my draft saved if I close the tab?</h3><p>The editor operates live in browser memory. Remember to copy your text before navigating away.</p></div>
     </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     window.render = function () {
       var md = document.getElementById("md").value;

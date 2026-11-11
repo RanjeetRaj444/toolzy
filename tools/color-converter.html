@@ -7,7 +7,8 @@
   <meta name="description" content="Free color converter and picker. Convert between HEX, RGB and HSL, pick colors visually, and copy the code. Perfect for designers and developers." />
   <meta name="keywords" content="color converter, hex to rgb, rgb to hex, hsl converter, color picker, hex code" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/color-converter" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>
@@ -16,16 +17,102 @@
     .code-row label { width: 54px; font-weight: 700; color: var(--text-muted); }
     .code-row input { flex: 1; font-family: ui-monospace, monospace; }
   </style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Color Converter — HEX, RGB & HSL Picker | Toolzy" />
+  <meta property="og:description" content="Free color converter and picker. Convert between HEX, RGB and HSL, pick colors visually, and copy the code. Perfect for designers and developers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/color-converter" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Color Converter — HEX, RGB & HSL Picker | Toolzy" />
+  <meta name="twitter:description" content="Free color converter and picker. Convert between HEX, RGB and HSL, pick colors visually, and copy the code. Perfect for designers and developers." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Color Converter &amp; Picker — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/color-converter",
+      "description": "Free color converter and picker. Convert between HEX, RGB and HSL, pick colors visually, and copy the code. Perfect for designers and developers.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Color Converter &amp; Picker",
+          "item": "https://toolzy-7eo.pages.dev/tools/color-converter"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I convert a 3-digit HEX code to 6 digits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Duplicate each character. For example, #abc expands to #aabbcc."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which color format is best for CSS design systems?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HSL and modern CSS Color Module 4 (OKLCH) are ideal for theming and color palettes, while HEX remains standard for quick copy-pasting from Figma or Adobe XD."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this color converter free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Toolzy's color converter is completely free and executes instantly in your browser."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../index.html#tools">All Tools</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
@@ -36,7 +123,7 @@
 
   <main class="content">
     <div class="container">
-      <nav class="breadcrumb"><a href="../index.html">Home</a> / Color Converter</nav>
+      <nav class="breadcrumb"><a href="/">Home</a> / Color Converter</nav>
       <div class="tool-head">
         <h1>Color Converter &amp; Picker</h1>
         <p>Pick a color or type a HEX code, and instantly get its RGB and HSL values. Click any field's copy button to grab the code.</p>
@@ -55,19 +142,24 @@
       <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
 
       <section class="prose">
-        <h2>HEX, RGB and HSL explained</h2>
+        <h2>HEX, RGB and HSL Color Formats Explained</h2>
+        <p>Colors in web and graphic design are defined across multiple color models depending on the software or coding framework you use:</p>
         <ul>
-          <li><strong>HEX</strong> — a 6-digit code like <code>#635bff</code>, common in CSS and design tools.</li>
-          <li><strong>RGB</strong> — red, green, blue values from 0–255, e.g. <code>rgb(99, 91, 255)</code>.</li>
-          <li><strong>HSL</strong> — hue, saturation, lightness — intuitive for adjusting shades.</li>
+          <li><strong>HEX:</strong> A 6-character hexadecimal code prefixed with '#' (such as <code>#635bff</code>). It represents the red, green, and blue components in base-16 and is the industry standard in CSS and HTML.</li>
+          <li><strong>RGB:</strong> Defines red, green, and blue values on an 8-bit scale from 0 to 255 (e.g. <code>rgb(99, 91, 255)</code>). Widely used in digital displays and UI libraries.</li>
+          <li><strong>HSL:</strong> Hue (0° to 360° on the color wheel), Saturation (0% to 100%), and Lightness (0% to 100%). HSL is the most intuitive format for creating lighter tints or darker shades of a base hue.</li>
         </ul>
+        <h2>Frequently asked questions</h2>
+        <div class="faq-item"><h3>How do I convert a 3-digit HEX code to 6 digits?</h3><p>Duplicate each character. For example, <code>#abc</code> expands to <code>#aabbcc</code>.</p></div>
+        <div class="faq-item"><h3>Which color format is best for CSS design systems?</h3><p>HSL and modern CSS Color Module 4 (OKLCH) are ideal for theming and color palettes, while HEX remains standard for quick copy-pasting from Figma or Adobe XD.</p></div>
+        <div class="faq-item"><h3>Is this color converter free to use?</h3><p>Yes. Toolzy's color converter is completely free and executes instantly in your browser.</p></div>
       </section>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div>
     </div>
   </footer>
 

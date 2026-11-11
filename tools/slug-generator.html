@@ -7,18 +7,105 @@
   <meta name="description" content="Free slug generator. Turn any title or text into a clean, SEO-friendly URL slug instantly." />
   <meta name="keywords" content="slug generator, url slug, permalink generator, seo slug" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/slug-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Slug Generator — Convert Text to URL Slug | Toolzy" />
+  <meta property="og:description" content="Free slug generator. Turn any title or text into a clean, SEO-friendly URL slug instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/slug-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Slug Generator — Convert Text to URL Slug | Toolzy" />
+  <meta name="twitter:description" content="Free slug generator. Turn any title or text into a clean, SEO-friendly URL slug instantly." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Slug Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/slug-generator",
+      "description": "Free slug generator. Turn any title or text into a clean, SEO-friendly URL slug instantly.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Slug Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/slug-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does this tool automatically remove special characters?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Punctuation, currency signs, symbols, and accented characters are converted into clean URL-safe alphanumeric text."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why do clean URLs matter for SEO?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Clean slugs improve click-through rates in search engine results pages (SERPs) and make links easy for users to read and share on social media."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there any limit to text length?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can convert headlines, blog titles, or article names of any length into clean permalinks."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Slug Generator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Slug Generator</nav>
     <div class="tool-head"><h1>Slug Generator</h1><p>Turn a title into a clean, lowercase, URL-friendly slug for blog posts and pages.</p></div>
     <div class="panel">
       <div class="field"><label>Title or text</label><input type="text" id="in" value="My Awesome Blog Post Title!" oninput="run()"></div>
@@ -29,9 +116,22 @@
       <div class="btn-row"><button class="btn secondary" onclick="copyText(document.getElementById('out').textContent)">Copy slug</button></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>What is a slug?</h2><p>A slug is the part of a URL that identifies a page in a readable way (e.g. <code>/my-blog-post</code>). Clean slugs help SEO and are easier to share.</p></section>
+        <section class="prose">
+      <h2>Generate Clean, SEO-Friendly URL Slugs</h2>
+      <p>A URL slug is the human-readable portion at the end of a web address that identifies a specific page (for example, <code>/tools/word-counter</code>). Search engines like Google rely on descriptive slugs to understand page topic and relevancy before crawling.</p>
+      <h3>Best Practices for Search Engine Slugs</h3>
+      <ul>
+        <li><strong>Use Hyphens, Not Underscores:</strong> Google's search algorithms treat hyphens as space separators, whereas underscores combine words into a single string.</li>
+        <li><strong>Keep It Concise:</strong> Target 3 to 5 relevant keywords; remove stop words (e.g. "and", "the", "a") when feasible.</li>
+        <li><strong>Lowercase Only:</strong> Consistent lowercase URLs prevent duplicate content issues on case-sensitive servers.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Does this tool automatically remove special characters?</h3><p>Yes. Punctuation, currency signs, symbols, and accented characters are converted into clean URL-safe alphanumeric text.</p></div>
+      <div class="faq-item"><h3>Why do clean URLs matter for SEO?</h3><p>Clean slugs improve click-through rates in search engine results pages (SERPs) and make links easy for users to read and share on social media.</p></div>
+      <div class="faq-item"><h3>Is there any limit to text length?</h3><p>You can convert headlines, blog titles, or article names of any length into clean permalinks.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     window.run=function(){
       var sep=document.getElementById("sep").value;

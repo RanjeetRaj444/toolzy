@@ -7,19 +7,106 @@
   <meta name="description" content="Free business name generator. Enter a keyword and get dozens of catchy company and brand name ideas instantly." />
   <meta name="keywords" content="business name generator, company name ideas, brand name generator, startup name" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/business-name-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:14px;}.names .n{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);cursor:pointer;font-weight:600;text-align:center;}.names .n:hover{border-color:var(--brand);color:var(--brand);}</style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Business Name Generator — Free Company Name Ideas | Toolzy" />
+  <meta property="og:description" content="Free business name generator. Enter a keyword and get dozens of catchy company and brand name ideas instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/business-name-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Business Name Generator — Free Company Name Ideas | Toolzy" />
+  <meta name="twitter:description" content="Free business name generator. Enter a keyword and get dozens of catchy company and brand name ideas instantly." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Business Name Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/business-name-generator",
+      "description": "Free business name generator. Enter a keyword and get dozens of catchy company and brand name ideas instantly.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Business Name Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/business-name-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Are the generated business names free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All generated name suggestions are 100% royalty-free creative prompts for your new company, project, or brand."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What steps should I take after picking a name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Conduct a trademark search in your local registry (such as the USPTO), register your preferred domain name, and secure matching social media handles."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many name ideas can I generate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "There are no limits. Enter different keywords to explore dozens of brand combinations."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Business Name Generator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Business Name Generator</nav>
     <div class="tool-head"><h1>Business Name Generator</h1><p>Enter a keyword about your business and get catchy name ideas. Click any name to copy it.</p></div>
     <div class="panel">
       <div class="row">
@@ -29,9 +116,22 @@
       <div class="names" id="names"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>Tips for a great business name</h2><p>Keep it short, easy to spell and memorable. Check that the matching domain name and social handles are available before you commit, and make sure it isn't trademarked.</p></section>
+        <section class="prose">
+      <h2>Brainstorm Catchy Business & Startup Name Ideas</h2>
+      <p>Selecting the right brand name creates an immediate impression of professionalism and personality. This generator blends your core keyword with high-converting industry prefixes, modern tech suffixes, and memorable compound phrases to ignite your naming process.</p>
+      <h3>Qualities of an Exceptional Brand Name</h3>
+      <ul>
+        <li><strong>Easy to Spell & Pronounce:</strong> Simple names spread organically via word-of-mouth without spelling confusion.</li>
+        <li><strong>Memorable & Distinctive:</strong> Stand out from competitors with unique phonetics.</li>
+        <li><strong>Digital Availability:</strong> Verify matching .com or brand domain availability and social media handles.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Are the generated business names free to use?</h3><p>Yes. All generated name suggestions are 100% royalty-free creative prompts for your new company, project, or brand.</p></div>
+      <div class="faq-item"><h3>What steps should I take after picking a name?</h3><p>Conduct a trademark search in your local registry (such as the USPTO), register your preferred domain name, and secure matching social media handles.</p></div>
+      <div class="faq-item"><h3>How many name ideas can I generate?</h3><p>There are no limits. Enter different keywords to explore dozens of brand combinations.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       var pre=["Go","The","My","Pro","Smart","Prime","Neo","Urban","Peak","Bright","Nova","Ever","True","Next","Hyper"];

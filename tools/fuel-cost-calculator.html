@@ -7,18 +7,105 @@
   <meta name="description" content="Free fuel cost calculator. Estimate the fuel cost of a trip from distance, mileage and fuel price. Works for petrol, diesel and CNG." />
   <meta name="keywords" content="fuel cost calculator, petrol cost, trip cost calculator, mileage cost, fuel calculator" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/fuel-cost-calculator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Fuel Cost Calculator — Trip Fuel Cost Estimator | Toolzy" />
+  <meta property="og:description" content="Free fuel cost calculator. Estimate the fuel cost of a trip from distance, mileage and fuel price. Works for petrol, diesel and CNG." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/fuel-cost-calculator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Fuel Cost Calculator — Trip Fuel Cost Estimator | Toolzy" />
+  <meta name="twitter:description" content="Free fuel cost calculator. Estimate the fuel cost of a trip from distance, mileage and fuel price. Works for petrol, diesel and CNG." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Fuel Cost Calculator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/fuel-cost-calculator",
+      "description": "Free fuel cost calculator. Estimate the fuel cost of a trip from distance, mileage and fuel price. Works for petrol, diesel and CNG.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Fuel Cost Calculator",
+          "item": "https://toolzy-7eo.pages.dev/tools/fuel-cost-calculator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I calculate fuel cost for a round trip?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Simply double your one-way travel distance before entering it into the distance field."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use this for diesel, petrol, or CNG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The mathematical formula is universal across petrol, diesel, CNG, or bio-fuels in any currency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does driving speed affect fuel consumption?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aggressive acceleration and driving at highway speeds above 80 km/h (50 mph) typically increase fuel consumption by 15% to 25% due to aerodynamic drag."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Fuel Cost Calculator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Fuel Cost Calculator</nav>
     <div class="tool-head"><h1>Fuel Cost Calculator</h1><p>Estimate what a trip will cost in fuel from the distance, your vehicle's mileage and the fuel price.</p></div>
     <div class="panel">
       <div class="row">
@@ -32,9 +119,26 @@
       </div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>How it works</h2><p>Fuel needed = distance ÷ mileage. Cost = fuel needed × price per litre. Tip: for a round trip, double the distance.</p></section>
+        <section class="prose">
+      <h2>How to Calculate Trip Fuel Costs</h2>
+      <p>Planning a road trip, daily commute, or rideshare travel? Estimating fuel expense beforehand prevents surprises. This calculator takes the total distance of your trip, your vehicle's fuel economy (mileage in km/L or MPG), and the local price per unit of fuel to calculate total fuel needed and total estimated cost.</p>
+      <h3>The Fuel Cost Formula</h3>
+      <p><code>Fuel Needed = Total Distance ÷ Vehicle Mileage</code></p>
+      <p><code>Total Cost = Fuel Needed × Price Per Litre / Gallon</code></p>
+      <h3>Example Calculation</h3>
+      <p>If you plan a 450 km trip in a car that delivers 15 km per litre, and petrol costs ₹100 per litre:</p>
+      <ul>
+        <li>Fuel needed = 450 ÷ 15 = <strong>30 litres</strong></li>
+        <li>Estimated cost = 30 × ₹100 = <strong>₹3,000</strong></li>
+        <li>For a round trip, double the distance (900 km) for a total of <strong>₹6,000</strong></li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>How do I calculate fuel cost for a round trip?</h3><p>Simply double your one-way travel distance before entering it into the distance field.</p></div>
+      <div class="faq-item"><h3>Can I use this for diesel, petrol, or CNG?</h3><p>Yes. The mathematical formula is universal across petrol, diesel, CNG, or bio-fuels in any currency.</p></div>
+      <div class="faq-item"><h3>How does driving speed affect fuel consumption?</h3><p>Aggressive acceleration and driving at highway speeds above 80 km/h (50 mph) typically increase fuel consumption by 15% to 25% due to aerodynamic drag.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       function n(id){ return +document.getElementById(id).value||0; }

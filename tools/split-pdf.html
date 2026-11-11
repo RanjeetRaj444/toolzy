@@ -7,19 +7,106 @@
   <meta name="description" content="Free split PDF tool. Extract a page range from a PDF into a new file, in your browser. No upload, no watermark." />
   <meta name="keywords" content="split pdf, extract pdf pages, pdf page extractor, separate pdf" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/split-pdf" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Split PDF — Extract Pages from a PDF Online Free | Toolzy" />
+  <meta property="og:description" content="Free split PDF tool. Extract a page range from a PDF into a new file, in your browser. No upload, no watermark." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/split-pdf" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Split PDF — Extract Pages from a PDF Online Free | Toolzy" />
+  <meta name="twitter:description" content="Free split PDF tool. Extract a page range from a PDF into a new file, in your browser. No upload, no watermark." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Split PDF — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/split-pdf",
+      "description": "Free split PDF tool. Extract a page range from a PDF into a new file, in your browser. No upload, no watermark.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Split PDF",
+          "item": "https://toolzy-7eo.pages.dev/tools/split-pdf"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does splitting a PDF reduce document quality?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Text, embedded fonts, vector artwork, and high-resolution images are preserved exactly as in the original file."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is there a file size limit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because files are processed directly in your browser's local memory, documents with hundreds of pages can be split without upload limits or timeouts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my documents uploaded to a third-party server?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Your files remain 100% private on your own device."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Split PDF</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Split PDF</nav>
     <div class="tool-head"><h1>Split PDF</h1><p>Extract specific pages or a range from a PDF into a new file. Everything runs in your browser.</p></div>
     <div class="panel">
       <div class="field"><label for="file">Choose a PDF</label><input type="file" id="file" accept="application/pdf" onchange="loaded()"></div>
@@ -29,9 +116,22 @@
       <div class="result-box" id="status" style="display:none;"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>About splitting PDFs</h2><p>Enter page numbers and ranges separated by commas to pull just the pages you need into a new PDF. Your file never leaves your device.</p></section>
+        <section class="prose">
+      <h2>Extract Pages and Split PDF Documents Instantly</h2>
+      <p>Large PDF documents often contain unnecessary pages. This PDF splitter lets you isolate specific pages, extract ranges (e.g. pages 1–5, 8, 12), and save only the pages you need into a new, lightweight document.</p>
+      <h3>How to Specify Page Ranges</h3>
+      <ul>
+        <li><strong>Single Pages:</strong> Enter individual numbers separated by commas (e.g. <code>1, 4, 7</code>)</li>
+        <li><strong>Page Ranges:</strong> Use hyphens for continuous page sequences (e.g. <code>1-5, 10-14</code>)</li>
+        <li><strong>Combined:</strong> Mix ranges and single pages (e.g. <code>1, 3, 5-9</code>)</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Does splitting a PDF reduce document quality?</h3><p>No. Text, embedded fonts, vector artwork, and high-resolution images are preserved exactly as in the original file.</p></div>
+      <div class="faq-item"><h3>Is there a file size limit?</h3><p>Because files are processed directly in your browser's local memory, documents with hundreds of pages can be split without upload limits or timeouts.</p></div>
+      <div class="faq-item"><h3>Are my documents uploaded to a third-party server?</h3><p>No. Your files remain 100% private on your own device.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       var srcBytes=null, total=0;

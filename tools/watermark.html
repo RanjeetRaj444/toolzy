@@ -7,18 +7,105 @@
   <meta name="description" content="Free watermark tool. Add text watermark to your images with adjustable opacity, size and position. Runs in your browser, no upload." />
   <meta name="keywords" content="add watermark, watermark image, text watermark, image watermark online" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/watermark" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Add Watermark to Image — Free Online Tool | Toolzy" />
+  <meta property="og:description" content="Free watermark tool. Add text watermark to your images with adjustable opacity, size and position. Runs in your browser, no upload." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/watermark" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Add Watermark to Image — Free Online Tool | Toolzy" />
+  <meta name="twitter:description" content="Free watermark tool. Add text watermark to your images with adjustable opacity, size and position. Runs in your browser, no upload." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Add Watermark to Image — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/watermark",
+      "description": "Free watermark tool. Add text watermark to your images with adjustable opacity, size and position. Runs in your browser, no upload.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Add Watermark to Image",
+          "item": "https://toolzy-7eo.pages.dev/tools/watermark"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does watermarking overwrite my original photo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The watermarked image is exported as a new downloadable file. Your original master file remains untouched."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my photos safe and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Watermarking is computed 100% locally in your browser. Nothing is uploaded to any server or cloud storage."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use emojis in my watermark?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can include brand names, copyright symbols (©), dates, and emojis in your watermark text."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Add Watermark</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Add Watermark</nav>
     <div class="tool-head"><h1>Add Watermark to Image</h1><p>Add a text watermark to protect your photos. Adjust size, opacity and position, then download.</p></div>
     <div class="panel">
       <div class="field"><label for="file">Choose an image</label><input type="file" id="file" accept="image/*" onchange="loaded()"></div>
@@ -38,9 +125,22 @@
       </div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>About watermarking</h2><p>A watermark discourages others from using your images without credit. This tool adds a text overlay entirely in your browser — your photo is never uploaded.</p></section>
+        <section class="prose">
+      <h2>Protect Your Photography and Graphics with Watermarks</h2>
+      <p>Adding a subtle text watermark to your digital artwork, photography, or client proof images prevents unauthorized reuse and ensures your brand or social media handle is credited when images are shared online.</p>
+      <h3>Watermarking Best Practices</h3>
+      <ul>
+        <li><strong>Position:</strong> Placing watermarks near the center or across key visual elements offers maximum anti-theft protection, while corner placement provides subtle branding.</li>
+        <li><strong>Opacity:</strong> Keep opacity between 30% and 50% so the watermark is clearly legible without obscuring the underlying subject.</li>
+        <li><strong>Contrast:</strong> Choose light text for dark backgrounds or dark text for light photos.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Does watermarking overwrite my original photo?</h3><p>No. The watermarked image is exported as a new downloadable file. Your original master file remains untouched.</p></div>
+      <div class="faq-item"><h3>Are my photos safe and private?</h3><p>Yes. Watermarking is computed 100% locally in your browser. Nothing is uploaded to any server or cloud storage.</p></div>
+      <div class="faq-item"><h3>Can I use emojis in my watermark?</h3><p>Yes. You can include brand names, copyright symbols (©), dates, and emojis in your watermark text.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       var img=new Image(), canvas=document.getElementById("canvas"), ctx=canvas.getContext("2d"), has=false;

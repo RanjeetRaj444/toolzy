@@ -7,7 +7,8 @@
   <meta name="description" content="Free text diff checker. Compare two blocks of text line by line and see exactly what was added or removed. Runs in your browser." />
   <meta name="keywords" content="text diff, compare text, diff checker, text comparison, find differences" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/text-diff" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>
@@ -18,15 +19,101 @@
     #diff .del { background: color-mix(in srgb, var(--danger) 16%, transparent); text-decoration: line-through; }
     @media (max-width:640px){ .two { grid-template-columns: 1fr; } }
   </style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Text Diff Checker — Compare Two Texts Online | Toolzy" />
+  <meta property="og:description" content="Free text diff checker. Compare two blocks of text line by line and see exactly what was added or removed. Runs in your browser." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/text-diff" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Text Diff Checker — Compare Two Texts Online | Toolzy" />
+  <meta name="twitter:description" content="Free text diff checker. Compare two blocks of text line by line and see exactly what was added or removed. Runs in your browser." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Text Diff Checker — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/text-diff",
+      "description": "Free text diff checker. Compare two blocks of text line by line and see exactly what was added or removed. Runs in your browser.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Text Diff Checker",
+          "item": "https://toolzy-7eo.pages.dev/tools/text-diff"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is the diff tool case-sensitive?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The comparison checks exact character differences, capitalization, indentation, and punctuation."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I compare source code and JSON files?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. You can paste HTML, JavaScript, Python, JSON, CSS, or raw prose text."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are my sensitive documents uploaded anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The comparison runs entirely on your local machine using client-side JavaScript. No text is transmitted over the internet."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Text Diff</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Text Diff</nav>
     <div class="tool-head"><h1>Text Diff Checker</h1><p>Paste two versions of text to see what changed, line by line.</p></div>
     <div class="panel">
       <div class="two">
@@ -41,12 +128,18 @@ A new line</textarea></div>
       <div id="diff"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose">
-      <h2>About the diff checker</h2>
-      <p>This compares your two texts line by line. Lines only in the original show in red (removed); lines only in the changed version show in green (added). Great for spotting edits in documents, code and configs.</p>
+        <section class="prose">
+      <h2>Compare Two Texts and Highlight Differences</h2>
+      <p>Whether tracking document revisions, checking legal contract amendments, comparing code versions, or proofreading student essays, this text diff checker compares two passages side-by-side and clearly highlights added, modified, and deleted lines.</p>
+      <h3>How the Diff Algorithm Works</h3>
+      <p>Using the Longest Common Subsequence (LCS) comparison model, lines present in the original but omitted in the revision are flagged in red, while newly inserted lines are highlighted in green.</p>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>Is the diff tool case-sensitive?</h3><p>Yes. The comparison checks exact character differences, capitalization, indentation, and punctuation.</p></div>
+      <div class="faq-item"><h3>Can I compare source code and JSON files?</h3><p>Yes. You can paste HTML, JavaScript, Python, JSON, CSS, or raw prose text.</p></div>
+      <div class="faq-item"><h3>Are my sensitive documents uploaded anywhere?</h3><p>No. The comparison runs entirely on your local machine using client-side JavaScript. No text is transmitted over the internet.</p></div>
     </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     function esc(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
     // LCS-based line diff

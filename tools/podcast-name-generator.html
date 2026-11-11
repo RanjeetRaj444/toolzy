@@ -7,19 +7,106 @@
   <meta name="description" content="Free podcast name generator. Enter your topic and get catchy podcast name ideas instantly." />
   <meta name="keywords" content="podcast name generator, podcast name ideas, show name generator" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/podcast-name-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:14px;}.names .n{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);cursor:pointer;font-weight:600;text-align:center;}.names .n:hover{border-color:var(--brand);color:var(--brand);}</style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Podcast Name Generator — Catchy Podcast Name Ideas | Toolzy" />
+  <meta property="og:description" content="Free podcast name generator. Enter your topic and get catchy podcast name ideas instantly." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/podcast-name-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Podcast Name Generator — Catchy Podcast Name Ideas | Toolzy" />
+  <meta name="twitter:description" content="Free podcast name generator. Enter your topic and get catchy podcast name ideas instantly." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Podcast Name Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/podcast-name-generator",
+      "description": "Free podcast name generator. Enter your topic and get catchy podcast name ideas instantly.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Podcast Name Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/podcast-name-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How long should a podcast title be?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Aim for 2 to 4 words. Short titles fit neatly on smartphone podcast app lock screens and custom cover art badges."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Should my podcast title contain keywords?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Including one primary keyword helps your podcast surface when users search within Apple Podcasts and Spotify."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are these podcast name suggestions free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. All ideas are free to use for your audio shows, YouTube channels, and RSS feeds."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Podcast Name Generator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Podcast Name Generator</nav>
     <div class="tool-head"><h1>Podcast Name Generator</h1><p>Enter your podcast topic and get catchy show-name ideas. Click to copy.</p></div>
     <div class="panel">
       <div class="row">
@@ -29,9 +116,23 @@
       <div class="names" id="names"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>Tips</h2><p>Make it easy to say and search for. Check that the name is free on your podcast host and that a matching handle is available.</p></section>
+        <section class="prose">
+      <h2>Find the Perfect Title for Your New Podcast</h2>
+      <p>With millions of podcasts streaming globally, your show title needs to hook casual listeners and clearly communicate your topic. This generator combines topical keywords with proven podcast naming formulas to spark your show concept.</p>
+      <h3>Four Proven Podcast Naming Formulas</h3>
+      <ul>
+        <li><strong>Descriptive:</strong> Clearly explains what listeners will learn (e.g. "The Tech Founder Breakdown").</li>
+        <li><strong>Catchy & Creative:</strong> Short, evocative 1–2 word names that sound like established media brands.</li>
+        <li><strong>Question-Based:</strong> Piques natural curiosity (e.g. "Why We Buy", "What's Next").</li>
+        <li><strong>Host-Branded:</strong> Combines your name with the subject when building a personal platform.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>How long should a podcast title be?</h3><p>Aim for 2 to 4 words. Short titles fit neatly on smartphone podcast app lock screens and custom cover art badges.</p></div>
+      <div class="faq-item"><h3>Should my podcast title contain keywords?</h3><p>Yes. Including one primary keyword helps your podcast surface when users search within Apple Podcasts and Spotify.</p></div>
+      <div class="faq-item"><h3>Are these podcast name suggestions free to use?</h3><p>Yes. All ideas are free to use for your audio shows, YouTube channels, and RSS feeds.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       function cap(s){ return s.charAt(0).toUpperCase()+s.slice(1); }

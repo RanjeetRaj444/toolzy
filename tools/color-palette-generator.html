@@ -7,7 +7,8 @@
   <meta name="description" content="Free color palette generator. Create beautiful random color schemes, lock the ones you like, and copy HEX codes. Perfect for designers and developers." />
   <meta name="keywords" content="color palette generator, color scheme, random colors, hex palette, design colors" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/color-palette-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>
@@ -19,16 +20,102 @@
     .sw .lock { font-size: .75rem; color: var(--text-muted); }
     @media (max-width: 620px){ .palette { grid-template-columns: repeat(2, 1fr); } }
   </style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Color Palette Generator — Random Color Schemes | Toolzy" />
+  <meta property="og:description" content="Free color palette generator. Create beautiful random color schemes, lock the ones you like, and copy HEX codes. Perfect for designers and developers." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/color-palette-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Color Palette Generator — Random Color Schemes | Toolzy" />
+  <meta name="twitter:description" content="Free color palette generator. Create beautiful random color schemes, lock the ones you like, and copy HEX codes. Perfect for designers and developers." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Color Palette Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/color-palette-generator",
+      "description": "Free color palette generator. Create beautiful random color schemes, lock the ones you like, and copy HEX codes. Perfect for designers and developers.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Color Palette Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/color-palette-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How do I use these colors in my CSS code?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Copy the generated HEX values directly into your CSS variables (e.g. --primary: #635bff;)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the 60-30-10 UI design rule?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apply 60% of your interface to a dominant neutral background color, 30% to secondary structural elements, and 10% to an accent color for buttons and calls-to-action."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I lock colors I like while shuffling?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Click the lock icon on individual color swatches to keep them fixed while regenerating the rest of the palette."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header">
     <div class="container nav">
-      <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
       <ul class="nav-links" id="navLinks">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../index.html#tools">All Tools</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../contact.html">Contact</a></li>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
       </ul>
       <div class="nav-actions">
         <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
@@ -39,7 +126,7 @@
 
   <main class="content">
     <div class="container">
-      <nav class="breadcrumb"><a href="../index.html">Home</a> / Color Palette Generator</nav>
+      <nav class="breadcrumb"><a href="/">Home</a> / Color Palette Generator</nav>
       <div class="tool-head">
         <h1>Color Palette Generator</h1>
         <p>Generate a fresh color scheme instantly. Click a color to lock it, then regenerate the rest. Click the HEX to copy it.</p>
@@ -54,20 +141,27 @@
 
       <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
 
-      <section class="prose">
-        <h2>Tips</h2>
-        <ul>
-          <li><strong>Lock</strong> colors you like by clicking the swatch, then regenerate to keep them.</li>
-          <li><strong>Copy</strong> any HEX code by clicking it.</li>
-          <li>Press the <strong>Spacebar</strong> to generate a new palette quickly.</li>
-        </ul>
-      </section>
+          <section class="prose">
+      <h2>Generate Cohesive Color Palettes for Web & Graphic Design</h2>
+      <p>Choosing the right color scheme establishes brand identity, guides visual hierarchy, and sets emotional tone. This palette generator creates harmonious color combinations using classic color theory rules to jump-start your design projects.</p>
+      <h3>Color Harmony Principles</h3>
+      <ul>
+        <li><strong>Complementary:</strong> Colors opposite each other on the color wheel, creating vibrant, high-energy contrast.</li>
+        <li><strong>Analogous:</strong> Colors sitting side-by-side on the wheel for serene, natural blends.</li>
+        <li><strong>Triadic:</strong> Three evenly spaced colors offering balanced visual diversity.</li>
+        <li><strong>Monochromatic:</strong> Varying shades, tints, and tones of a single hue for clean, modern minimalism.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>How do I use these colors in my CSS code?</h3><p>Copy the generated HEX values directly into your CSS variables (e.g. <code>--primary: #635bff;</code>).</p></div>
+      <div class="faq-item"><h3>What is the 60-30-10 UI design rule?</h3><p>Apply 60% of your interface to a dominant neutral background color, 30% to secondary structural elements, and 10% to an accent color for buttons and calls-to-action.</p></div>
+      <div class="faq-item"><h3>Can I lock colors I like while shuffling?</h3><p>Yes. Click the lock icon on individual color swatches to keep them fixed while regenerating the rest of the palette.</p></div>
+    </section>
     </div>
   </main>
 
   <footer class="site-footer">
     <div class="container">
-      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div>
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div>
     </div>
   </footer>
 

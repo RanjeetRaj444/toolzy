@@ -7,19 +7,106 @@
   <meta name="description" content="Free username generator. Create cool, unique usernames for gaming, social media and accounts from your name or a keyword." />
   <meta name="keywords" content="username generator, cool usernames, gamertag generator, unique username" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/username-generator" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%234f46e5'/%3E%3Ctext x='16' y='22' font-size='18' font-family='Arial' font-weight='bold' fill='white' text-anchor='middle'%3ET%3C/text%3E%3C/svg%3E" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="stylesheet" href="../css/style.css" />
   <script defer src="../js/main.js"></script>
   <style>.names{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px;margin-top:14px;}.names .n{padding:12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2);cursor:pointer;font-weight:600;text-align:center;font-family:ui-monospace,monospace;}.names .n:hover{border-color:var(--brand);color:var(--brand);}</style>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Username Generator — Cool & Unique Usernames | Toolzy" />
+  <meta property="og:description" content="Free username generator. Create cool, unique usernames for gaming, social media and accounts from your name or a keyword." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/username-generator" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Username Generator — Cool & Unique Usernames | Toolzy" />
+  <meta name="twitter:description" content="Free username generator. Create cool, unique usernames for gaming, social media and accounts from your name or a keyword." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Username Generator — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/username-generator",
+      "description": "Free username generator. Create cool, unique usernames for gaming, social media and accounts from your name or a keyword.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Username Generator",
+          "item": "https://toolzy-7eo.pages.dev/tools/username-generator"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What if my favorite generated username is already taken?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Try adding an understated prefix (like 'the', 'real', 'hey') or clean trailing digits."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I use these handles across all platforms?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Generated handles adhere to standard alphanumeric conventions supported by all major social and gaming services."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is the username generator free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, completely free with instant one-click copying."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
 </head>
 <body>
   <header class="site-header"><div class="container nav">
-    <a href="../index.html" class="brand"><span class="logo">T</span> Toolzy</a>
-    <ul class="nav-links" id="navLinks"><li><a href="../index.html">Home</a></li><li><a href="../index.html#tools">All Tools</a></li><li><a href="../about.html">About</a></li><li><a href="../contact.html">Contact</a></li></ul>
+    <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+    <ul class="nav-links" id="navLinks"><li><a href="/">Home</a></li><li><a href="/#tools">All Tools</a></li><li><a href="/about">About</a></li><li><a href="/contact">Contact</a></li></ul>
     <div class="nav-actions"><button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button><button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button></div>
   </div></header>
   <main class="content"><div class="container">
-    <nav class="breadcrumb"><a href="../index.html">Home</a> / Username Generator</nav>
+    <nav class="breadcrumb"><a href="/">Home</a> / Username Generator</nav>
     <div class="tool-head"><h1>Username Generator</h1><p>Enter your name or a word to get cool, unique username ideas for gaming and social media. Click to copy.</p></div>
     <div class="panel">
       <div class="row">
@@ -29,9 +116,22 @@
       <div class="names" id="names"></div>
     </div>
     <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
-    <section class="prose"><h2>Tips</h2><p>Mix in numbers, underscores, or a cool adjective to make a username unique. Avoid personal info like your birth year for privacy.</p></section>
+        <section class="prose">
+      <h2>Generate Unique, Aesthetic Usernames for Games and Social Media</h2>
+      <p>Struggling to find an untaken username on Discord, Instagram, Twitch, Roblox, or GitHub? This generator creates stylish, memorable, and cool handles blending aesthetic adjectives, clean prefixes, and tech-inspired themes.</p>
+      <h3>Tips for Great Online Handles</h3>
+      <ul>
+        <li><strong>Gaming & Twitch:</strong> Keep it short, punchy, and easy for teammates and commentators to call out.</li>
+        <li><strong>Professional / Developer:</strong> Use clean variations of your real name or specialty (e.g. on GitHub or LinkedIn).</li>
+        <li><strong>Aesthetic Social Media:</strong> Subtle underscores or minimalist word combinations create clean profiles.</li>
+      </ul>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item"><h3>What if my favorite generated username is already taken?</h3><p>Try adding an understated prefix (like 'the', 'real', 'hey') or clean trailing digits.</p></div>
+      <div class="faq-item"><h3>Can I use these handles across all platforms?</h3><p>Yes. Generated handles adhere to standard alphanumeric conventions supported by all major social and gaming services.</p></div>
+      <div class="faq-item"><h3>Is the username generator free?</h3><p>Yes, completely free with instant one-click copying.</p></div>
+    </section>
   </div></main>
-  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="../privacy-policy.html">Privacy</a> · <a href="../terms.html">Terms</a> · <a href="../index.html">Home</a></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/">Home</a></div></div></footer>
   <script>
     (function(){
       var adj=["cool","dark","swift","epic","mega","pixel","ghost","cyber","lunar","iron","mystic","turbo","shadow","frost","blaze"];
