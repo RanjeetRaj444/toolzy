@@ -3,6 +3,7 @@
   "short_name": "Toolzy",
   "description": "60+ free, fast, private online tools for everyday tasks. Everything runs in your browser.",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#635bff",
@@ -10,7 +11,30 @@
     {
       "src": "/favicon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Word Counter",
+      "url": "/tools/word-counter",
+      "description": "Count words and characters"
+    },
+    {
+      "name": "EMI Calculator",
+      "url": "/tools/emi-calculator",
+      "description": "Calculate loan EMI"
+    },
+    {
+      "name": "QR Code Generator",
+      "url": "/tools/qr-generator",
+      "description": "Generate custom QR codes"
+    },
+    {
+      "name": "Image Compressor",
+      "url": "/tools/image-compressor",
+      "description": "Compress images securely"
     }
   ]
 }

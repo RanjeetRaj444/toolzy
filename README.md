@@ -1,64 +1,67 @@
-# Toolzy — Free Online Tools
+# Toolzy — Free, Fast & Private Online Tools
 
-A fast, privacy-friendly collection of free online tools. 100% static (HTML/CSS/JS), no
-backend, no build step, no cost to run. Everything runs in the visitor's browser.
+A comprehensive suite of 64+ free, privacy-friendly online utilities. Built with 100% vanilla web technologies (HTML5, CSS3, modern JavaScript) with **zero backend**, **no build steps**, and **no server-side data uploads**. Everything runs right in the visitor's browser.
 
-## Current tools (Milestone 1)
+🌐 **Live URL:** [https://toolzy-7eo.pages.dev/](https://toolzy-7eo.pages.dev/)  
+📁 **Complete Documentation:** See [FEATURES.md](./FEATURES.md) for full catalog and feature breakdown.
 
-- Word Counter
-- Password Generator
-- Case Converter
-- Age Calculator
-- Percentage Calculator
-- QR Code Generator
+---
 
-Plus: Home, About, Contact, Privacy Policy, Terms, 404, sitemap and robots.txt
-(the pages Google AdSense requires).
+## 🌟 Key Highlights
 
-## Run it locally
+- **64+ Browser-Native Tools:** Calculators, text processors, image editors, PDF utilities, generators, and developer helpers.
+- **100% Client-Side Privacy:** Files, passwords, and sensitive inputs never leave the user's device.
+- **PWA & Offline Ready:** Integrated Service Worker (`sw.js`) and Web Manifest (`site.webmanifest`) allow Toolzy to be installed as a native app and run offline.
+- **Favorites & Recents System:** Quick-access shelves powered by `localStorage` (★ Star favorite tools, ⚡ View recently used tools).
+- **SEO & Google Search Console Ready:**
+  - XML Sitemap with 68 canonical URLs (`sitemap.xml`)
+  - RSS 2.0 Feed for rapid bot indexing (`rss.xml`)
+  - OpenSearch 1.1 description (`opensearch.xml`)
+  - Schema.org JSON-LD structured data (`WebApplication`, `BreadcrumbList`, `FAQPage`, `WebSite`, `Organization`) on every page.
+  - Comprehensive contextual internal linking across all tool categories.
+- **Google AdSense Ready:**
+  - Standard compliant `/ads.txt`
+  - Clean HTML without placeholder ad violations
+  - Essential legal & identity pages (`about.html`, `contact.html`, `privacy-policy.html`, `terms.html`, `404.html`)
+  - GDPR/privacy consent banner.
+- **Modern UX:**
+  - Dark/Light mode toggle with persistence
+  - Instant live fuzzy search with keyboard shortcut (`/`)
+  - Drag-and-drop file processing zones
+  - Responsive layout optimized for mobile, tablet, and desktop.
 
-Just open `index.html` in a browser. Or serve it (recommended, so paths behave like production):
+---
+
+## 🚀 Running Locally
+
+Open `index.html` directly in your browser, or serve it locally:
 
 ```bash
-# Python 3
+# Using Python 3
 python -m http.server 8000
-# then visit http://localhost:8000
+
+# Using Node.js
+npx serve .
 ```
 
-## Deploy for free
+Then navigate to `http://localhost:8000`.
 
-Any static host works. Easiest options (all have a free tier):
+---
 
-### Netlify (drag & drop — no account tools needed)
-1. Go to https://app.netlify.com/drop
-2. Drag this whole folder onto the page.
-3. You get a live URL instantly (e.g. `your-site.netlify.app`).
+## ☁️ Deployment
 
-### Netlify / Vercel / Cloudflare Pages (via GitHub)
-1. Push this folder to a GitHub repository.
-2. Connect the repo in Netlify/Vercel/Cloudflare Pages.
-3. Build command: *(none)*. Publish directory: `/` (the root).
+Toolzy is configured for continuous static hosting on **Cloudflare Pages**, **Netlify**, or **Vercel**:
 
-### GitHub Pages
-1. Push to GitHub, enable Pages on the `main` branch, root folder.
+- **Cloudflare Pages:**
+  ```bash
+  npx wrangler pages deploy . --project-name=toolzy --branch=main
+  ```
+- **Custom Headers & Redirects:**
+  - `_headers`: Caching rules (immutable 1-year cache for CSS/JS, revalidate for sitemaps and service worker).
+  - `_redirects`: Clean URL canonicals and `/ads.txt` case-handling.
 
-## Before going live — find & replace these placeholders
+---
 
-| Placeholder | Replace with |
-|---|---|
-| `https://example.com` | Your real domain (in every HTML `<link rel="canonical">`, Open Graph, `sitemap.xml`, `robots.txt`) |
-| `hello@toolzy.example.com` | Your real contact email (`contact.html`) |
-| `Toolzy` | Your final brand name, if you change it |
+## 📄 License & Attribution
 
-## After deploying
-
-1. **Google Search Console** — add your site, verify, submit `sitemap.xml`.
-2. **Wait for traffic + add a few more tools** (Milestone 2) before applying to AdSense.
-3. **Google AdSense** — apply once the site has real content and some visitors.
-   When approved, replace each `<div class="ad-slot">…</div>` with your AdSense ad unit code.
-
-## Tech notes
-
-- No frameworks, no dependencies except a tiny CDN QR library (`qrcodejs`) on the QR page.
-- Light/dark theme with a manual toggle (remembers choice via localStorage).
-- Each tool page is self-contained and individually SEO-optimised (title, description, canonical).
+Created & maintained by **Ranjeet Raj**. Free to use under the MIT License.

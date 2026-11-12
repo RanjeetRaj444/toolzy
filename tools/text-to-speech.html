@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Text to Speech Reader — Free Online Voice TTS (Instant &amp; Private) | Toolzy</title>
+  <meta name="description" content="Convert written text into natural spoken voice with customizable pitch, speed, and voices. 100% free, private, client-side text-to-speech reader. No sign-up needed." />
+  <meta name="keywords" content="text to speech, tts online, read text aloud, free voice generator, speech synthesizer, listen to text, speech synthesis online" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/text-to-speech" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="../css/style.css" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/text-to-speech" />
+  <meta property="og:title" content="Text to Speech Reader — Free Online Voice TTS (Instant &amp; Private)" />
+  <meta property="og:description" content="Convert written text into natural spoken voice with customizable pitch, speed, and voices. 100% free, private, browser-based TTS." />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Text to Speech Reader — Free Online Voice TTS (Instant &amp; Private)" />
+  <meta name="twitter:description" content="Convert written text into natural spoken voice with customizable pitch, speed, and voices. 100% free, private, browser-based TTS." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+
+  <!-- Structured Data: WebApplication, BreadcrumbList, FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "Text to Speech Reader",
+        "url": "https://toolzy-7eo.pages.dev/tools/text-to-speech",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All",
+        "browserRequirements": "Requires JavaScript",
+        "description": "Convert written text into natural spoken voice with customizable pitch, speed, and voices entirely inside your web browser.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://toolzy-7eo.pages.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://toolzy-7eo.pages.dev/#tools" },
+          { "@type": "ListItem", "position": 3, "name": "Text to Speech", "item": "https://toolzy-7eo.pages.dev/tools/text-to-speech" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is this text to speech reader completely free?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, Toolzy's Text to Speech Reader is 100% free to use with no usage limits, character caps, or registration required."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is my text private and secure?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes! Speech synthesis runs completely on your device using the browser's native Web Speech API. None of your text is uploaded to any server."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I adjust reading speed and pitch?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, you can finely adjust speech rate (0.5x to 2x speed), pitch (low to high), and choose from all speech synthesis voices installed on your device."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <script defer src="../js/main.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6506203240622280" crossorigin="anonymous"></script>
+
+  <style>
+    .tts-controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+      background: var(--surface-2);
+      padding: 18px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+    .tts-slider-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .tts-slider-head {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .tts-slider-val {
+      color: var(--brand);
+      font-weight: 700;
+    }
+    .tts-presets {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 12px 0 18px;
+    }
+    .tts-chip {
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .tts-chip:hover {
+      border-color: var(--brand);
+      color: var(--brand);
+    }
+    .tts-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+    }
+    .tts-status.speaking {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #047857;
+      animation: pulse 1.5s infinite;
+    }
+    [data-theme="dark"] .tts-status.speaking {
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+  </style>
+</head>
+<body>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">Home</a> / <a href="/#tools">Tools</a> / Text to Speech
+      </nav>
+
+      <div class="tool-head">
+        <div class="tool-title-row">
+          <h1>Text to Speech Reader</h1>
+          <span class="tts-status" id="ttsStatus">● Ready</span>
+        </div>
+        <p class="tool-desc">Listen to any text read aloud with natural human voices. Finely control speed, pitch, and voice accent without signing up or uploading data.</p>
+      </div>
+
+      <div class="panel">
+        <div class="tts-presets">
+          <span style="font-size:0.82rem; font-weight:600; color:var(--text-muted); display:inline-flex; align-items:center;">Try a sample:</span>
+          <button type="button" class="tts-chip" onclick="loadSample('welcome')">👋 Welcome Message</button>
+          <button type="button" class="tts-chip" onclick="loadSample('story')">📖 Short Story</button>
+          <button type="button" class="tts-chip" onclick="loadSample('tongue')">👅 Tongue Twister</button>
+        </div>
+
+        <div class="field">
+          <label for="ttsText">Enter or paste your text below</label>
+          <textarea id="ttsText" rows="6" placeholder="Type or paste words here to listen..." autofocus></textarea>
+        </div>
+
+        <div class="tts-controls">
+          <div class="field" style="margin-bottom:0;">
+            <label for="ttsVoice">Select Voice</label>
+            <select id="ttsVoice">
+              <option value="">Default System Voice</option>
+            </select>
+          </div>
+
+          <div class="tts-slider-wrap">
+            <div class="tts-slider-head">
+              <span>Reading Speed</span>
+              <span class="tts-slider-val" id="rateVal">1.0x</span>
+            </div>
+            <input type="range" id="ttsRate" min="0.5" max="2.0" step="0.1" value="1.0" />
+          </div>
+
+          <div class="tts-slider-wrap">
+            <div class="tts-slider-head">
+              <span>Voice Pitch</span>
+              <span class="tts-slider-val" id="pitchVal">1.0</span>
+            </div>
+            <input type="range" id="ttsPitch" min="0.5" max="2.0" step="0.1" value="1.0" />
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button type="button" class="btn" id="btnSpeak">▶ Speak</button>
+          <button type="button" class="btn secondary" id="btnPause">⏸ Pause</button>
+          <button type="button" class="btn secondary" id="btnResume">▶ Resume</button>
+          <button type="button" class="btn secondary" id="btnStop">⏹ Stop</button>
+          <button type="button" class="btn secondary" id="btnClear">🗑 Clear</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="num" id="charCount">0</div><div class="lbl">Characters</div></div>
+          <div class="stat"><div class="num" id="wordCount">0</div><div class="lbl">Words</div></div>
+          <div class="stat"><div class="num" id="estDuration">0s</div><div class="lbl">Estimated Time</div></div>
+        </div>
+      </div>
+
+      <!-- AD SLOT -->
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <!-- PROSE / HELPFUL CONTENT (SEO & AdSense E-E-A-T) -->
+      <section class="prose">
+        <h2>How to Use the Online Text to Speech Reader</h2>
+        <p>Listening to your text read aloud is one of the best ways to catch typos, practice language pronunciation, or proofread articles before publishing. Here is how to use Toolzy's free TTS voice reader:</p>
+        <ol>
+          <li><strong>Enter or paste your text:</strong> Type directly in the text box above or click one of the sample presets.</li>
+          <li><strong>Select your preferred voice:</strong> Choose from natural male, female, or accent voices supported natively by your browser and operating system.</li>
+          <li><strong>Adjust speed and pitch:</strong> Use the rate slider to speed up (up to 2.0x) for quick listening or slow down (0.5x) for careful language study.</li>
+          <li><strong>Hit Speak:</strong> Click the <strong>Speak</strong> button to start. You can pause, resume, or stop anytime.</li>
+        </ol>
+
+        <h2>Related Text and Writing Utilities</h2>
+        <p>Working on a manuscript, article, or coding project? You can also explore our companion text tools:</p>
+        <ul>
+          <li><strong><a href="/tools/word-counter">Word Counter</a>:</strong> Track exact word, sentence, paragraph counts, and estimated reading time.</li>
+          <li><strong><a href="/tools/case-converter">Case Converter</a>:</strong> Quickly toggle between UPPERCASE, lowercase, Title Case, and camelCase.</li>
+          <li><strong><a href="/tools/lorem-ipsum">Lorem Ipsum Generator</a>:</strong> Generate placeholder copy and paragraphs for design mockups.</li>
+          <li><strong><a href="/tools/markdown-preview">Markdown Preview</a>:</strong> Write, format, and preview Markdown formatted notes with live preview.</li>
+        </ul>
+
+        <h2>Why Use Toolzy's Browser TTS?</h2>
+        <p>Many online speech synthesizers require signing up for a monthly subscription, limiting you to 200 characters or uploading your confidential text to remote cloud servers. Toolzy's Text to Speech Reader runs entirely on the <strong>Web Speech Synthesis API</strong> built into your modern browser:</p>
+        <ul>
+          <li><strong>100% Confidential:</strong> What you type never leaves your computer, phone, or tablet.</li>
+          <li><strong>Zero Usage Limits:</strong> Read short emails, full chapters, or long lists without character quotas.</li>
+          <li><strong>Offline Friendly:</strong> Enabled by our progressive web app (PWA) cache, speech synthesis works even when you lose internet connection.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+          <h3>Is Toolzy's Text to Speech tool free?</h3>
+          <p>Yes. You can listen to as much text as you want completely free of charge, with no sign-up or subscription.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Why do voice choices differ between devices?</h3>
+          <p>The voices listed in the dropdown come directly from the high-quality speech engines installed on your device (e.g. Apple Siri voices on macOS/iOS, Google voices on Android/Chrome, and Microsoft Natural voices on Windows). They sound crisp, responsive, and natural.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I listen while offline?</h3>
+          <p>Yes. Because the speech synthesis engine is built directly into your browser and operating system, voices continue to speak even without active Wi-Fi or data.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h4>Toolzy</h4>
+        <p>Free, fast, private online tools for everyday tasks. Everything runs directly in your web browser.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Popular Tools</h4>
+        <ul>
+          <li><a href="/tools/word-counter">Word Counter</a></li>
+          <li><a href="/tools/emi-calculator">EMI Calculator</a></li>
+          <li><a href="/tools/image-compressor">Image Compressor</a></li>
+          <li><a href="/tools/qr-generator">QR Code Generator</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Categories</h4>
+        <ul>
+          <li><a href="/#tools">Writing &amp; Text</a></li>
+          <li><a href="/#tools">Calculators &amp; Math</a></li>
+          <li><a href="/#tools">Images &amp; PDF</a></li>
+          <li><a href="/#tools">Developer Tools</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>About</h4>
+        <ul>
+          <li><a href="/about">About Toolzy</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="/privacy-policy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom container">
+      <p>&copy; <span id="year">2026</span> Toolzy &middot; Free, Fast, Private Online Tools</p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var synth = window.speechSynthesis;
+      var textInput = document.getElementById("ttsText");
+      var voiceSelect = document.getElementById("ttsVoice");
+      var rateInput = document.getElementById("ttsRate");
+      var pitchInput = document.getElementById("ttsPitch");
+      var rateVal = document.getElementById("rateVal");
+      var pitchVal = document.getElementById("pitchVal");
+      var charCount = document.getElementById("charCount");
+      var wordCount = document.getElementById("wordCount");
+      var estDuration = document.getElementById("estDuration");
+      var ttsStatus = document.getElementById("ttsStatus");
+
+      var voices = [];
+
+      function updateStats() {
+        var txt = textInput.value || "";
+        var chars = txt.length;
+        var words = txt.trim() ? txt.trim().split(/\s+/).length : 0;
+        charCount.textContent = chars.toLocaleString();
+        wordCount.textContent = words.toLocaleString();
+        // Avg speaking rate ~ 130 words per minute at 1.0x
+        var rate = parseFloat(rateInput.value) || 1.0;
+        var seconds = words > 0 ? Math.ceil((words / (130 * rate)) * 60) : 0;
+        estDuration.textContent = seconds < 60 ? seconds + "s" : Math.floor(seconds / 60) + "m " + (seconds % 60) + "s";
+      }
+
+      function populateVoiceList() {
+        if (!synth) {
+          voiceSelect.innerHTML = "<option>Speech synthesis not supported in this browser</option>";
+          return;
+        }
+        voices = synth.getVoices().sort(function (a, b) {
+          var aname = a.name.toUpperCase();
+          var bname = b.name.toUpperCase();
+          if (aname < bname) return -1;
+          if (aname > bname) return 1;
+          return 0;
+        });
+
+        if (!voices.length) return;
+
+        voiceSelect.innerHTML = "";
+        voices.forEach(function (v, idx) {
+          var opt = document.createElement("option");
+          opt.textContent = v.name + " (" + v.lang + ")" + (v.default ? " — Default" : "");
+          opt.value = idx;
+          if (v.default || v.lang.indexOf("en") === 0) {
+            // Prefer english default if available
+            if (!voiceSelect.hasAttribute("data-selected")) {
+              opt.selected = true;
+              voiceSelect.setAttribute("data-selected", "1");
+            }
+          }
+          voiceSelect.appendChild(opt);
+        });
+      }
+
+      populateVoiceList();
+      if (synth && synth.onvoiceschanged !== undefined) {
+        synth.onvoiceschanged = populateVoiceList;
+      }
+
+      rateInput.addEventListener("input", function () {
+        rateVal.textContent = parseFloat(rateInput.value).toFixed(1) + "x";
+        updateStats();
+      });
+
+      pitchInput.addEventListener("input", function () {
+        pitchVal.textContent = parseFloat(pitchInput.value).toFixed(1);
+      });
+
+      textInput.addEventListener("input", updateStats);
+
+      function setStatus(text, isSpeaking) {
+        ttsStatus.textContent = (isSpeaking ? "🔊 " : "● ") + text;
+        if (isSpeaking) {
+          ttsStatus.classList.add("speaking");
+        } else {
+          ttsStatus.classList.remove("speaking");
+        }
+      }
+
+      function speak() {
+        if (!synth) {
+          alert("Sorry, your browser does not support Speech Synthesis.");
+          return;
+        }
+        if (synth.speaking) {
+          synth.cancel();
+        }
+        var txt = textInput.value.trim();
+        if (!txt) {
+          textInput.focus();
+          return;
+        }
+
+        var utter = new SpeechSynthesisUtterance(txt);
+        var selectedIdx = voiceSelect.value;
+        if (selectedIdx !== "" && voices[selectedIdx]) {
+          utter.voice = voices[selectedIdx];
+        }
+        utter.rate = parseFloat(rateInput.value) || 1.0;
+        utter.pitch = parseFloat(pitchInput.value) || 1.0;
+
+        utter.onstart = function () { setStatus("Speaking...", true); };
+        utter.onend = function () { setStatus("Finished", false); };
+        utter.onerror = function () { setStatus("Ready", false); };
+        utter.onpause = function () { setStatus("Paused", false); };
+        utter.onresume = function () { setStatus("Speaking...", true); };
+
+        synth.speak(utter);
+      }
+
+      document.getElementById("btnSpeak").addEventListener("click", speak);
+
+      document.getElementById("btnPause").addEventListener("click", function () {
+        if (synth && synth.speaking && !synth.paused) {
+          synth.pause();
+          setStatus("Paused", false);
+        }
+      });
+
+      document.getElementById("btnResume").addEventListener("click", function () {
+        if (synth && synth.paused) {
+          synth.resume();
+          setStatus("Speaking...", true);
+        }
+      });
+
+      document.getElementById("btnStop").addEventListener("click", function () {
+        if (synth) {
+          synth.cancel();
+          setStatus("Stopped", false);
+        }
+      });
+
+      document.getElementById("btnClear").addEventListener("click", function () {
+        if (synth) synth.cancel();
+        textInput.value = "";
+        updateStats();
+        setStatus("Ready", false);
+        textInput.focus();
+      });
+
+      window.loadSample = function (type) {
+        if (type === "welcome") {
+          textInput.value = "Welcome to Toolzy! Enjoy fast, free, and privacy-friendly online utilities designed to make everyday tasks effortless.";
+        } else if (type === "story") {
+          textInput.value = "The curious fox wandered through the golden meadow at twilight, listening closely to the whispers of the gentle evening breeze.";
+        } else if (type === "tongue") {
+          textInput.value = "How much wood would a woodchuck chuck if a woodchuck could chuck wood? As much wood as a woodchuck could chuck!";
+        }
+        updateStats();
+        speak();
+      };
+
+      updateStats();
+    })();
+  </script>
+</body>
+</html>

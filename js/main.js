@@ -68,7 +68,8 @@
     ["crypto-tracker","Live Crypto Prices","₿","more"],
     ["math-solver","Math Problem Solver","🧮","more"],
     ["timezone-converter","Time Zone Converter","🌍","more"],
-    ["weather-forecast","Weather Forecast","🌤️","more"]
+    ["weather-forecast","Weather Forecast","🌤️","more"],
+    ["text-to-speech","Text to Speech Reader","🗣️","text"]
   ];
   var CATS = [
     ["all","All tools"],["calc","Calculators"],["finance","Finance"],
@@ -239,16 +240,80 @@
     } catch (e) {}
   }
 
-  // ---- Tool page one-click share button ----
-  function initShare() {
+  // ---- Favorites (saved tools) in localStorage ----
+  function getFavs() {
+    try {
+      var raw = localStorage.getItem("toolzy-favs");
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function setFavs(list) {
+    try { localStorage.setItem("toolzy-favs", JSON.stringify(list)); } catch (e) {}
+  }
+  function renderFavorites() {
+    var bar = document.getElementById("favBar");
+    if (!bar) return;
+    var favs = getFavs();
+    if (!favs || !favs.length) {
+      bar.classList.remove("show");
+      bar.innerHTML = "";
+      return;
+    }
+    var html = '<span class="fav-label">⭐ Favorites:</span>';
+    var found = 0;
+    favs.forEach(function (slug) {
+      var t = toolBySlug(slug);
+      if (t) {
+        html += '<a class="fav-chip" href="tools/' + t[0] + '"><span>' + t[2] + '</span><span>' + t[1] + '</span></a>';
+        found++;
+      }
+    });
+    if (found > 0) {
+      bar.innerHTML = html;
+      bar.classList.add("show");
+    } else {
+      bar.classList.remove("show");
+    }
+  }
+
+  // ---- Tool page one-click share & favorite buttons ----
+  function initToolActions() {
     if (location.pathname.indexOf("/tools/") === -1) return;
     var bc = document.querySelector(".breadcrumb");
     if (!bc) return;
-    var btn = document.createElement("button");
-    btn.className = "share-btn";
-    btn.innerHTML = "Share 🔗";
-    btn.setAttribute("aria-label", "Share this tool");
-    btn.onclick = function () {
+    var slug = slugOf(location.pathname);
+    var favs = getFavs();
+    var isFav = favs.indexOf(slug) !== -1;
+
+    var group = document.createElement("div");
+    group.className = "tool-actions-group";
+
+    var favBtn = document.createElement("button");
+    favBtn.className = "fav-btn" + (isFav ? " active" : "");
+    favBtn.innerHTML = isFav ? "★ Saved" : "☆ Save";
+    favBtn.setAttribute("aria-label", "Favorite this tool");
+    favBtn.onclick = function () {
+      var cur = getFavs();
+      var idx = cur.indexOf(slug);
+      if (idx !== -1) {
+        cur.splice(idx, 1);
+        favBtn.className = "fav-btn";
+        favBtn.innerHTML = "☆ Save";
+        showToast("Removed from favorites");
+      } else {
+        cur.push(slug);
+        favBtn.className = "fav-btn active";
+        favBtn.innerHTML = "★ Saved";
+        showToast("Saved to favorites ⭐");
+      }
+      setFavs(cur);
+    };
+
+    var shareBtn = document.createElement("button");
+    shareBtn.className = "share-btn";
+    shareBtn.innerHTML = "Share 🔗";
+    shareBtn.setAttribute("aria-label", "Share this tool");
+    shareBtn.onclick = function () {
       if (navigator.share) {
         navigator.share({ title: document.title, url: location.href }).catch(function () {});
       } else {
@@ -256,11 +321,46 @@
         showToast("Link copied to clipboard!");
       }
     };
+
+    group.appendChild(favBtn);
+    group.appendChild(shareBtn);
+
     var wrap = document.createElement("div");
     wrap.className = "tool-top-actions";
     bc.parentNode.insertBefore(wrap, bc);
     wrap.appendChild(bc);
-    wrap.appendChild(btn);
+    wrap.appendChild(group);
+  }
+
+  // ---- Cookie / Privacy banner ----
+  function initCookieBanner() {
+    try {
+      if (localStorage.getItem("toolzy-consent")) return;
+    } catch (e) { return; }
+    var banner = document.createElement("div");
+    banner.className = "cookie-banner";
+    banner.innerHTML =
+      '<p class="cookie-text">🍪 We use cookies and local storage to personalize your experience and analyze traffic. All tool data stays 100% private in your browser. <a href="/privacy-policy">Privacy policy</a>.</p>' +
+      '<button class="cookie-btn" id="cookieAccept">Accept &amp; Close</button>';
+    document.body.appendChild(banner);
+    setTimeout(function () { banner.classList.add("show"); }, 500);
+    var btn = document.getElementById("cookieAccept");
+    if (btn) {
+      btn.onclick = function () {
+        try { localStorage.setItem("toolzy-consent", "1"); } catch (e) {}
+        banner.classList.remove("show");
+        setTimeout(function () { if (banner.parentNode) banner.parentNode.removeChild(banner); }, 300);
+      };
+    }
+  }
+
+  // ---- Service Worker registration (offline PWA) ----
+  function initServiceWorker() {
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("/sw.js").catch(function () {});
+      });
+    }
   }
 
   // ---- Tool pages: "Related tools" + "All tools" links ----
@@ -384,11 +484,14 @@
     initYear();
     initDatePickers();
     initBack();
-    initShare();
+    initToolActions();
     trackRecent();
     renderRecent();
+    renderFavorites();
     initRelated();
     initFileZones();
     initScrollTop();
+    initCookieBanner();
+    initServiceWorker();
   });
 })();

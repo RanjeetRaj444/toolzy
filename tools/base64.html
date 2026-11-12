@@ -137,9 +137,20 @@
 
       <section class="prose">
         <h2>What is Base64?</h2>
-        <p>Base64 is a way of representing binary or text data using only 64 safe characters (A–Z, a–z, 0–9, + and /). It's widely used to embed images in CSS/HTML as data URLs, to send data in JSON or URLs, and in email attachments.</p>
-        <div class="faq-item"><h3>Does it handle emojis and accents?</h3><p>Yes. This tool encodes text as UTF-8 first, so Unicode characters like é, ü and 😀 work correctly.</p></div>
-        <div class="faq-item"><h3>Is Base64 encryption?</h3><p>No. Base64 is encoding, not encryption — anyone can decode it. Never use it to protect secrets.</p></div>
+        <p>Base64 is a binary-to-text encoding scheme that represents binary data in an ASCII string format using 64 printable characters (A–Z, a–z, 0–9, +, and /). It is commonly used for embedding inline images in CSS/HTML data URLs, transferring binary payload in JSON APIs, and email attachments (MIME).</p>
+
+        <h2>Companion Developer Utilities</h2>
+        <p>Building or debugging web applications? Explore our other browser-native developer tools:</p>
+        <ul>
+          <li><strong><a href="/tools/url-encoder">URL Encoder & Decoder</a>:</strong> Safely escape query parameters and special characters for HTTP requests.</li>
+          <li><strong><a href="/tools/hash-generator">Hash Generator</a>:</strong> Calculate SHA-256, SHA-512, MD5, and SHA-1 checksums instantly.</li>
+          <li><strong><a href="/tools/jwt-decoder">JWT Decoder</a>:</strong> Inspect JSON Web Token headers and payload claims without sharing sensitive secrets.</li>
+          <li><strong><a href="/tools/uuid-generator">UUID Generator</a>:</strong> Generate cryptographically secure v4 GUIDs/UUIDs in bulk.</li>
+        </ul>
+
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item"><h3>Does it handle emojis and special accents?</h3><p>Yes. This tool encodes text as UTF-8 first, so Unicode characters like é, ü, and 😀 work seamlessly without corruption.</p></div>
+        <div class="faq-item"><h3>Is Base64 considered encryption?</h3><p>No. Base64 is purely an encoding mechanism, not encryption — anyone can decode it back in milliseconds. Never rely on Base64 to conceal passwords or sensitive data.</p></div>
       </section>
     </div>
   </main>
