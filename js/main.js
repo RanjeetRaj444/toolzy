@@ -159,25 +159,107 @@
       var t = toolBySlug(slugOf(c.getAttribute("href")));
       if (t) c.setAttribute("data-cat", t[3]);
     });
+    // check URL hash for initial category
+    var hash = (location.hash || "").replace("#", "").toLowerCase();
+    for (var k = 0; k < CATS.length; k++) {
+      if (CATS[k][0] === hash) { activeCat = hash; break; }
+    }
     // render category chips
     var bar = document.getElementById("toolCats");
     if (bar) {
       CATS.forEach(function (cat) {
         var b = document.createElement("button");
-        b.className = "cat-chip" + (cat[0] === "all" ? " active" : "");
+        b.className = "cat-chip" + (cat[0] === activeCat ? " active" : "");
         b.textContent = cat[1];
         b.setAttribute("data-cat", cat[0]);
         b.onclick = function () {
           activeCat = cat[0];
           Array.prototype.forEach.call(bar.children, function (x) { x.classList.remove("active"); });
           b.classList.add("active");
+          if (history.replaceState) history.replaceState(null, null, cat[0] === "all" ? "#tools" : "#" + cat[0]);
           applyFilter();
         };
         bar.appendChild(b);
       });
     }
     var input = document.getElementById("toolSearch");
-    if (input) input.addEventListener("input", function () { searchQ = input.value.trim().toLowerCase(); activeCat = "all"; if (bar) { Array.prototype.forEach.call(bar.children, function (x) { x.classList.toggle("active", x.getAttribute("data-cat") === "all"); }); } applyFilter(); });
+    if (input) {
+      input.addEventListener("input", function () {
+        searchQ = input.value.trim().toLowerCase();
+        activeCat = "all";
+        if (bar) { Array.prototype.forEach.call(bar.children, function (x) { x.classList.toggle("active", x.getAttribute("data-cat") === "all"); }); }
+        applyFilter();
+      });
+      // "/" hotkey to focus search
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "/" && document.activeElement !== input && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+          e.preventDefault();
+          input.focus();
+          input.select();
+        }
+      });
+    }
+  }
+
+  // ---- Recently used tools tracker & bar ----
+  function trackRecent() {
+    if (location.pathname.indexOf("/tools/") === -1) return;
+    var slug = slugOf(location.pathname);
+    if (!slug) return;
+    try {
+      var raw = localStorage.getItem("toolzy-recent");
+      var list = raw ? JSON.parse(raw) : [];
+      list = list.filter(function (s) { return s !== slug; });
+      list.unshift(slug);
+      list = list.slice(0, 5);
+      localStorage.setItem("toolzy-recent", JSON.stringify(list));
+    } catch (e) {}
+  }
+  function renderRecent() {
+    var container = document.getElementById("recentBar");
+    if (!container) return;
+    try {
+      var raw = localStorage.getItem("toolzy-recent");
+      var list = raw ? JSON.parse(raw) : [];
+      if (!list || !list.length) return;
+      var html = '<span class="recent-label">⚡ Recently used:</span>';
+      var found = 0;
+      list.forEach(function (slug) {
+        var t = toolBySlug(slug);
+        if (t) {
+          html += '<a class="recent-chip" href="tools/' + t[0] + '"><span>' + t[2] + '</span><span>' + t[1] + '</span></a>';
+          found++;
+        }
+      });
+      if (found > 0) {
+        container.innerHTML = html;
+        container.classList.add("show");
+      }
+    } catch (e) {}
+  }
+
+  // ---- Tool page one-click share button ----
+  function initShare() {
+    if (location.pathname.indexOf("/tools/") === -1) return;
+    var bc = document.querySelector(".breadcrumb");
+    if (!bc) return;
+    var btn = document.createElement("button");
+    btn.className = "share-btn";
+    btn.innerHTML = "Share 🔗";
+    btn.setAttribute("aria-label", "Share this tool");
+    btn.onclick = function () {
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: location.href }).catch(function () {});
+      } else {
+        copyText(location.href);
+        showToast("Link copied to clipboard!");
+      }
+    };
+    var wrap = document.createElement("div");
+    wrap.className = "tool-top-actions";
+    bc.parentNode.insertBefore(wrap, bc);
+    wrap.appendChild(bc);
+    wrap.appendChild(btn);
   }
 
   // ---- Tool pages: "Related tools" + "All tools" links ----
@@ -301,6 +383,9 @@
     initYear();
     initDatePickers();
     initBack();
+    initShare();
+    trackRecent();
+    renderRecent();
     initRelated();
     initFileZones();
     initScrollTop();

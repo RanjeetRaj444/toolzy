@@ -49,6 +49,43 @@
         "name": "Toolzy",
         "url": "https://toolzy-7eo.pages.dev/",
         "logo": "https://toolzy-7eo.pages.dev/favicon.svg"
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What tools does Toolzy offer?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Toolzy provides 60+ free browser-based tools across 8 categories: Calculators, Finance, Image Editors, PDF Utilities, Text & Writing Tools, Developer Tools, Generators, and Currency/Crypto trackers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my files, passwords, or data uploaded to a server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Toolzy uses client-side processing. Your sensitive files, passwords, and data never leave your device."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Toolzy completely free to use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All tools are 100% free forever with no registration, accounts, or daily usage caps."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Toolzy work on mobile phones?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. All tools are responsive and work smoothly across iOS, Android, macOS, Windows, and Linux browsers."
+            }
+          }
+        ]
       }
     ]
   }
@@ -82,6 +119,7 @@
       <div class="tool-search">
         <span class="search-icon">🔍</span>
         <input type="text" id="toolSearch" placeholder="Search tools… (e.g. password, counter)" aria-label="Search tools" />
+        <span class="search-kbd" title="Press / on your keyboard to search">/</span>
       </div>
       <div class="features">
         <span class="feat"><span class="fi">🔒</span> 100% private</span>
@@ -100,6 +138,8 @@
         <h2>All tools</h2>
         <p>Browse by category or search — no account required.</p>
       </div>
+
+      <div class="recent-bar" id="recentBar"></div>
 
       <div class="cat-bar" id="toolCats"></div>
 
@@ -351,14 +391,32 @@
 
       <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
 
-      <!-- INTRO CONTENT (good for SEO + AdSense) -->
+      <!-- INTRO & FAQ CONTENT (High SEO value for Homepage Google Ranking) -->
       <section class="prose" style="margin: 30px auto 0;">
         <h2>Why use Toolzy?</h2>
-        <p>Toolzy brings together the small online tools people search for every day and puts them in one clean, fast place. Whether you need to check a word count before submitting an assignment, generate a password you can actually trust, or turn a link into a QR code, you can do it here in a couple of clicks.</p>
+        <p>Toolzy brings together the small online tools people search for every day and puts them in one clean, fast place. Whether you need to check a word count before submitting an assignment, generate a strong password you can trust, calculate an EMI or electricity bill, resize images, or convert PDF documents, you can do it here in a couple of clicks.</p>
         <h3>Private by design</h3>
-        <p>Every tool runs entirely inside your web browser. Your text, passwords, and data are never uploaded to a server — nothing leaves your device. That means it's fast, and it's genuinely private.</p>
+        <p>Every tool runs entirely inside your web browser. Your text, passwords, images, and files are never uploaded to a server — nothing leaves your device. That means it is fast, and it is genuinely private.</p>
         <h3>Free, with no catch</h3>
-        <p>There's no sign-up, no paywall, and no download. Just open a tool and use it. We keep the lights on with a few unobtrusive ads, which lets everything stay free for everyone.</p>
+        <p>There's no sign-up, no paywall, and no software download. Just open a tool and use it. Everything stays free and accessible for everyone.</p>
+
+        <h2>Frequently asked questions</h2>
+        <div class="faq-item">
+          <h3>What tools does Toolzy offer?</h3>
+          <p>Toolzy provides 60+ free browser-based tools across 8 categories: Calculators, Finance, Image Editors, PDF Utilities, Text & Writing Tools, Developer Tools, Generators, and Currency/Crypto trackers.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Are my files, passwords, or data uploaded to a server?</h3>
+          <p>No. Toolzy uses client-side processing (HTML5, JavaScript, WebAssembly, and local Canvas APIs). Your sensitive files, passwords, and data never leave your device.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Is Toolzy completely free to use?</h3>
+          <p>Yes. All tools are 100% free forever with no registration, accounts, or daily usage caps.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Does Toolzy work on mobile phones?</h3>
+          <p>Yes. All tools are responsive and work smoothly across iOS, Android, macOS, Windows, and Linux browsers.</p>
+        </div>
       </section>
     </div>
   </main>
