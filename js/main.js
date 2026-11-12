@@ -67,7 +67,8 @@
     ["font-generator","Fancy Font Generator","✏️","generator"],
     ["crypto-tracker","Live Crypto Prices","₿","more"],
     ["math-solver","Math Problem Solver","🧮","more"],
-    ["timezone-converter","Time Zone Converter","🌍","more"]
+    ["timezone-converter","Time Zone Converter","🌍","more"],
+    ["weather-forecast","Weather Forecast","🌤️","more"]
   ];
   var CATS = [
     ["all","All tools"],["calc","Calculators"],["finance","Finance"],

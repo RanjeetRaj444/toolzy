@@ -25,3 +25,9 @@
 /ads.txt
   Cache-Control: public, max-age=3600, must-revalidate
 
+/rss.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/opensearch.xml
+  Cache-Control: public, max-age=86400
+

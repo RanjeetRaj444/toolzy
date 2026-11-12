@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weather Forecast — Live Weather & 7-Day Forecast Online | Toolzy</title>
+  <meta name="description" content="Free online weather forecast. Check current temperature, humidity, wind speed, and 7-day daily forecasts for any city worldwide. Fast, accurate, and private." />
+  <meta name="keywords" content="weather forecast, live weather, weather today, 7 day weather forecast, local weather, city weather, temperature today, current weather" />
+  <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/weather-forecast" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <script defer src="../js/main.js"></script>
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="Weather Forecast — Live Weather & 7-Day Forecast Online | Toolzy" />
+  <meta property="og:description" content="Free online weather forecast. Check current temperature, humidity, wind speed, and 7-day daily forecasts for any city worldwide." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://toolzy-7eo.pages.dev/tools/weather-forecast" />
+  <meta property="og:site_name" content="Toolzy" />
+  <meta property="og:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Weather Forecast — Live Weather & 7-Day Forecast Online | Toolzy" />
+  <meta name="twitter:description" content="Free online weather forecast for any city worldwide. Fast, accurate, and private." />
+  <meta name="twitter:image" content="https://toolzy-7eo.pages.dev/favicon.svg" />
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "Weather Forecast — Toolzy",
+      "url": "https://toolzy-7eo.pages.dev/tools/weather-forecast",
+      "description": "Free online weather forecast. Check current temperature, humidity, wind speed, and 7-day daily forecasts for any city worldwide.",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://toolzy-7eo.pages.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://toolzy-7eo.pages.dev/#tools"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Weather Forecast",
+          "item": "https://toolzy-7eo.pages.dev/tools/weather-forecast"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where does this weather data come from?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Weather forecasts are sourced from open meteorological services combining national weather models (including NOAA GFS, DWD ICON, and ECMWF) with real-time updates."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I check weather for any city in the world?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Simply search for any city, town, or region globally, or click 'Use My Location' for automatic local weather."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this weather tool free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, Toolzy's weather forecast is 100% free with no account registration or subscription required."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6506203240622280" crossorigin="anonymous"></script>
+  <style>
+    .weather-search-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
+    .weather-search-bar input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font-size: 1rem; }
+    .unit-toggle { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 999px; overflow: hidden; }
+    .unit-toggle button { padding: 8px 14px; border: none; background: var(--surface-2); color: var(--text-muted); cursor: pointer; font-weight: 600; font-family: inherit; }
+    .unit-toggle button.active { background: var(--brand); color: #fff; }
+    .current-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; text-align: center; margin-bottom: 20px; }
+    .current-temp { font-size: 3.5rem; font-weight: 800; line-height: 1; margin: 12px 0 6px; }
+    .current-condition { font-size: 1.25rem; font-weight: 600; color: var(--brand); margin-bottom: 16px; }
+    .weather-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 12px; margin-top: 16px; }
+    .weather-metric { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 8px; text-align: center; }
+    .weather-metric .val { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+    .weather-metric .lbl { font-size: .8rem; color: var(--text-muted); margin-top: 2px; }
+    .forecast-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin-top: 16px; }
+    .forecast-card { background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 16px 12px; text-align: center; }
+    .forecast-day { font-weight: 700; font-size: .95rem; margin-bottom: 6px; }
+    .forecast-icon { font-size: 2rem; margin: 6px 0; }
+    .forecast-temp { font-weight: 600; font-size: .95rem; }
+    .forecast-temp .low { color: var(--text-muted); font-size: .85rem; margin-left: 4px; }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a href="/" class="brand"><span class="logo">T</span> Toolzy</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="/">Home</a></li>
+        <li><a href="/#tools">All Tools</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/contact">Contact</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="theme-btn" id="themeBtn" onclick="toggleTheme()" aria-label="Toggle dark mode">🌙</button>
+        <button class="menu-toggle" onclick="toggleMenu()" aria-label="Open menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="content">
+    <div class="container">
+      <nav class="breadcrumb"><a href="/">Home</a> / Weather Forecast</nav>
+      <div class="tool-head">
+        <h1>Weather Forecast</h1>
+        <p>Live current weather conditions and 7-day local forecast for any city worldwide.</p>
+      </div>
+
+      <div class="panel">
+        <div class="weather-search-bar">
+          <input type="text" id="cityInput" placeholder="Enter city name (e.g. London, New York, Tokyo)" value="London" />
+          <button class="btn" onclick="searchWeather()">🔍 Search</button>
+          <button class="btn secondary" onclick="geoWeather()">📍 My Location</button>
+          <div class="unit-toggle">
+            <button id="btnC" class="active" onclick="setUnit('C')">°C</button>
+            <button id="btnF" onclick="setUnit('F')">°F</button>
+          </div>
+        </div>
+
+        <div id="weatherResult">
+          <div class="current-card">
+            <h2 id="cityName" style="margin:0 0 6px;">London, United Kingdom</h2>
+            <div id="weatherIcon" style="font-size:3.5rem;">🌤️</div>
+            <div class="current-temp" id="currentTemp">18°C</div>
+            <div class="current-condition" id="currentCondition">Partly Cloudy</div>
+            <div class="weather-metrics">
+              <div class="weather-metric"><div class="val" id="humidity">65%</div><div class="lbl">Humidity</div></div>
+              <div class="weather-metric"><div class="val" id="wind">14 km/h</div><div class="lbl">Wind</div></div>
+              <div class="weather-metric"><div class="val" id="windDir">NW</div><div class="lbl">Direction</div></div>
+              <div class="weather-metric"><div class="val" id="elevation">25 m</div><div class="lbl">Elevation</div></div>
+            </div>
+          </div>
+
+          <h3 style="margin: 24px 0 12px;">7-Day Forecast</h3>
+          <div class="forecast-grid" id="forecastGrid"></div>
+        </div>
+      </div>
+
+      <div class="ad-slot">Ad space (enabled after AdSense approval)</div>
+
+      <section class="prose">
+        <h2>How Weather Forecasting Works</h2>
+        <p>Modern weather forecasting relies on numerical weather prediction models operated by meteorological organizations across the globe. These models process real-time data gathered from weather satellites, weather balloons (radiosondes), radar systems, and ocean buoys to compute future atmospheric states using thermodynamic physics equations.</p>
+        
+        <h3>Understanding Common Weather Metrics</h3>
+        <ul>
+          <li><strong>Temperature (°C / °F):</strong> The thermal energy in the air measured in the shade.</li>
+          <li><strong>Relative Humidity (%):</strong> The percentage of moisture the air holds relative to the maximum moisture it could hold at that temperature. High humidity combined with high heat makes outdoor conditions feel significantly hotter.</li>
+          <li><strong>Wind Speed & Direction:</strong> Air movement caused by uneven atmospheric pressure gradients. Wind direction indicates where the wind originates from (e.g. Northerly winds blow from north to south).</li>
+        </ul>
+
+        <h2>Frequently asked questions</h2>
+        <div class="faq-item"><h3>Where does this weather data come from?</h3><p>Weather forecasts are sourced from open meteorological services combining national weather models (including NOAA GFS, DWD ICON, and ECMWF) with real-time updates.</p></div>
+        <div class="faq-item"><h3>Can I check weather for any city in the world?</h3><p>Yes. Simply search for any city, town, or region globally, or click 'Use My Location' for automatic local weather.</p></div>
+        <div class="faq-item"><h3>Is this weather tool free to use?</h3><p>Yes, Toolzy's weather forecast is 100% free with no account registration or subscription required.</p></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">© <span id="year">2026</span> Toolzy · <a href="/privacy-policy">Privacy</a> · <a href="/terms">Terms</a> · <a href="/contact">Contact</a></div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      var currentUnit = "C";
+      var currentLat = 51.5085, currentLon = -0.1257, currentCity = "London, United Kingdom", currentElev = 25;
+
+      var WMO = {
+        0: ["Clear sky", "☀️"],
+        1: ["Mainly clear", "🌤️"],
+        2: ["Partly cloudy", "⛅"],
+        3: ["Overcast", "☁️"],
+        45: ["Foggy", "🌫️"],
+        48: ["Depositing rime fog", "🌫️"],
+        51: ["Light drizzle", "🌦️"],
+        53: ["Moderate drizzle", "🌦️"],
+        55: ["Dense drizzle", "🌧️"],
+        61: ["Slight rain", "🌧️"],
+        63: ["Moderate rain", "🌧️"],
+        65: ["Heavy rain", "🌧️"],
+        71: ["Slight snow", "🌨️"],
+        73: ["Moderate snow", "🌨️"],
+        75: ["Heavy snow", "❄️"],
+        77: ["Snow grains", "❄️"],
+        80: ["Slight rain showers", "🌦️"],
+        81: ["Moderate rain showers", "🌧️"],
+        82: ["Violent rain showers", "⛈️"],
+        85: ["Slight snow showers", "🌨️"],
+        86: ["Heavy snow showers", "❄️"],
+        95: ["Thunderstorm", "⚡"],
+        96: ["Thunderstorm with hail", "⛈️"],
+        99: ["Thunderstorm with heavy hail", "⛈️"]
+      };
+
+      function degToCard(deg) {
+        var dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+        return dirs[Math.round(deg / 45) % 8];
+      }
+
+      function toF(c) { return (c * 9 / 5) + 32; }
+
+      window.setUnit = function (u) {
+        currentUnit = u;
+        document.getElementById("btnC").classList.toggle("active", u === "C");
+        document.getElementById("btnF").classList.toggle("active", u === "F");
+        fetchWeather();
+      };
+
+      window.searchWeather = function () {
+        var q = document.getElementById("cityInput").value.trim();
+        if (!q) return;
+        fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(q) + "&count=1")
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            if (data.results && data.results.length) {
+              var r = data.results[0];
+              currentLat = r.latitude;
+              currentLon = r.longitude;
+              currentCity = r.name + (r.country ? ", " + r.country : "");
+              currentElev = r.elevation || 0;
+              fetchWeather();
+            } else {
+              showToast("City not found. Try another name.");
+            }
+          })
+          .catch(function () { showToast("Failed to search city."); });
+      };
+
+      window.geoWeather = function () {
+        if (!navigator.geolocation) { showToast("Geolocation is not supported by your browser."); return; }
+        showToast("Locating…");
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          currentLat = pos.coords.latitude;
+          currentLon = pos.coords.longitude;
+          currentCity = "Your Current Location";
+          currentElev = Math.round(pos.coords.altitude || 0);
+          fetchWeather();
+        }, function () {
+          showToast("Location access denied or unavailable.");
+        });
+      };
+
+      function fetchWeather() {
+        var tempUnitParam = currentUnit === "F" ? "&temperature_unit=fahrenheit" : "";
+        var windUnitParam = currentUnit === "F" ? "&windspeed_unit=mph" : "";
+        var url = "https://api.open-meteo.com/v1/forecast?latitude=" + currentLat +
+                  "&longitude=" + currentLon +
+                  "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m" +
+                  "&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto" +
+                  tempUnitParam + windUnitParam;
+
+        fetch(url)
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            renderWeather(data);
+          })
+          .catch(function () {
+            showToast("Failed to load weather forecast.");
+          });
+      }
+
+      function renderWeather(data) {
+        document.getElementById("cityName").textContent = currentCity;
+        var cur = data.current;
+        var code = cur.weather_code;
+        var info = WMO[code] || ["Cloudy", "☁️"];
+        var unitSymbol = "°" + currentUnit;
+        var windUnit = currentUnit === "F" ? "mph" : "km/h";
+
+        document.getElementById("weatherIcon").textContent = info[1];
+        document.getElementById("currentTemp").textContent = Math.round(cur.temperature_2m) + unitSymbol;
+        document.getElementById("currentCondition").textContent = info[0];
+        document.getElementById("humidity").textContent = cur.relative_humidity_2m + "%";
+        document.getElementById("wind").textContent = Math.round(cur.wind_speed_10m) + " " + windUnit;
+        document.getElementById("windDir").textContent = degToCard(cur.wind_direction_10m);
+        document.getElementById("elevation").textContent = Math.round(currentElev) + " m";
+
+        // Render 7-day forecast
+        var grid = document.getElementById("forecastGrid");
+        grid.innerHTML = "";
+        if (data.daily && data.daily.time) {
+          var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+          for (var i = 0; i < data.daily.time.length; i++) {
+            var date = new Date(data.daily.time[i] + "T00:00:00");
+            var dayName = i === 0 ? "Today" : days[date.getDay()];
+            var dCode = data.daily.weather_code[i];
+            var dInfo = WMO[dCode] || ["Cloudy", "☁️"];
+            var maxT = Math.round(data.daily.temperature_2m_max[i]);
+            var minT = Math.round(data.daily.temperature_2m_min[i]);
+
+            var col = document.createElement("div");
+            col.className = "forecast-card";
+            col.innerHTML =
+              '<div class="forecast-day">' + dayName + '</div>' +
+              '<div class="forecast-icon">' + dInfo[1] + '</div>' +
+              '<div class="forecast-temp">' + maxT + unitSymbol + ' <span class="low">' + minT + unitSymbol + '</span></div>' +
+              '<div style="font-size:.78rem; color:var(--text-muted); margin-top:4px;">' + dInfo[0] + '</div>';
+            grid.appendChild(col);
+          }
+        }
+      }
+
+      document.getElementById("cityInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") searchWeather();
+      });
+
+      fetchWeather();
+    })();
+  </script>
+</body>
+</html>
