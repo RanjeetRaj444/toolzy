@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://toolzy-7eo.pages.dev/sitemap.xml
+Sitemap: https://toolzy-7eo.pages.dev/rss.xml
