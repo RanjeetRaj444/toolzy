@@ -173,3 +173,4 @@
    - `privacy-policy.html`: Exhaustive GDPR/CCPA disclosures, cookie policy, third-party advertising disclosures.
    - `terms.html`: Transparent terms of service and disclaimer of warranties.
    - `404.html`: Custom error page with quick links back to all tools.
+
