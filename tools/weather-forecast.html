@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Weather Forecast — Live Weather & 7-Day Forecast Online | Toolzy</title>
-  <meta name="description" content="Free online weather forecast. Check current temperature, humidity, wind speed, and 7-day daily forecasts for any city worldwide. Fast, accurate, and private." />
+  <meta name="description" content="Free online weather forecast. Search any city with live location suggestions, pinpoint an exact spot on the map, or use your current location to see temperature, humidity, wind speed, and a 7-day forecast." />
   <meta name="keywords" content="weather forecast, live weather, weather today, 7 day weather forecast, local weather, city weather, temperature today, current weather" />
   <link rel="canonical" href="https://toolzy-7eo.pages.dev/tools/weather-forecast" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -91,6 +91,14 @@
             "@type": "Answer",
             "text": "Yes, Toolzy's weather forecast is 100% free with no account registration or subscription required."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I pick an exact spot on a map instead of searching a city name?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Click 'Pick on Map' to open an interactive map and click anywhere on it to get the weather for that exact point, useful for villages, trailheads, or places too small to find by name search."
+          }
         }
       ]
     }
@@ -98,9 +106,21 @@
 }
   </script>
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6506203240622280" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <style>
-    .weather-search-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
-    .weather-search-bar input { flex: 1; min-width: 200px; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font-size: 1rem; }
+    .weather-search-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; position: relative; }
+    .search-field { position: relative; flex: 1; min-width: 200px; }
+    .weather-search-bar input { width: 100%; padding: 12px 16px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); background: var(--surface); color: var(--text); font-size: 1rem; box-sizing: border-box; }
+    .city-suggestions { position: absolute; top: calc(100% + 4px); left: 0; right: 0; z-index: 50; background: var(--surface); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); box-shadow: 0 8px 24px rgba(0,0,0,.18); max-height: 280px; overflow-y: auto; list-style: none; margin: 0; padding: 6px; display: none; }
+    .city-suggestions.open { display: block; }
+    .city-suggestions li { padding: 10px 12px; border-radius: 8px; cursor: pointer; font-size: .92rem; display: flex; justify-content: space-between; gap: 8px; }
+    .city-suggestions li:hover, .city-suggestions li.active { background: var(--surface-2); }
+    .city-suggestions li .sub { color: var(--text-muted); font-size: .82rem; }
+    .map-panel { display: none; margin-bottom: 20px; }
+    .map-panel.open { display: block; }
+    .map-panel p { margin: 0 0 8px; font-size: .85rem; color: var(--text-muted); }
+    #weatherMap { height: 320px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); z-index: 1; }
     .unit-toggle { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 999px; overflow: hidden; }
     .unit-toggle button { padding: 8px 14px; border: none; background: var(--surface-2); color: var(--text-muted); cursor: pointer; font-weight: 600; font-family: inherit; }
     .unit-toggle button.active { background: var(--brand); color: #fff; }
@@ -146,13 +166,22 @@
 
       <div class="panel">
         <div class="weather-search-bar">
-          <input type="text" id="cityInput" placeholder="Enter city name (e.g. London, New York, Tokyo)" value="London" />
+          <div class="search-field">
+            <input type="text" id="cityInput" placeholder="Enter city name (e.g. London, New York, Tokyo)" value="London" autocomplete="off" aria-label="Search for a city" aria-autocomplete="list" aria-expanded="false" role="combobox" />
+            <ul class="city-suggestions" id="citySuggestions"></ul>
+          </div>
           <button class="btn" onclick="searchWeather()">🔍 Search</button>
           <button class="btn secondary" onclick="geoWeather()">📍 My Location</button>
+          <button class="btn secondary" id="mapToggleBtn" onclick="toggleMapPanel()">🗺️ Pick on Map</button>
           <div class="unit-toggle">
             <button id="btnC" class="active" onclick="setUnit('C')">°C</button>
             <button id="btnF" onclick="setUnit('F')">°F</button>
           </div>
+        </div>
+
+        <div class="map-panel" id="mapPanel">
+          <p>Click anywhere on the map to get weather for that exact spot — handy for villages, trailheads, or places too small to find by name.</p>
+          <div id="weatherMap"></div>
         </div>
 
         <div id="weatherResult">
@@ -240,6 +269,166 @@
 
       function toF(c) { return (c * 9 / 5) + 32; }
 
+      function debounce(fn, delay) {
+        var t;
+        return function () {
+          var args = arguments;
+          clearTimeout(t);
+          t = setTimeout(function () { fn.apply(null, args); }, delay);
+        };
+      }
+
+      // ---------- Map (pick an exact point) ----------
+      var mapInstance = null, mapMarker = null;
+
+      function placeMarker(lat, lon) {
+        if (!mapInstance) return;
+        if (mapMarker) { mapMarker.setLatLng([lat, lon]); }
+        else { mapMarker = L.marker([lat, lon]).addTo(mapInstance); }
+      }
+
+      function syncMapToCurrent() {
+        if (!mapInstance) return;
+        mapInstance.setView([currentLat, currentLon], mapInstance.getZoom());
+        placeMarker(currentLat, currentLon);
+      }
+
+      function reverseGeocode(lat, lon) {
+        var ctrl = (typeof AbortController !== "undefined") ? new AbortController() : null;
+        var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 5000);
+        fetch("https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" + lat + "&lon=" + lon + "&zoom=10",
+          ctrl ? { signal: ctrl.signal } : {})
+          .then(function (res) { return res.json(); })
+          .then(function (d) {
+            clearTimeout(timer);
+            var a = d && d.address;
+            if (!a) return;
+            var label = a.city || a.town || a.village || a.county || a.state;
+            if (label) {
+              currentCity = label + (a.country ? ", " + a.country : "");
+              var el = document.getElementById("cityName");
+              if (el) el.textContent = currentCity;
+            }
+          })
+          .catch(function () { clearTimeout(timer); });
+      }
+
+      function onMapClick(lat, lon) {
+        currentLat = lat;
+        currentLon = lon;
+        currentElev = 0;
+        currentCity = "Pinned location (" + lat.toFixed(3) + ", " + lon.toFixed(3) + ")";
+        placeMarker(lat, lon);
+        fetchWeather();
+        reverseGeocode(lat, lon);
+      }
+
+      function initMapIfNeeded() {
+        if (mapInstance || typeof L === "undefined") return;
+        mapInstance = L.map("weatherMap").setView([currentLat, currentLon], 6);
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+          maxZoom: 18,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+        }).addTo(mapInstance);
+        mapInstance.on("click", function (e) { onMapClick(e.latlng.lat, e.latlng.lng); });
+        placeMarker(currentLat, currentLon);
+      }
+
+      window.toggleMapPanel = function () {
+        var panel = document.getElementById("mapPanel");
+        var open = panel.classList.toggle("open");
+        if (open) {
+          initMapIfNeeded();
+          setTimeout(function () {
+            if (!mapInstance) return;
+            mapInstance.invalidateSize();
+            mapInstance.setView([currentLat, currentLon], mapInstance.getZoom() || 6);
+            placeMarker(currentLat, currentLon);
+          }, 50);
+        }
+      };
+
+      // ---------- Search-as-you-type suggestions (debounced) ----------
+      var suggestBox = document.getElementById("citySuggestions");
+      var cityInputEl = document.getElementById("cityInput");
+      var currentSuggestions = [];
+      var activeSuggestIndex = -1;
+
+      function closeSuggestions() {
+        suggestBox.classList.remove("open");
+        suggestBox.innerHTML = "";
+        currentSuggestions = [];
+        activeSuggestIndex = -1;
+        cityInputEl.setAttribute("aria-expanded", "false");
+      }
+
+      function renderSuggestions(results) {
+        currentSuggestions = results;
+        activeSuggestIndex = -1;
+        if (!results.length) { closeSuggestions(); return; }
+        suggestBox.innerHTML = "";
+        results.forEach(function (r, i) {
+          var li = document.createElement("li");
+          var place = [r.admin1, r.country].filter(Boolean).join(", ");
+          li.innerHTML = '<span>' + r.name + '</span><span class="sub">' + place + '</span>';
+          li.addEventListener("mousedown", function (e) { e.preventDefault(); selectSuggestion(r); });
+          suggestBox.appendChild(li);
+        });
+        suggestBox.classList.add("open");
+        cityInputEl.setAttribute("aria-expanded", "true");
+      }
+
+      function selectSuggestion(r) {
+        currentLat = r.latitude;
+        currentLon = r.longitude;
+        currentCity = r.name + (r.country ? ", " + r.country : "");
+        currentElev = r.elevation || 0;
+        cityInputEl.value = currentCity;
+        closeSuggestions();
+        fetchWeather();
+        syncMapToCurrent();
+      }
+
+      var fetchSuggestions = debounce(function (q) {
+        fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(q) + "&count=6&language=en")
+          .then(function (res) { return res.json(); })
+          .then(function (data) { renderSuggestions((data && data.results) || []); })
+          .catch(function () { /* fail silently, user can still press Search */ });
+      }, 350);
+
+      cityInputEl.addEventListener("input", function () {
+        var q = this.value.trim();
+        if (q.length < 2) { closeSuggestions(); return; }
+        fetchSuggestions(q);
+      });
+
+      cityInputEl.addEventListener("keydown", function (e) {
+        if (!suggestBox.classList.contains("open")) {
+          if (e.key === "Enter") searchWeather();
+          return;
+        }
+        var items = suggestBox.querySelectorAll("li");
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          activeSuggestIndex = Math.min(activeSuggestIndex + 1, items.length - 1);
+          items.forEach(function (li, i) { li.classList.toggle("active", i === activeSuggestIndex); });
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          activeSuggestIndex = Math.max(activeSuggestIndex - 1, 0);
+          items.forEach(function (li, i) { li.classList.toggle("active", i === activeSuggestIndex); });
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          var pick = activeSuggestIndex >= 0 ? currentSuggestions[activeSuggestIndex] : currentSuggestions[0];
+          if (pick) selectSuggestion(pick); else searchWeather();
+        } else if (e.key === "Escape") {
+          closeSuggestions();
+        }
+      });
+
+      document.addEventListener("click", function (e) {
+        if (!suggestBox.contains(e.target) && e.target !== cityInputEl) closeSuggestions();
+      });
+
       window.setUnit = function (u) {
         currentUnit = u;
         document.getElementById("btnC").classList.toggle("active", u === "C");
@@ -248,6 +437,7 @@
       };
 
       window.searchWeather = function () {
+        closeSuggestions();
         var q = document.getElementById("cityInput").value.trim();
         if (!q) return;
         fetch("https://geocoding-api.open-meteo.com/v1/search?name=" + encodeURIComponent(q) + "&count=1")
@@ -260,6 +450,7 @@
               currentCity = r.name + (r.country ? ", " + r.country : "");
               currentElev = r.elevation || 0;
               fetchWeather();
+              syncMapToCurrent();
             } else {
               showToast("City not found. Try another name.");
             }
@@ -276,10 +467,28 @@
           currentCity = "Your Current Location";
           currentElev = Math.round(pos.coords.altitude || 0);
           fetchWeather();
+          syncMapToCurrent();
         }, function () {
           showToast("Location access denied or unavailable.");
         });
       };
+
+      // On page load: if the browser hasn't been asked for location yet, ask now
+      // (shows the native permission prompt). If already granted, use it silently.
+      // If already denied or it fails, fall back to the default city with no error toast.
+      function autoGeoOnLoad() {
+        if (!navigator.geolocation) { fetchWeather(); return; }
+        navigator.geolocation.getCurrentPosition(function (pos) {
+          currentLat = pos.coords.latitude;
+          currentLon = pos.coords.longitude;
+          currentCity = "Your Current Location";
+          currentElev = Math.round(pos.coords.altitude || 0);
+          fetchWeather();
+          syncMapToCurrent();
+        }, function () {
+          fetchWeather();
+        }, { timeout: 8000 });
+      }
 
       function fetchWeather() {
         var tempUnitParam = currentUnit === "F" ? "&temperature_unit=fahrenheit" : "";
@@ -341,11 +550,7 @@
         }
       }
 
-      document.getElementById("cityInput").addEventListener("keydown", function (e) {
-        if (e.key === "Enter") searchWeather();
-      });
-
-      fetchWeather();
+      autoGeoOnLoad();
     })();
   </script>
 </body>
