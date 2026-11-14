@@ -121,6 +121,9 @@
     .map-panel.open { display: block; }
     .map-panel p { margin: 0 0 8px; font-size: .85rem; color: var(--text-muted); }
     #weatherMap { height: 320px; border-radius: var(--radius-sm); border: 1px solid var(--border-strong); z-index: 1; }
+    .map-style-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+    .map-style-btn { padding: 6px 12px; border-radius: 999px; border: 1px solid var(--border-strong); background: var(--surface-2); color: var(--text-muted); cursor: pointer; font-weight: 600; font-family: inherit; font-size: .82rem; }
+    .map-style-btn.active { background: var(--brand); color: #fff; border-color: transparent; }
     .unit-toggle { display: inline-flex; border: 1px solid var(--border-strong); border-radius: 999px; overflow: hidden; }
     .unit-toggle button { padding: 8px 14px; border: none; background: var(--surface-2); color: var(--text-muted); cursor: pointer; font-weight: 600; font-family: inherit; }
     .unit-toggle button.active { background: var(--brand); color: #fff; }
@@ -181,6 +184,12 @@
 
         <div class="map-panel" id="mapPanel">
           <p>Click anywhere on the map to get weather for that exact spot — handy for villages, trailheads, or places too small to find by name.</p>
+          <div class="map-style-row" id="mapStyleRow">
+            <button class="map-style-btn active" data-style="street" onclick="setMapStyle('street')">🗺️ Street</button>
+            <button class="map-style-btn" data-style="satellite" onclick="setMapStyle('satellite')">🛰️ Satellite</button>
+            <button class="map-style-btn" data-style="terrain" onclick="setMapStyle('terrain')">⛰️ Terrain</button>
+            <button class="map-style-btn" data-style="dark" onclick="setMapStyle('dark')">🌙 Dark</button>
+          </div>
           <div id="weatherMap"></div>
         </div>
 
@@ -191,9 +200,13 @@
             <div class="current-temp" id="currentTemp">18°C</div>
             <div class="current-condition" id="currentCondition">Partly Cloudy</div>
             <div class="weather-metrics">
+              <div class="weather-metric"><div class="val" id="feelsLike">18°C</div><div class="lbl">Feels Like</div></div>
               <div class="weather-metric"><div class="val" id="humidity">65%</div><div class="lbl">Humidity</div></div>
               <div class="weather-metric"><div class="val" id="wind">14 km/h</div><div class="lbl">Wind</div></div>
               <div class="weather-metric"><div class="val" id="windDir">NW</div><div class="lbl">Direction</div></div>
+              <div class="weather-metric"><div class="val" id="uvIndex">—</div><div class="lbl">UV Index</div></div>
+              <div class="weather-metric"><div class="val" id="sunrise">—</div><div class="lbl">Sunrise</div></div>
+              <div class="weather-metric"><div class="val" id="sunset">—</div><div class="lbl">Sunset</div></div>
               <div class="weather-metric"><div class="val" id="elevation">25 m</div><div class="lbl">Elevation</div></div>
             </div>
           </div>
@@ -214,6 +227,9 @@
           <li><strong>Temperature (°C / °F):</strong> The thermal energy in the air measured in the shade.</li>
           <li><strong>Relative Humidity (%):</strong> The percentage of moisture the air holds relative to the maximum moisture it could hold at that temperature. High humidity combined with high heat makes outdoor conditions feel significantly hotter.</li>
           <li><strong>Wind Speed & Direction:</strong> Air movement caused by uneven atmospheric pressure gradients. Wind direction indicates where the wind originates from (e.g. Northerly winds blow from north to south).</li>
+          <li><strong>Feels Like:</strong> The apparent temperature, factoring in humidity and wind chill — often different from the raw air temperature.</li>
+          <li><strong>UV Index:</strong> A 0-11+ scale for sunburn risk. 3+ calls for sunscreen; 8+ is very high exposure.</li>
+          <li><strong>Sunrise & Sunset:</strong> Local sunrise and sunset times for the selected location's own timezone.</li>
         </ul>
 
         <h2>Frequently asked questions</h2>
@@ -278,19 +294,28 @@
         };
       }
 
-      // ---------- Map (pick an exact point) ----------
-      var mapInstance = null, mapMarker = null;
-
-      function placeMarker(lat, lon) {
-        if (!mapInstance) return;
-        if (mapMarker) { mapMarker.setLatLng([lat, lon]); }
-        else { mapMarker = L.marker([lat, lon]).addTo(mapInstance); }
+      // ---------- Remember the last location visited (per-browser only) ----------
+      function persistLocation() {
+        try {
+          localStorage.setItem("toolzy_weather_last", JSON.stringify({
+            lat: currentLat, lon: currentLon, city: currentCity, elev: currentElev
+          }));
+        } catch (e) { /* storage may be unavailable (private mode) */ }
       }
 
-      function syncMapToCurrent() {
-        if (!mapInstance) return;
-        mapInstance.setView([currentLat, currentLon], mapInstance.getZoom());
-        placeMarker(currentLat, currentLon);
+      // ---------- Elevation & reverse geocoding (fill in the real place name / height) ----------
+      function lookupElevation(lat, lon) {
+        fetch("https://api.open-meteo.com/v1/elevation?latitude=" + lat + "&longitude=" + lon)
+          .then(function (res) { return res.json(); })
+          .then(function (d) {
+            if (d && d.elevation && d.elevation.length != null) {
+              currentElev = d.elevation[0];
+              var el = document.getElementById("elevation");
+              if (el) el.textContent = Math.round(currentElev) + " m";
+              persistLocation();
+            }
+          })
+          .catch(function () { /* keep whatever elevation we already have */ });
       }
 
       function reverseGeocode(lat, lon) {
@@ -308,28 +333,82 @@
               currentCity = label + (a.country ? ", " + a.country : "");
               var el = document.getElementById("cityName");
               if (el) el.textContent = currentCity;
+              cityInputEl.value = currentCity;
+              persistLocation();
             }
           })
           .catch(function () { clearTimeout(timer); });
       }
 
+      // ---------- Map (pick an exact point, with switchable map styles) ----------
+      var mapInstance = null, mapMarker = null, currentTileLayer = null, currentMapStyle = "street";
+
+      var TILE_STYLES = {
+        street: {
+          url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
+        },
+        satellite: {
+          url: "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+          maxZoom: 19,
+          attribution: 'Tiles &copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a>'
+        },
+        terrain: {
+          url: "https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png",
+          maxZoom: 17,
+          attribution: 'Map data: &copy; OpenStreetMap contributors, SRTM — Map style: &copy; <a href="https://opentopomap.org" target="_blank" rel="noopener">OpenTopoMap</a>'
+        },
+        dark: {
+          url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+          maxZoom: 19,
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>'
+        }
+      };
+
+      function applyMapStyle(styleKey) {
+        if (!mapInstance) return;
+        var cfg = TILE_STYLES[styleKey] || TILE_STYLES.street;
+        if (currentTileLayer) mapInstance.removeLayer(currentTileLayer);
+        currentTileLayer = L.tileLayer(cfg.url, { maxZoom: cfg.maxZoom, attribution: cfg.attribution }).addTo(mapInstance);
+        currentMapStyle = styleKey;
+      }
+
+      window.setMapStyle = function (styleKey) {
+        applyMapStyle(styleKey);
+        document.querySelectorAll(".map-style-btn").forEach(function (b) {
+          b.classList.toggle("active", b.getAttribute("data-style") === styleKey);
+        });
+      };
+
+      function placeMarker(lat, lon) {
+        if (!mapInstance) return;
+        if (mapMarker) { mapMarker.setLatLng([lat, lon]); }
+        else { mapMarker = L.marker([lat, lon]).addTo(mapInstance); }
+      }
+
+      function syncMapToCurrent() {
+        if (!mapInstance) return;
+        mapInstance.setView([currentLat, currentLon], mapInstance.getZoom());
+        placeMarker(currentLat, currentLon);
+      }
+
       function onMapClick(lat, lon) {
         currentLat = lat;
         currentLon = lon;
-        currentElev = 0;
         currentCity = "Pinned location (" + lat.toFixed(3) + ", " + lon.toFixed(3) + ")";
+        cityInputEl.value = currentCity;
         placeMarker(lat, lon);
         fetchWeather();
+        persistLocation();
         reverseGeocode(lat, lon);
+        lookupElevation(lat, lon);
       }
 
       function initMapIfNeeded() {
         if (mapInstance || typeof L === "undefined") return;
         mapInstance = L.map("weatherMap").setView([currentLat, currentLon], 6);
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-          maxZoom: 18,
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors'
-        }).addTo(mapInstance);
+        applyMapStyle(currentMapStyle);
         mapInstance.on("click", function (e) { onMapClick(e.latlng.lat, e.latlng.lng); });
         placeMarker(currentLat, currentLon);
       }
@@ -387,6 +466,7 @@
         closeSuggestions();
         fetchWeather();
         syncMapToCurrent();
+        persistLocation();
       }
 
       var fetchSuggestions = debounce(function (q) {
@@ -449,8 +529,10 @@
               currentLon = r.longitude;
               currentCity = r.name + (r.country ? ", " + r.country : "");
               currentElev = r.elevation || 0;
+              cityInputEl.value = currentCity;
               fetchWeather();
               syncMapToCurrent();
+              persistLocation();
             } else {
               showToast("City not found. Try another name.");
             }
@@ -465,26 +547,45 @@
           currentLat = pos.coords.latitude;
           currentLon = pos.coords.longitude;
           currentCity = "Your Current Location";
-          currentElev = Math.round(pos.coords.altitude || 0);
+          cityInputEl.value = currentCity;
           fetchWeather();
           syncMapToCurrent();
+          persistLocation();
+          reverseGeocode(currentLat, currentLon);
+          lookupElevation(currentLat, currentLon);
         }, function () {
           showToast("Location access denied or unavailable.");
         });
       };
 
-      // On page load: if the browser hasn't been asked for location yet, ask now
-      // (shows the native permission prompt). If already granted, use it silently.
-      // If already denied or it fails, fall back to the default city with no error toast.
+      // On page load: restore the last place this browser looked up (if any), then
+      // ask for geolocation. If the browser hasn't been asked for location yet, this
+      // shows the native permission prompt automatically. If already granted, it
+      // silently upgrades to the real GPS/Wi-Fi location. If denied or unavailable,
+      // it quietly keeps the restored (or default) location with no error toast.
       function autoGeoOnLoad() {
+        try {
+          var saved = JSON.parse(localStorage.getItem("toolzy_weather_last") || "null");
+          if (saved && typeof saved.lat === "number" && typeof saved.lon === "number") {
+            currentLat = saved.lat;
+            currentLon = saved.lon;
+            currentCity = saved.city || currentCity;
+            currentElev = saved.elev || currentElev;
+            cityInputEl.value = currentCity;
+          }
+        } catch (e) { /* ignore corrupt/blocked storage */ }
+
         if (!navigator.geolocation) { fetchWeather(); return; }
         navigator.geolocation.getCurrentPosition(function (pos) {
           currentLat = pos.coords.latitude;
           currentLon = pos.coords.longitude;
           currentCity = "Your Current Location";
-          currentElev = Math.round(pos.coords.altitude || 0);
+          cityInputEl.value = currentCity;
           fetchWeather();
           syncMapToCurrent();
+          persistLocation();
+          reverseGeocode(currentLat, currentLon);
+          lookupElevation(currentLat, currentLon);
         }, function () {
           fetchWeather();
         }, { timeout: 8000 });
@@ -495,8 +596,8 @@
         var windUnitParam = currentUnit === "F" ? "&windspeed_unit=mph" : "";
         var url = "https://api.open-meteo.com/v1/forecast?latitude=" + currentLat +
                   "&longitude=" + currentLon +
-                  "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m" +
-                  "&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto" +
+                  "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m,wind_direction_10m,apparent_temperature" +
+                  "&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max,sunrise,sunset&timezone=auto" +
                   tempUnitParam + windUnitParam;
 
         fetch(url)
@@ -520,10 +621,20 @@
         document.getElementById("weatherIcon").textContent = info[1];
         document.getElementById("currentTemp").textContent = Math.round(cur.temperature_2m) + unitSymbol;
         document.getElementById("currentCondition").textContent = info[0];
+        document.getElementById("feelsLike").textContent = Math.round(cur.apparent_temperature) + unitSymbol;
         document.getElementById("humidity").textContent = cur.relative_humidity_2m + "%";
         document.getElementById("wind").textContent = Math.round(cur.wind_speed_10m) + " " + windUnit;
         document.getElementById("windDir").textContent = degToCard(cur.wind_direction_10m);
         document.getElementById("elevation").textContent = Math.round(currentElev) + " m";
+
+        if (data.daily) {
+          var uv = data.daily.uv_index_max && data.daily.uv_index_max[0];
+          document.getElementById("uvIndex").textContent = (uv != null) ? Math.round(uv) : "—";
+          var sr = data.daily.sunrise && data.daily.sunrise[0];
+          var ss = data.daily.sunset && data.daily.sunset[0];
+          document.getElementById("sunrise").textContent = sr ? new Date(sr).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "—";
+          document.getElementById("sunset").textContent = ss ? new Date(ss).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "—";
+        }
 
         // Render 7-day forecast
         var grid = document.getElementById("forecastGrid");
