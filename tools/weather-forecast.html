@@ -555,7 +555,7 @@
           lookupElevation(currentLat, currentLon);
         }, function () {
           showToast("Location access denied or unavailable.");
-        });
+        }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
       };
 
       // On page load: restore the last place this browser looked up (if any), then
@@ -588,7 +588,7 @@
           lookupElevation(currentLat, currentLon);
         }, function () {
           fetchWeather();
-        }, { timeout: 8000 });
+        }, { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 });
       }
 
       function fetchWeather() {
